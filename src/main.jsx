@@ -5,11 +5,17 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import "./index.css";
+import Test from "./pages/Test";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Navbar />,
+    children: [
+      {
+        path: "/",
+        element: <Test />,
+      },
+    ],
   },
   {
     path: "*",
