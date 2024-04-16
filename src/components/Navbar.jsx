@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 const Navbar = () => {
   return (
     <>
-      <nav>
+      <nav className="border-b-2 border-gray-100">
         <ul className="flex justify-between">
           <li>
             <img
