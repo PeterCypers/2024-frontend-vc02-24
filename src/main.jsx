@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Navbar from "./components/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter,Navigate } from "react-router-dom";
+import ProductList from "./components/ProductList";
+
 
 import "./index.css";
 import Test from "./pages/Test";
@@ -13,7 +15,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Test />,
+        element: <Navigate replace to="/products"/>,
+
+      },
+      {
+        path: "/products",
+        element: <ProductList />,
       },
     ],
   },

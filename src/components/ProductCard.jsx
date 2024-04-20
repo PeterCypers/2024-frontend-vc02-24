@@ -1,9 +1,9 @@
-// import * as React from 'react';
+import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -11,25 +11,26 @@ import { TextField } from '@mui/material';
 import { Tooltip } from '@mui/material';
 
 // props zijn vermoedelijk de Database fields van product -> vb op mui.com geeft geen props mee
-//TODO add to cart heeft nog een on-click event nodig -> controle als stock op 0 staat, default value = ?
-export default function ProductCard({PRODUCTID, EENHEIDSPRIJS, LEVERMETHODE, NAAM, STOCK, IMAGEADRES, CATEGORIE}) {
+//TODO add to cart heeft nog een on-click event nodig
+export default function ProductCard({ product }) {
+const { IMAGEADRES, NAAM, EENHEIDSPRIJS,STOCK} = product; 
   return (
     <Card sx={{ maxWidth: 345 }}>
-    <Tooltip title={NAAM?NAAM:"product name"} placement="bottom"> {/*has placeholder*/}
+    {/* <Tooltip title={NAAM?NAAM:"product name"} placement="bottom"> has placeholder */}
       <CardMedia
         sx={{ height: 140 }}
         image={IMAGEADRES?IMAGEADRES:"https://picsum.photos/345/140"} //has placeholder
         // title={NAAM?NAAM:"product name"}
       />
-      </Tooltip>
+      {/* </Tooltip> */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {NAAM?NAAM:"Lizard"}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           Lizards are a widespread group of squamate reptiles, with over 6,000
           species, ranging across all continents except Antarctica
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button>
@@ -47,8 +48,8 @@ export default function ProductCard({PRODUCTID, EENHEIDSPRIJS, LEVERMETHODE, NAA
           }}
         />
         <div style={{display: 'flex', marginLeft: 'auto', alignItems: 'center'}} >
-        <Typography sx={{mr: '1rem' }} variant="body2" color="text.secondary">{EENHEIDSPRIJS?EENHEIDSPRIJS.toString():"0.00"}</Typography>
-        <Tooltip title="Add" placement="bottom">
+        <Typography sx={{mr: '0.8rem' }} variant="body2" color="text.secondary">{EENHEIDSPRIJS?EENHEIDSPRIJS.toString():"€0.00"}</Typography>
+        <Tooltip title="Add to cart" placement="bottom">
         <AddShoppingCartIcon color='error' fontSize='large'></AddShoppingCartIcon>
         </Tooltip>
         </div>

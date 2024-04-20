@@ -1,37 +1,57 @@
-// src/components/ProductList.jsx
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import useProducts from '../api/productClient';
 import ProductCard from './ProductCard';
-import { Grid } from '@mui/material';
-
+import { Grid, CircularProgress, Typography } from '@mui/material';
+import SearchBar from './SearchBar';  // Zorg dat dit pad correct is naar je SearchBar component
 
 const ProductList = () => {
+    const { getAllProducts } = useProducts();
     const [products, setProducts] = useState([]);
-    const { getAllProducts } = useProducts(); 
-  
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
-      const fetchProducts = async () => {
+        fetchProducts();
+    }, [searchTerm]); // Dependency on searchTerm to refetch when it changes
+
+    const fetchProducts = async () => {
+        setLoading(true);
         try {
-          const productData = await getAllProducts(); // gebruik de functie uit de hook
-          setProducts(productData); // verwerk de data zoals die wordt teruggestuurd van je API
+            // Pass searchTerm to getAllProducts, assumed it's designed to handle an empty string as "no filter"
+            const fetchedProducts = await getAllProducts(searchTerm);
+            setProducts(fetchedProducts);
+            setError('');
         } catch (error) {
-          console.error('Error fetching products:', error);
+            console.error('Error fetching products:', error);
+            setError('Failed to fetch products');
         }
-      };
-  
-      fetchProducts();
-    }, [getAllProducts]); // Voeg getAllProducts toe aan de dependency array
-  
+        setLoading(false);
+    };
+
+    const handleSearch = (searchTerm) => {
+        setSearchTerm(searchTerm); // Update searchTerm state which triggers useEffect
+    };
+
+    if (loading) {
+        return <CircularProgress />;
+    }
+
+    if (error) {
+        return <Typography color="error">{error}</Typography>;
+    }
+
     return (
-      <Grid container spacing={2}>
-        {products.map((product) => (
-          <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}> {/* Aangepast naar `product.id` */}
-            <ProductCard product={product} />
-          </Grid>
-        ))}
-      </Grid>
+        <>
+            <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
+            <Grid container spacing={2}>
+                {products.map((product) => (
+                    <ProductCard key={product.PRODUCTID} product={product} />
+                ))}
+            </Grid>
+        </>
     );
-  };
-  
-  export default ProductList;
+};
+
+export default ProductList;
