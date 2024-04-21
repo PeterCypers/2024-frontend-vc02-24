@@ -12,25 +12,37 @@ export default function SearchBar({handleClick,placeholder_text}) {
     const handleKeyDown = (event) => {
       if(event.key==='Enter'){
         event.preventDefault();
+        console.log(text);
         handleClick(text);
       }
       
   }
+
   return (
     <Paper
-      component="form"
-      sx={{ p: 'px 4px 2px 10px', display: 'flex', alignItems: 'center', borderRadius: '2em'}}
+        component="form"
+        sx={{ 
+            p: '2px 4px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            borderRadius: '2em',
+            maxWidth: '250px',  
+            ml: 3 
+        }}
+        onSubmit={(e) => {
+            e.preventDefault();
+            handleClick(text);
+        }}
     >
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder={placeholder_text}
-        inputProps={{ 'aria-label': placeholder_text }}
-        value={text} onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => handleKeyDown(e)}
-      />
-      <IconButton type="button" sx={{ p: '12px' }} aria-label="search" onClick={() => handleClick(text)}>
-        <SearchIcon />
-      </IconButton>
+        <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder={placeholder_text}
+            inputProps={{ 'aria-label': 'search products...' }}
+            onChange={(e) => setText(e.target.value)}
+        />
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+        </IconButton>
     </Paper>
-  );
-}
+);
+};

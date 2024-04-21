@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import Navbar from "./components/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
 import { RouterProvider, createBrowserRouter,Navigate } from "react-router-dom";
-import ProductList from "./components/ProductList";
+// import ProductList from "./components/ProductList";
+import ProductPage from "./pages/ProductPage";
 
 
 import "./index.css";
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <ProductList />,
+        element: <ProductPage />,
       },
     ],
   },

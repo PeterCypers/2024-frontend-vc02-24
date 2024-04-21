@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { Tooltip } from '@mui/material';
 
 // props zijn vermoedelijk de Database fields van product -> vb op mui.com geeft geen props mee
@@ -15,7 +15,8 @@ import { Tooltip } from '@mui/material';
 export default function ProductCard({ product }) {
 const { IMAGEADRES, NAAM, EENHEIDSPRIJS,STOCK} = product; 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
     {/* <Tooltip title={NAAM?NAAM:"product name"} placement="bottom"> has placeholder */}
       <CardMedia
         sx={{ height: 140 }}
@@ -55,5 +56,6 @@ const { IMAGEADRES, NAAM, EENHEIDSPRIJS,STOCK} = product;
         </div>
       </CardActions>
     </Card>
+    </Grid>
   );
 }
