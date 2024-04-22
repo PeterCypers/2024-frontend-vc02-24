@@ -18,6 +18,10 @@ html {
     color: red;
 }
 
+.defaultAvatar {
+    background-color: red;
+}
+
 #login-container {
     background-image: url('/images/Login-background-start.png'), url('/images/Login-background-end.png');
     background-size: 16rem;
