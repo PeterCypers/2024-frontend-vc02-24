@@ -7,6 +7,7 @@ import { AuthProvider } from "./contexts/Auth.context";
 import "./index.css";
 import Test from "./pages/Test";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import "@fontsource/comfortaa";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "*",
