@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Collapse from "@mui/material/Collapse";
@@ -15,7 +15,14 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 const BestellingKlant = ({ bestelling }) => {
   const [open, setOpen] = useState(false);
 
-  const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, klant, leverancier } = bestelling;
+  const {
+    DATUMGEPLAATST,
+    ORDERID,
+    ORDERSTATUS,
+    BETALINGSTATUS,
+    klant,
+    leverancier,
+  } = bestelling;
 
   return (
     <>
@@ -46,42 +53,40 @@ const BestellingKlant = ({ bestelling }) => {
                 Gegevens
                 <Grid container spacing={4}>
                   <Grid>
-                    <Item>Betaalgegevens:</Item>
+                    <div>Betaalgegevens:</div>
                   </Grid>
                   <Grid></Grid>
                   <Grid>
-                    <Item>Totale bedrag:</Item>
+                    <div>Totale bedrag:</div>
                   </Grid>
                   <Grid>
-                    <Item>{}</Item> {/*Totale prijs van alle producten */}
+                    <div>{}</div> {/*Totale prijs van alle producten */}
                   </Grid>
                   <Grid>
-                    <Item align="right">Rekeningnummer:</Item>
+                    <div align="right">Rekeningnummer:</div>
                   </Grid>
                   <Grid>
-                    <Item>
-                      {leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}
-                    </Item>
+                    <div>{leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}</div>
                   </Grid>
                   <Grid></Grid>
                   <Grid></Grid>
                   <Grid>
-                    <Item align="right">BTW-nummer:</Item>
+                    <div align="right">BTW-nummer:</div>
                   </Grid>
                   <Grid>
-                    <Item>{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</Item>
+                    <div>{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</div>
                   </Grid>
                   <Grid></Grid>
                   <Grid></Grid>
                   <Grid>
-                    <Item>Leveradres:</Item>
+                    <div>Leveradres:</div>
                   </Grid>
                   <Grid>
-                    <Item>{klant.LAND}</Item>
-                    <Item>{klant.POSTCODE}</Item>
-                    <Item>{klant.STAD}</Item>
-                    <Item>{klant.STRAAT}</Item>
-                    <Item>{klant.STRAATNR}</Item>
+                    <div>{klant.LAND}</div>
+                    <div>{klant.POSTCODE}</div>
+                    <div>{klant.STAD}</div>
+                    <div>{klant.STRAAT}</div>
+                    <div>{klant.STRAATNR}</div>
                     {/* bedrijf adres */}
                   </Grid>
                 </Grid>

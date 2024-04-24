@@ -1,10 +1,19 @@
-import { useCallback, useMemo, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useAuth } from '../contexts/Auth.context';
-import LoginError from '../components/LoginError';
-import { Backdrop, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Button, CircularProgress } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useCallback, useMemo, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { useAuth } from "../contexts/Auth.context";
+import LoginError from "../components/LoginError";
+import {
+  Backdrop,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  Button,
+  CircularProgress,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
   const { error, loading, login } = useAuth();
@@ -20,9 +29,8 @@ export default function Login() {
 
   const redirect = useMemo(() => {
     const urlParams = new URLSearchParams(search);
-    if (urlParams.has("redirect"))
-      return urlParams.get("redirect");
-    return "/";
+    if (urlParams.has("redirect")) return urlParams.get("redirect");
+    return "/profiel";
   }, [search]);
 
   const methods = useForm();
@@ -39,13 +47,13 @@ export default function Login() {
         });
       }
     },
-    [login, navigate, redirect],
+    [login, navigate, redirect]
   );
 
   return (
     <div className="flex flex-col h-screen" id="login-container">
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
       >
         <CircularProgress />
@@ -60,22 +68,24 @@ export default function Login() {
       </div>
 
       <FormProvider {...methods}>
-        <div className='flex h-full justify-center mb-24'>
-          <div className='flex flex-col flex-grow justify-center max-w-md m-4'>
+        <div className="flex h-full justify-center mb-24">
+          <div className="flex flex-col flex-grow justify-center max-w-md m-4">
             <form
               onSubmit={handleSubmit(handleLogin)}
-              className='delawareGrayBg rounded-lg px-5 py-3'
+              className="delawareGrayBg rounded-lg px-5 py-3"
             >
               <div className="flex flex-col w-full space-y-10">
-                <h1 className="text-4xl font-bold w-full text-center">Inloggen</h1>
+                <h1 className="text-4xl font-bold w-full text-center">
+                  Inloggen
+                </h1>
 
-                <FormControl required variant="outlined" >
+                <FormControl required variant="outlined">
                   <InputLabel htmlFor="email-input">E-mailadres</InputLabel>
                   <OutlinedInput
                     id="email-input"
                     label="E-mailadres"
-                    type='text'
-                    sx={{ backgroundColor: 'white' }}
+                    type="text"
+                    sx={{ backgroundColor: "white" }}
                     {...register("email")}
                   />
                 </FormControl>
@@ -85,8 +95,8 @@ export default function Login() {
                   <OutlinedInput
                     id="wachtwoord-input"
                     label="Wachtwoord"
-                    type={showPassword ? 'text' : 'password'}
-                    sx={{ backgroundColor: 'white' }}
+                    type={showPassword ? "text" : "password"}
+                    sx={{ backgroundColor: "white" }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -105,7 +115,13 @@ export default function Login() {
                 <LoginError error={error} />
 
                 <FormControl>
-                  <Button className="w-32 self-center" variant="contained" type="submit">Inloggen</Button>
+                  <Button
+                    className="w-32 self-center"
+                    variant="contained"
+                    type="submit"
+                  >
+                    Inloggen
+                  </Button>
                 </FormControl>
               </div>
             </form>
