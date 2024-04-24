@@ -344,6 +344,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
   integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
 
+"@fontsource/comfortaa@^5.0.20":
+  version "5.0.20"
+  resolved "https://registry.yarnpkg.com/@fontsource/comfortaa/-/comfortaa-5.0.20.tgz#50ea531121325f665df3302f7d43c0df1fbcf322"
+  integrity sha512-Sc6E4RQg0aLaLX5+5WjWdLIk6C4LEOm1tWcUhpUw6HhxVJ7l4Ev+m12pbj2M06IfwesaTeKBoLc93jDY6ZPJXg==
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz"
