@@ -21,7 +21,7 @@ import { Link, Outlet } from "react-router-dom";
 export default function ProfielPage() {
   const imageURL = "/public/images/backgroundTitle.png";
   return (
-    <Container className="h-screen w-screen">
+    <Container maxWidth="xl">
       <Box
         sx={{
           backgroundImage: `url(${imageURL})`,
@@ -33,14 +33,12 @@ export default function ProfielPage() {
           marginTop: 3,
         }}
       >
-        <Typography variant="h4" component="h1" color="white">
-          Accountoverzicht
-        </Typography>
+          <h1 id="h1">Accountoverzicht</h1>
       </Box>
       <Grid
         container
-        spacing={5}
-        sx={{ marginLeft: 1, marginRight: 1, height: "100%", width: "100%" }}
+        spacing={3}
+        sx={{ height: "100%", width: "100%" }}
       >
         <Grid xs={2} height={"100%"}>
           <SideMenu />

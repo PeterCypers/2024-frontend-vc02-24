@@ -4,6 +4,9 @@
 
 html {
     font-family: "Comfortaa";
+    font-weight: normal;
+    font-size: medium;
+    font-style: normal;
 }
 
 .delawareRedBg {
@@ -28,4 +31,10 @@ html {
     background-color: #C32828;
     background-position: left -12px top 16px, right -12px bottom 16px;
     background-repeat: no-repeat;
+}
+
+#h1{
+    font-weight: bolder;
+    font-size: large;
+    color: white;
 }

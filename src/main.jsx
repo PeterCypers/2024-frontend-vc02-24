@@ -26,8 +26,7 @@ const theme = createTheme({
     allVariants: {
       fontFamily: "Comfortaa",
       textTransform: "none",
-      fontWeight: "bold",
-      fontSize: 16,
+      fontSize: 14,
     },
   },
 });
