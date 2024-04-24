@@ -12,6 +12,7 @@ import {
   const JWT_TOKEN_KEY = 'jwtToken';
   const GEBRUIKER_ID_KEY = 'gebruikerId';
   const GEBRUIKER_LETTER = 'gebruikerLetter';
+  const GEBRUIKER_ROL = 'gebruikerRol';
   const AuthContext = createContext();
   
   export const useAuth = () => useContext(AuthContext);
@@ -22,6 +23,7 @@ import {
     const [token, setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY));
     const [gebruiker, setGebruiker] = useState(null);
     const [gebruikerLetter, setGebruikerLetter] = useState(localStorage.getItem(GEBRUIKER_LETTER));
+    const [gebruikerRol, setGebruikerRol] = useState(localStorage.getItem(GEBRUIKER_ROL));
   
     useEffect(() => {
       api.setAuthToken(token);
@@ -40,10 +42,12 @@ import {
         setToken(token);
         setGebruiker(gebruiker);
         setGebruikerLetter(gebruiker.naam[0]);
+        setGebruikerRol(gebruiker.rol);
   
         localStorage.setItem(JWT_TOKEN_KEY, token);
         localStorage.setItem(GEBRUIKER_ID_KEY, gebruiker.id);
         localStorage.setItem(GEBRUIKER_LETTER, gebruiker.naam[0]);
+        localStorage.setItem(GEBRUIKER_ROL, gebruiker.rol);
       },
       [],
     );
@@ -71,10 +75,12 @@ import {
       setToken(null);
       setGebruiker(null);
       setGebruikerLetter(null);
+      setGebruikerRol(null);
   
       localStorage.removeItem(JWT_TOKEN_KEY);
       localStorage.removeItem(GEBRUIKER_ID_KEY);
       localStorage.removeItem(GEBRUIKER_LETTER);
+      localStorage.removeItem(GEBRUIKER_ROL);
     }, []);
   
     const value = useMemo(
@@ -82,6 +88,7 @@ import {
         token,
         gebruiker,
         gebruikerLetter,
+        gebruikerRol,
         error: loginError,
         ready,
         loading: loginLoading,
@@ -89,7 +96,7 @@ import {
         login,
         logout,
       }),
-      [token, gebruiker, gebruikerLetter, loginError, ready, loginLoading, isAuthed, login, logout],
+      [token, gebruiker, gebruikerLetter, gebruikerRol, loginError, ready, loginLoading, isAuthed, login, logout],
     );
   
     return (
