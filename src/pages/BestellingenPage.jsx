@@ -2,6 +2,8 @@ import React from "react";
 import useSWR from "swr";
 import { getAll } from "../api";
 import BestellingList from "../components/BestellingList";
+import { Box } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const BestellingenPage = () => {
   const {
@@ -9,7 +11,7 @@ const BestellingenPage = () => {
     isLoading,
     error,
   } = useSWR("bestellingen", getAll);
-
+  
   return (
     <>
       <Box

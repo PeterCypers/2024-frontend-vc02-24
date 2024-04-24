@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import Navbar from "./components/Navbar";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth.context";
+import PrivateRoute from "./components/PrivateRoute";
 
 import "./index.css";
 import Test from "./pages/Test";
@@ -36,15 +37,22 @@ const router = createBrowserRouter([
     element: <Navbar />,
     children: [
       {
-        path: "/",
-        element: <ProfielPage />,
-      },
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: '/profiel',
+            element: <ProfielPage />,
+            children: [
+              {
+                path: "bestellingen",
+                element: <BestellingenPage />,
+              },
+            ],
+          },
+        ],
+      }
     ],
   },
-  // {
-  //   path: "/profiel",
-  //   element: <ProfielPage />
-  // },
   {
     path: "/login",
     element: <Login />,

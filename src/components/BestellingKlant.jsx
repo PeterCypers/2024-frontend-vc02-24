@@ -12,41 +12,11 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const BestellingKlant = ({
-  ORDERID,
-  BETALINGSTATUS,
-  BETALINGSDATUM,
-  DATUMGEPLAATST,
-  HERINNERINGSDATUM,
-  ORDERSTATUS,
-  klant: {
-    KLANT_GEBRUIKERID,
-    TELEFOONNUMMER,
-    KLANT_EMAILADRES,
-    LAND,
-    POSTCODE,
-    STAD,
-    STRAAT,
-    STRAATNR,
-    KLANT_BEDRIJF_NAAM,
-    KLANT_BEDRIJF_BTWNR,
-    KLANT_BEDRIJF_ISACTIEF,
-    KLANT_BEDRIJF_LOGO,
-    KLANT_BEDRIJF_REKENINGNUMMER,
-    KLANT_BEDRIJF_SECTOR,
-  },
-  leverancier: {
-    LEVERANCIER_GEBRUIKERID,
-    LEVERANCIER_EMAILADRES,
-    LEVERANCIER_BEDRIJF_NAAM,
-    LEVERANCIER_BEDRIJF_BTWNR,
-    LEVERANCIER_BEDRIJF_ISACTIEF,
-    LEVERANCIER_BEDRIJF_LOGO,
-    LEVERANCIER_BEDRIJF_REKENINGNUMMER,
-    LEVERANCIER_BEDRIJF_SECTOR,
-  },
-}) => {
+const BestellingKlant = ({ bestelling }) => {
   const [open, setOpen] = useState(false);
+
+  const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, klant, leverancier } = bestelling;
+
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>

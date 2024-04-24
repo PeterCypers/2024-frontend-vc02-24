@@ -93,7 +93,7 @@ const Navbar = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
                 {isAuthed ? <div key={isAuthed}>
-                  <Link to="/profile">
+                  <Link to="/profiel">
                     <MenuItem>
                       <ListItemIcon>
                         <Person fontSize="small" />

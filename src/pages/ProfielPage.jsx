@@ -16,11 +16,12 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { red, grey } from "@mui/material/colors";
 import BestellingenPage from "./BestellingenPage";
+import { Link, Outlet } from "react-router-dom";
 
 export default function ProfielPage() {
   const imageURL = "/public/images/backgroundTitle.png";
   return (
-    <Container class="h-screen w-screen">
+    <Container className="h-screen w-screen">
       <Box
         sx={{
           backgroundImage: `url(${imageURL})`,
@@ -45,7 +46,7 @@ export default function ProfielPage() {
           <SideMenu />
         </Grid>
         <Grid xs height={"100%"}>
-          <BestellingenPage />
+          <Outlet />
         </Grid>
       </Grid>
     </Container>
@@ -107,7 +108,9 @@ function SideMenu() {
           <ListItemIcon>
             <InventoryIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Bestellingen</ListItemText>
+          <Link to="bestellingen">
+            <ListItemText>Bestellingen</ListItemText>
+          </Link>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>

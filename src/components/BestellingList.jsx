@@ -7,10 +7,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Bestelling from "./Bestelling";
+import useSWR from "swr";
 
 export default function BestellingList({ bestellingen }) {
-  // const { bestellingen } = useBestellingen();
-
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -27,8 +26,8 @@ export default function BestellingList({ bestellingen }) {
         <TableBody>
           {bestellingen.map((bestelling) => (
             <Bestelling
-              /*key={bestelling.ORDERID}*/
-              /*row={bestelling}*/ bestelling={bestelling}
+              key={bestelling.ORDERID}
+              bestelling={bestelling}
             />
           ))}
         </TableBody>
