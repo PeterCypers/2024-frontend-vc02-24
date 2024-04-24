@@ -5,7 +5,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import "./index.css";
-import Test from "./pages/Test";
+// import Test from "./pages/Test";
+import BestellingPage from "./pages/BestellingPage";
+import ProfielPage from "./pages/ProfielPage";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +15,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Test />,
+        element: <ProfielPage />,
       },
     ],
   },
+  // {
+  //   path: "/profiel",
+  //   element: <ProfielPage />
+  // },
   {
     path: "*",
     element: <NotFoundPage />,
