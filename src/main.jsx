@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Navbar from "./components/Navbar";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth.context";
 import PrivateRoute from "./components/PrivateRoute";
+import ProductPage from "./pages/ProductPage";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
+
 
 import "./index.css";
 import Test from "./pages/Test";
@@ -49,8 +51,16 @@ const router = createBrowserRouter([
             ],
           },
         ],
-      }
+      },
+      {
+        path: "/products",
+        element: <ProductPage />,
+      },
     ],
+  },
+  {
+    path: "/",
+    element: <Navigate replace to="/products"/>,
   },
   {
     path: "/login",
