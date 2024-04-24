@@ -19,7 +19,6 @@ const BestellingenPage = () => {
           width: "100%",
           height: "100%",
           borderRadius: 1,
-          backgroundColor: grey[400],
         }}
       >
         <BestellingList bestellingen={bestellingen} />
