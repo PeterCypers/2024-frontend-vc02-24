@@ -33,7 +33,6 @@ const BestellingLeverancier = ({ bestelling }) => {
           {DATUMGEPLAATST}
         </TableCell>
         <TableCell align="center">{klant.KLANT_BEDRIJF_NAAM}</TableCell>
-        {/* KLANT_GEBRUIKERID -> naar bedrijf naam geraken */}
         <TableCell align="center">{ORDERID}</TableCell>
         <TableCell align="center">{ORDERSTATUS}</TableCell>
         <TableCell align="center">{BETALINGSTATUS}</TableCell>
@@ -41,41 +40,41 @@ const BestellingLeverancier = ({ bestelling }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+          <Box sx={{ margin: 5 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Gegevens
-                <Grid container spacing={4}>
-                  <Grid>
+                <Grid 
+                  container
+                  spacing={3}
+                  sx={{ height: "100%", width: "100%" }}
+                >
+                  <Grid xs={11}>Gegevens</Grid>
+                  <Grid xs={3}>
                     <div>Contactgegevens:</div>
                   </Grid>
-                  <Grid>
+                  <Grid xs={4}>
                     <div>{klant.KLANT_EMAILADRES}</div>
                     <div>{klant.TELEFOONNUMMER}</div>
-                    {/*bedrijf contactgegevens */}
                   </Grid>
-                  <Grid>
+                  <Grid xs={2}>
                     <div>Totale bedrag:</div>
                   </Grid>
-                  <Grid>
-                    <div>{}</div> {/*Totale prijs van alle producten */}
+                  <Grid xs={3}>
+                    <div>prijs</div>
                   </Grid>
-                  <Grid>
+                  <Grid xs={3}>
                     <div>Leveradres:</div>
                   </Grid>
-                  <Grid>
+                  <Grid xs={8}>
                     <div>{klant.LAND}</div>
                     <div>{klant.POSTCODE}</div>
                     <div>{klant.STAD}</div>
                     <div>{klant.STRAAT}</div>
                     <div>{klant.STRAATNR}</div>
-                    {/* bedrijf adres */}
                   </Grid>
-                  <Grid></Grid>
-                  <Grid></Grid>
-                  <Grid>
+                  <Grid xs={3}>
                     <div>Betalingsherinnering:</div>
                   </Grid>
-                  <Grid>
+                  <Grid xs={8}>
                     <div>{HERINNERINGSDATUM}</div>
                   </Grid>
                 </Grid>
