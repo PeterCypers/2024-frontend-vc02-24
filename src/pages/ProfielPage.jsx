@@ -1,43 +1,55 @@
-import { styled, Box } from '@mui/system';
-import { Badge as BaseBadge, badgeClasses } from '@mui/base/Badge';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Container, Typography, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import PaymentIcon from '@mui/icons-material/Payment';
-import NoteIcon from '@mui/icons-material/Note';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { red, grey } from '@mui/material/colors';
-import BestellingPage from './BestellingPage'; 
-
+import { styled, Box } from "@mui/system";
+import { Badge as BaseBadge, badgeClasses } from "@mui/base/Badge";
+import Grid from "@mui/material/Unstable_Grid2";
+import {
+  Container,
+  Typography,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+} from "@mui/material";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import PaymentIcon from "@mui/icons-material/Payment";
+import NoteIcon from "@mui/icons-material/Note";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import { red, grey } from "@mui/material/colors";
+import BestellingenPage from "./BestellingenPage";
 
 export default function ProfielPage() {
   const imageURL = "/public/images/backgroundTitle.png";
-    return (
-        <Container  class="h-screen w-screen" >
-            <Box sx={{ 
-              backgroundImage: `url(${imageURL})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              p: 3, 
-              marginBottom: 3, 
-              marginTop: 3
-              }}>
-                <Typography variant="h4" component="h1" color="white">
-                    Accountoverzicht
-                </Typography>
-            </Box>
-            <Grid container spacing={5} sx={{marginLeft: 1, marginRight: 1, height: "100%", width: "100%"}}>
-                <Grid xs={2} height={"100%"}>
-                  <SideMenu/>
-                </Grid>
-                <Grid xs height={"100%"}>
-                  <BestellingPage />
-                </Grid>
-            </Grid>
-        </Container>
-    );
+  return (
+    <Container class="h-screen w-screen">
+      <Box
+        sx={{
+          backgroundImage: `url(${imageURL})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          p: 3,
+          marginBottom: 3,
+          marginTop: 3,
+        }}
+      >
+        <Typography variant="h4" component="h1" color="white">
+          Accountoverzicht
+        </Typography>
+      </Box>
+      <Grid
+        container
+        spacing={5}
+        sx={{ marginLeft: 1, marginRight: 1, height: "100%", width: "100%" }}
+      >
+        <Grid xs={2} height={"100%"}>
+          <SideMenu />
+        </Grid>
+        <Grid xs height={"100%"}>
+          <BestellingenPage />
+        </Grid>
+      </Grid>
+    </Container>
+  );
 }
 
 const Badge = styled(BaseBadge)(
@@ -70,25 +82,25 @@ const Badge = styled(BaseBadge)(
     border-radius: 10px;
     background: ${red[500]};
     box-shadow: 0px 2px 24px ${
-      theme.palette.mode === 'dark' ? red[900] : red[100]
+      theme.palette.mode === "dark" ? red[900] : red[100]
     };
     transform: translate(50%, -50%);
     transform-origin: 100% 0;
   }
-  `,
+  `
 );
 
 function SideMenu() {
   return (
     <Box
-        sx={{
-          width: 250,
-          maxWidth: '100%',
-          height: '100%',
-          overflow: 'auto',
-          borderRadius: 1,
-          backgroundColor: grey[400]
-        }}
+      sx={{
+        width: 250,
+        maxWidth: "100%",
+        height: "100%",
+        overflow: "auto",
+        borderRadius: 1,
+        backgroundColor: grey[400],
+      }}
     >
       <MenuList>
         <MenuItem>
@@ -127,4 +139,3 @@ function SideMenu() {
     </Box>
   );
 }
-
