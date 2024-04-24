@@ -15,46 +15,38 @@ import { Tooltip } from '@mui/material';
 export default function ProductCard({ product }) {
 const { IMAGEADRES, NAAM, EENHEIDSPRIJS,STOCK} = product; 
 return (
-  <Grid item xs={12} sm={6} md={4} lg={3} sx={{ padding: 7 }}>
-    <Card sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between', 
-      height: 350,
-      width: 350,
-      borderRadius: '20px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      overflow: 'hidden', 
-    }}>
-      <CardMedia
-        sx={{ height: 200 }} 
-        image={IMAGEADRES || "https://picsum.photos/345/140"} 
+  <Card className="flex flex-col w-96 m-5">
+    <CardMedia
+      sx={{ 
+        height: 384,
+        width: 384,
+      }} 
+      image={IMAGEADRES || "https://static.delhaize.be/medias/sys_master/h5e/hfb/12097500119070.jpg?buildNumber=82174e95e8034dc2242aadaed51c35b2e76a4bb2908eb0fb223ce572e154b418&imwidth=320"} 
+    />
+    <CardContent>
+      <Typography gutterBottom variant="h5" component="div">
+        {NAAM || "Product Name"}
+      </Typography>
+    </CardContent>
+    <CardActions className="mt-auto justify-between">
+      <TextField 
+        size="small"
+        type="number"
+        defaultValue={1}
+        InputProps={{ inputProps: { min: 1, max: STOCK || 10 } }}
+        sx={{ width: '5em' }} 
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {NAAM || "Product Name"}
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mr: 1, fontSize: '1.2rem' }}>
+          €{EENHEIDSPRIJS?.toFixed(2) || "0.00"}
         </Typography>
-      </CardContent>
-      <CardActions sx={{ justifyContent: 'space-between', alignItems: 'center', padding: '0 16px 16px' }}>
-        <TextField 
-          size="small"
-          type="number"
-          defaultValue={1}
-          InputProps={{ inputProps: { min: 1, max: STOCK || 10 } }}
-          sx={{ width: '5em' }} 
-        />
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mr: 1, fontSize: '1.2rem' }}>
-            €{EENHEIDSPRIJS?.toFixed(2) || "0.00"}
-          </Typography>
-          <Tooltip title="Add to cart" placement="bottom">
-            <Button color='error' sx={{ padding: '6px' }}> 
-              <AddShoppingCartIcon fontSize='large' />
-            </Button>
-          </Tooltip>
-        </Box>
-      </CardActions>
-    </Card>
-  </Grid>
+        <Tooltip title="Add to cart" placement="bottom">
+          <Button color='error' sx={{ padding: '6px' }}> 
+            <AddShoppingCartIcon fontSize='large' />
+          </Button>
+        </Tooltip>
+    </Box>
+  </CardActions>
+  </Card>
 );
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import useProducts from '../api/productClient';
 import ProductCard from './ProductCard';
-import { Grid, CircularProgress, Typography,Box } from '@mui/material';
-import SearchBar from './SearchBar';  
+import { Grid, CircularProgress, Typography, Box } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import SearchBar from './SearchBar';
 
 
 const ProductList = () => {
@@ -57,23 +58,12 @@ const ProductList = () => {
           <Box sx={{ width: '100%', padding: 2 }}>
               <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
           </Box>
-          <Box sx={{
-              backgroundColor: '#D9D9D9', 
-              mt: 2,
-              borderRadius: 2, 
-              boxShadow: 1, 
-              width: '100%', 
-              padding: 2, 
-              paddingBottom: 3,
-              display: 'flex',
-              justifyContent: 'flex-start',
-              overflow: 'hidden' 
-          }}>
-              <Grid container spacing={2} sx={{ width: '100%' }}>
-                  {filteredProducts.map(product => (
-                      <ProductCard key={product.PRODUCTID} product={product} />
-                  ))}
-              </Grid>
+          <Box className="rounded-md" sx={{ backgroundColor: grey[400]}}>
+            <Box className="mt-2 p-4 shadow-sm grid grid-cols-4 justify-items-center">
+                {filteredProducts.map(product => (
+                  <ProductCard key={product.PRODUCTID} product={product} />
+                ))}
+            </Box>
           </Box>
       </>
   );
