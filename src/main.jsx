@@ -9,6 +9,7 @@ import Test from "./pages/Test";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import NotFoundPage from "./pages/NotFoundPage";
+import BestellingenPage from "./pages/BestellingenPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -35,8 +36,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Test />,
-      }
+        element: <BestellingenPage />,
+      },
     ],
   },
   {

@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import useBestellingen from '../api/bestellingClient';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Bestelling from './Bestelling';
+import React, { useState, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Bestelling from "./Bestelling";
 
-
-export default function CollapsibleTable() {
-  const { bestellingen } = useBestellingen();
+export default function BestellingList({ bestellingen }) {
+  // const { bestellingen } = useBestellingen();
 
   return (
     <TableContainer component={Paper}>
@@ -28,7 +26,10 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {bestellingen.map((bestelling) => (
-            <Bestelling key={bestelling.datum} row={bestelling} />
+            <Bestelling
+              /*key={bestelling.ORDERID}*/
+              /*row={bestelling}*/ bestelling={bestelling}
+            />
           ))}
         </TableBody>
       </Table>
