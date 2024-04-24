@@ -52,21 +52,20 @@ const ProductList = () => {
       return <Typography color="error">{error}</Typography>;
     }
   
-    return (
-        <>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', padding: 2 }}>
-                <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
-            </Box>
-            <Box sx={{ backgroundColor: '#D9D9D9', padding: 3,height: 4000, width: 1200  }}> {/* Grey background */}
-                <Grid container spacing={4} justifyContent="center" sx={{ marginTop: 2 }}>
-                    {filteredProducts.map(product => (
-                        <ProductCard key={product.PRODUCTID} product={product} />
-                    ))}
-                </Grid>
-            </Box>
-        </>
-    );
+  return (
+    <>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', padding: 2 }}>
+        <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
+      </Box>
+      <Box sx={{ backgroundColor: '#D9D9D9', padding: 3, minHeight: '100vh', display: 'flex', justifyContent: 'center'}}> 
+        <Grid container spacing={2} justifyContent="center" alignItems="stretch" > 
+          {filteredProducts.map(product => (
+            <ProductCard key={product.PRODUCTID} product={product} />
+          ))}
+        </Grid>
+      </Box>
+    </>
+  );
 };
-  
 
 export default ProductList;
