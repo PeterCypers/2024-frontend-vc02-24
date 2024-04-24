@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { isAxiosError } from 'axios';
 
 export default function Error({ error }) {

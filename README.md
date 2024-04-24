@@ -1,8 +1,38 @@
-# React + Vite
+# 2024-frontend-vc02-24
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Web-luik frontend voor SDP2 Groep VC02
 
-Currently, two official plugins are available:
+Dit JavaScript repo zal werken als frontend server voor de Web applicatie van Delaware.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## de groepsleden:
+- Tiemen Deroose
+- Mohisha Van Damme
+- Bas Stokmans
+- Jasper Vandenbroucke
+- Peter Cypers
+
+## Requirements
+
+- [NodeJS v20.6 or higher](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/)
+
+Voor gebruikers van [Chocolatey](https://chocolatey.org/):
+
+```powershell
+choco install nodejs -y
+choco install yarn -y
+```
+
+## Alvorens opstarten/testen van dit project
+
+Maak een nieuwe `.env` (development) file aan met deze template.
+
+```ini
+VITE_API_URL=http://localhost:9000/api
+```
+
+## Project opstarten
+
+- Installeer alle dependencies: `yarn`
+- Maak een `.env` file aan (zie boven)
+- Start de development server: `yarn dev`
