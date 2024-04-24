@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Collapse from "@mui/material/Collapse";
@@ -29,11 +29,8 @@ const BestellingKlant = ({ bestelling }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          {DATUMGEPLAATST}
-        </TableCell>
-        <TableCell align="center">{klant.KLANT_BEDRIJF_NAAM}</TableCell>{" "}
-        {/* KLANT_GEBRUIKERID -> naar bedrijf naam geraken */}
+        <TableCell align="center">{DATUMGEPLAATST}</TableCell>
+        <TableCell align="center">{klant.KLANT_BEDRIJF_NAAM}</TableCell>
         <TableCell align="center">{ORDERID}</TableCell>
         <TableCell align="center">{ORDERSTATUS}</TableCell>
         <TableCell align="center">{BETALINGSTATUS}</TableCell>
@@ -41,48 +38,46 @@ const BestellingKlant = ({ bestelling }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+            <Box sx={{ margin: 5 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Gegevens
-                <Grid container spacing={4}>
-                  <Grid>
-                    <Item>Betaalgegevens:</Item>
+                <Grid 
+                  container
+                  spacing={3}
+                  sx={{ height: "100%", width: "100%" }}
+                >
+                  <Grid xs={11}>Gegevens</Grid>
+                  <Grid xs={8}>
+                    <div>Betaalgegevens:</div>
                   </Grid>
-                  <Grid></Grid>
-                  <Grid>
-                    <Item>Totale bedrag:</Item>
+                  <Grid xs={2}>
+                    <div>Totale bedrag:</div>
                   </Grid>
-                  <Grid>
-                    <Item>{}</Item> {/*Totale prijs van alle producten */}
+                  <Grid xs={2}>
+                    <div>prijs</div> {/*Totale prijs van alle producten */}
                   </Grid>
-                  <Grid>
-                    <Item align="right">Rekeningnummer:</Item>
+                  <Grid xs={2}>
+                    <div>Rekeningnummer:</div>
                   </Grid>
-                  <Grid>
-                    <Item>
-                      {leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}
-                    </Item>
+                  <Grid xs={10}>
+                    <div>
+                       {leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}
+                    </div>
                   </Grid>
-                  <Grid></Grid>
-                  <Grid></Grid>
-                  <Grid>
-                    <Item align="right">BTW-nummer:</Item>
+                  <Grid xs={2}>
+                    <div>BTW-nummer:</div>
                   </Grid>
-                  <Grid>
-                    <Item>{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</Item>
+                  <Grid xs={10}>
+                    <div>{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</div>
                   </Grid>
-                  <Grid></Grid>
-                  <Grid></Grid>
-                  <Grid>
-                    <Item>Leveradres:</Item>
+                  <Grid xs={2}>
+                    <div>Leveradres:</div>
                   </Grid>
-                  <Grid>
-                    <Item>{klant.LAND}</Item>
-                    <Item>{klant.POSTCODE}</Item>
-                    <Item>{klant.STAD}</Item>
-                    <Item>{klant.STRAAT}</Item>
-                    <Item>{klant.STRAATNR}</Item>
-                    {/* bedrijf adres */}
+                  <Grid xs={10}>
+                    <div>{klant.LAND}</div>
+                    <div>{klant.POSTCODE}</div>
+                    <div>{klant.STAD}</div>
+                    <div>{klant.STRAAT}</div>
+                    <div>{klant.STRAATNR}</div>
                   </Grid>
                 </Grid>
                 Product
