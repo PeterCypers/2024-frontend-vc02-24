@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    font-family: "Comfortaa";
+}
+
+.delawareRedBg {
+    background-color: #C32828;
+}
+
+.delawareGrayBg {
+    background-color: #D9D9D9;
+}
+
+.errorText {
+    color: red;
+}
+
+.defaultAvatar {
+    background-color: red;
+}
+
+#login-container {
+    background-image: url('/images/Login-background-start.png'), url('/images/Login-background-end.png');
+    background-size: 16rem;
+    background-color: #C32828;
+    background-position: left -12px top 16px, right -12px bottom 16px;
+    background-repeat: no-repeat;
+}
