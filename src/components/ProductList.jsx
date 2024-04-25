@@ -59,7 +59,7 @@ const ProductList = () => {
               <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
           </Box>
           <Box className="rounded-md" sx={{ backgroundColor: grey[400]}}>
-            <Box className="mt-2 p-4 shadow-sm grid grid-cols-4 justify-items-center">
+            <Box className="mt-2 p-4 shadow-sm grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center">
                 {filteredProducts.map(product => (
                   <ProductCard key={product.PRODUCTID} product={product} />
                 ))}

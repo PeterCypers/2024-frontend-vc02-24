@@ -19,7 +19,7 @@ const ProductPage = () => {
                     height: '100px' 
                 }}
             >
-                <Typography variant="h4" component="h1" gutterBottom sx={{ marginLeft: 2 }}>
+                <Typography id="h1" variant="h4" component="h1" className="ml-2">
                     Producten
                 </Typography>
             </Box>
