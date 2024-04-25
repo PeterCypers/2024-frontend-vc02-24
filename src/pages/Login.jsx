@@ -30,7 +30,7 @@ export default function Login() {
   const redirect = useMemo(() => {
     const urlParams = new URLSearchParams(search);
     if (urlParams.has("redirect")) return urlParams.get("redirect");
-    return "/profiel";
+    return "/";
   }, [search]);
 
   const methods = useForm();
