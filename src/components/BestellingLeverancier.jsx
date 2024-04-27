@@ -43,6 +43,7 @@ const BestellingLeverancier = ({ bestelling }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        <TableCell align="center"></TableCell>
         <TableCell component="th" scope="row" align="center">
           {DATUMGEPLAATST}
         </TableCell>
@@ -52,7 +53,8 @@ const BestellingLeverancier = ({ bestelling }) => {
         <TableCell align="center">{BETALINGSTATUS}</TableCell>
       </TableRow>
       <TableRow sx={detailRowStyle}>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        {/* Update the colSpan to 7 to cover all columns */}
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 5 }}>
               <Typography variant="h6" gutterBottom component="div">
