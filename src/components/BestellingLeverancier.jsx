@@ -17,9 +17,23 @@ const BestellingLeverancier = ({ bestelling }) => {
 
   const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, HERINNERINGSDATUM, klant } = bestelling;
 
+  // Define the background color dynamically based on the open state
+  const topRowStyle = {
+    "& > *": { borderBottom: "unset" },
+    backgroundColor: open ? "rgba(217,119,119)" : "inherit", // Darker red when expanded
+    transition: "background-color 0.3s ease-in-out",
+  };
+
+  // Style for the expanded details part
+  const detailRowStyle = {
+    "& > *": { borderBottom: "unset" },
+    backgroundColor: open ? "rgba(255, 70, 70, 0.2)" : "inherit", // Lighter red when expanded
+    transition: "background-color 0.3s ease-in-out",
+  };
+
   return (
     <>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableRow sx={topRowStyle}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -37,73 +51,39 @@ const BestellingLeverancier = ({ bestelling }) => {
         <TableCell align="center">{ORDERSTATUS}</TableCell>
         <TableCell align="center">{BETALINGSTATUS}</TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow sx={detailRowStyle}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-          <Box sx={{ margin: 5 }}>
+            <Box sx={{ margin: 5 }}>
               <Typography variant="h6" gutterBottom component="div">
                 <Grid 
                   container
                   spacing={3}
                   sx={{ height: "100%", width: "100%" }}
                 >
-                  <Grid xs={11}>Gegevens</Grid>
-                  <Grid xs={3}>
-                    <div>Contactgegevens:</div>
-                  </Grid>
-                  <Grid xs={4}>
+                  <Grid item xs={3}>
+                    <Typography variant="subtitle1">Contactgegevens:</Typography>
                     <div>{klant.KLANT_EMAILADRES}</div>
                     <div>{klant.TELEFOONNUMMER}</div>
                   </Grid>
-                  <Grid xs={2}>
-                    <div>Totale bedrag:</div>
+                  <Grid item xs={3}>
+                    <Typography variant="subtitle1">Totale bedrag:</Typography>
+                    <div>{klant.totalAmount || 'N/A'}</div>
                   </Grid>
-                  <Grid xs={3}>
-                    <div>prijs</div>
-                  </Grid>
-                  <Grid xs={3}>
-                    <div>Leveradres:</div>
-                  </Grid>
-                  <Grid xs={8}>
+                  <Grid item xs={6}>
+                    <Typography variant="subtitle1">Leveradres:</Typography>
                     <div>{klant.LAND}</div>
                     <div>{klant.POSTCODE}</div>
                     <div>{klant.STAD}</div>
                     <div>{klant.STRAAT}</div>
                     <div>{klant.STRAATNR}</div>
                   </Grid>
-                  <Grid xs={3}>
-                    <div>Betalingsherinnering:</div>
-                  </Grid>
-                  <Grid xs={8}>
+                  <Grid item xs={12}>
+                    <Typography variant="subtitle1">Betalingsherinnering:</Typography>
                     <div>{HERINNERINGSDATUM}</div>
                   </Grid>
                 </Grid>
-                Product
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Naam</TableCell>
-                    <TableCell align="center">Aantal</TableCell>
-                    <TableCell align="center">In stock</TableCell>
-                    <TableCell align="center">Eeheidsprijs</TableCell>
-                    <TableCell align="center">Totale prijs</TableCell>
-                  </TableRow>
-                </TableHead>
-                {/* <TableBody>
-                    {b.PRODUCT.map((PRODUCTROW) => (
-                      <TableRow key={PRODUCTROW.NAAM}>
-                        <TableCell component="th" scope="row" align="right">
-                          {PRODUCTROW.NAAM}
-                        </TableCell>
-                        <TableCell align="center">{PRODUCTROW.AANTAL}</TableCell>
-                        <TableCell align="center">{PRODUCTROW.STOCK}</TableCell>
-                        <TableCell align="center">{PRODUCTROW.EENHEIDSPRIJS}</TableCell>
-                        <TableCell align="center">{PRODUCTROW.TOTALEPRIJS}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody> */}
-              </Table>
             </Box>
           </Collapse>
         </TableCell>
