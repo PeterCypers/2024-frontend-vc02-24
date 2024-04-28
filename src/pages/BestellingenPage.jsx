@@ -14,13 +14,7 @@ const BestellingenPage = () => {
   
   return (
     <>
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          borderRadius: 1,
-        }}
-      >
+      <Box className='w-auto h-screen' sx={{bgcolor: grey[400], borderRadius: 1}}>
         <BestellingList bestellingen={bestellingen} />
       </Box>
     </>

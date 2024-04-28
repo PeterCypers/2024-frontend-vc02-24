@@ -12,6 +12,8 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
+import { grey } from '@mui/material/colors';
+import Bestelling from './Bestelling';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -83,7 +85,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead className='bg-transparent'>
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
@@ -91,6 +93,7 @@ function EnhancedTableHead(props) {
             align="center"
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
+
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -125,7 +128,7 @@ export default function EnhancedTable({bestellingen}) {
     setOrderBy(property);
   };
 
-  const handleClick = (event, id) => {
+  const handleClick = (event, id, bestelling) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
@@ -142,7 +145,7 @@ export default function EnhancedTable({bestellingen}) {
       );
     }
     setSelected(newSelected);
-    console.log(id);
+    // <Bestelling key={id} bestelling={bestelling}/>
   };
 
   const handleChangePage = (event, newPage) => {
@@ -174,15 +177,14 @@ export default function EnhancedTable({bestellingen}) {
   );
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
+    <Box sx={{bgcolor: grey[400], borderRadius: 1, width: '100%', height: '100%'}}>
+      <Paper sx={{bgcolor: grey[400], borderRadius: 1, width: '100%', height: '100%'}}>
+        <TableContainer className='bg-transparent'>
+          <Table className='min-w-96'
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
-            <EnhancedTableHead
+            <EnhancedTableHead className='bg-transparent'
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -197,7 +199,7 @@ export default function EnhancedTable({bestellingen}) {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, ORDERID)}
+                    onClick={(event) => handleClick(event, ORDERID, bestelling)}
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={bestelling.id}
@@ -232,7 +234,7 @@ export default function EnhancedTable({bestellingen}) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
+        <TablePagination className='bg-transparent'
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={bestellingen.length}
