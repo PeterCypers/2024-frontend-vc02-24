@@ -8,7 +8,6 @@ import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom"
 
 
 import "./index.css";
-import Test from "./pages/Test";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -48,6 +47,10 @@ const router = createBrowserRouter([
                 path: "bestellingen",
                 element: <BestellingenPage />,
               },
+              // {
+              //   path: "gegevens",
+              //   element: <GegevensPage />,
+              // },
             ],
           },
         ],

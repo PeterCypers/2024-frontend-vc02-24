@@ -1,20 +1,17 @@
 import { styled, Box } from "@mui/system";
 import { Badge as BaseBadge, badgeClasses } from "@mui/base/Badge";
 import {
-  Container,
-  Typography,
   ListItemIcon,
   ListItemText,
   MenuItem,
   MenuList,
 } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PaymentIcon from "@mui/icons-material/Payment";
 import NoteIcon from "@mui/icons-material/Note";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { red, grey } from "@mui/material/colors";
-import BestellingenPage from "./BestellingenPage";
 import { Link, Outlet } from "react-router-dom";
 
 export default function ProfielPage() {
@@ -37,7 +34,7 @@ export default function ProfielPage() {
       <div
         className="px-4 flex flex-grow w-full h-screen space-x-4"
       >
-        <div className="h-fit w-fit">
+        <div className="h-full w-fit">
           <SideMenu />
         </div>
         <div className="h-full w-full">
@@ -88,51 +85,50 @@ const Badge = styled(BaseBadge)(
 
 function SideMenu() {
   return (
-    <Box
-      sx={{
-        width: 250,
-        maxWidth: "100%",
-        height: "100%",
-        overflow: "auto",
-        borderRadius: 1,
-        backgroundColor: grey[400],
-      }}
-    >
+    <Box className="w-64 max-w-full h-full overflow-auto rounded" sx={{bgcolor: grey[400]}}>
       <MenuList>
-        <MenuItem>
-          <ListItemIcon>
-            <InventoryIcon fontSize="small" />
-          </ListItemIcon>
-          <Link to="bestellingen">
+        <Link to="gegevens">
+          <MenuItem>
+           <ListItemIcon>
+             <PersonIcon fontSize="small" />
+           </ListItemIcon>
+           <ListItemText>Gegevens</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to="bestellingen">
+          <MenuItem>
+            <ListItemIcon>
+              <InventoryIcon fontSize="small" />
+            </ListItemIcon>
             <ListItemText>Bestellingen</ListItemText>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <PaymentIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Betalingen</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Badge badgeContent={2} showZero>
-              <NoteIcon fontSize="small" />
-            </Badge>
-          </ListItemIcon>
-          <ListItemText>Notificaties</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ManageAccountsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Gegevens</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <QuestionAnswerIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Chat-geschiedenis</ListItemText>
-        </MenuItem>
+          </MenuItem>
+        </Link>
+        <Link>
+          <MenuItem>
+            <ListItemIcon>
+              <Badge badgeContent={2} showZero>
+                <NoteIcon fontSize="small" />
+              </Badge>
+            </ListItemIcon>
+            <ListItemText>Notificaties</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link>
+          <MenuItem>
+            <ListItemIcon>
+              <PaymentIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Betalingen</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link>
+          <MenuItem>
+            <ListItemIcon>
+              <QuestionAnswerIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Chat-geschiedenis</ListItemText>
+          </MenuItem>
+        </Link>
       </MenuList>
     </Box>
   );
