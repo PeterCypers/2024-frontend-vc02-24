@@ -2,6 +2,7 @@ import { IoCart } from "react-icons/io5";
 import { Link, Outlet } from "react-router-dom";
 import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Divider } from '@mui/material';
 import { Login, Logout, Person } from '@mui/icons-material';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import { useState } from 'react';
 import { useAuth } from '../contexts/Auth.context';
 import { red } from "@mui/material/colors";
@@ -101,31 +102,14 @@ const Navbar = () => {
                       Accountoverzicht 
                     </MenuItem>
                   </Link>
-                  <Divider />
-                  {/* <Link to="/">
+                  <Link to="/">
                     <MenuItem>
                       <ListItemIcon>
-                        <Sell fontSize="small" />
+                        <WarehouseIcon fontSize="small" />
                       </ListItemIcon>
                       Producten
                     </MenuItem>
                   </Link>
-                  <Link to="/bestellingen">
-                    <MenuItem>
-                      <ListItemIcon>
-                        <LocalShipping fontSize="small" />
-                      </ListItemIcon>
-                      Bestellingen
-                    </MenuItem>
-                  </Link>
-                  <Link to="/notificaties">
-                    <MenuItem>
-                      <ListItemIcon>
-                        <Notifications fontSize="small" />
-                      </ListItemIcon>
-                      Notificaties
-                    </MenuItem>
-                  </Link> */}
                   <Link to="/logout">
                     <MenuItem>
                       <ListItemIcon>
