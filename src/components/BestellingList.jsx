@@ -13,7 +13,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import { grey } from '@mui/material/colors';
-import Bestelling from './Bestelling';
+import { useNavigate } from 'react-router-dom';
+import { getAll } from '../api';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -25,9 +26,26 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
+function getComparatorKlant(order, orderBy) {
+  return (a, b) => {
+    if (orderBy === 'KLANT_BEDRIJF_NAAM') {
+      if (!a.klant ||!b.klant) {
+        return 0; // or some other default value
+      }
+      if (a.klant.KLANT_BEDRIJF_NAAM < b.klant.KLANT_BEDRIJF_NAAM) {
+        return order === 'asc'? -1 : 1;
+      }
+      if (a.klant.KLANT_BEDRIJF_NAAM > b.klant.KLANT_BEDRIJF_NAAM) {
+        return order === 'asc'? 1 : -1;
+      }
+      return 0;
+    }
+  };
+}
+
 function getComparator(order, orderBy) {
   return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
+   ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
@@ -45,31 +63,31 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'date',
+    id: 'DATUMGEPLAATST',
     numeric: false,
     disablePadding: true,
     label: 'Datum',
   },
   {
-    id: 'naame',
+    id: 'KLANT_BEDRIJF_NAAM',
     numeric: false,
     disablePadding: false,
     label: 'Naam',
   },
   {
-    id: 'orderid',
+    id: 'ORDERID',
     numeric: true,
     disablePadding: false,
     label: 'Order id',
   },
   {
-    id: 'orderstatus',
+    id: 'ORDERSTATUS',
     numeric: false,
     disablePadding: false,
     label: 'Orderstatus',
   },
   {
-    id: 'betalingstatus',
+    id: 'BETALINGSTATUS',
     numeric: false,
     disablePadding: false,
     label: 'Betalingstatus',
@@ -114,13 +132,19 @@ function EnhancedTableHead(props) {
   );
 }
 
-export default function EnhancedTable({bestellingen}) {
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+}
+
+function EnhancedTable({bestellingen}) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -145,7 +169,7 @@ export default function EnhancedTable({bestellingen}) {
       );
     }
     setSelected(newSelected);
-    // <Bestelling key={id} bestelling={bestelling}/>
+    navigate(`/profiel/bestellingen/${bestelling.ORDERID}`, { state: { id } });
   };
 
   const handleChangePage = (event, newPage) => {
@@ -167,14 +191,20 @@ export default function EnhancedTable({bestellingen}) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - bestellingen.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(bestellingen, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage],
-  );
+  const visibleRows = React.useMemo(() => {
+      if (orderBy === 'KLANT_BEDRIJF_NAAM') {
+        return stableSort(bestellingen, getComparatorKlant(order, orderBy)).slice(
+          page * rowsPerPage,
+          page * rowsPerPage + rowsPerPage,
+        );
+      } else {
+        return stableSort(bestellingen, getComparator(order, orderBy)).slice(
+          page * rowsPerPage,
+          page * rowsPerPage + rowsPerPage,
+        );
+      }
+  }, [order, orderBy, page, rowsPerPage]);
+
 
   return (
     <Box sx={{bgcolor: grey[400], borderRadius: 1, width: '100%', height: '100%'}}>
@@ -195,14 +225,13 @@ export default function EnhancedTable({bestellingen}) {
                 const isItemSelected = isSelected(bestelling.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, HERINNERINGSDATUM, klant } = bestelling;
-
                 return (
                   <TableRow
                     hover
                     onClick={(event) => handleClick(event, ORDERID, bestelling)}
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={bestelling.id}
+                    key={ORDERID}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
@@ -213,7 +242,7 @@ export default function EnhancedTable({bestellingen}) {
                       padding="none"
                       align='center'
                     >
-                      {DATUMGEPLAATST}
+                      {formatDateTime(DATUMGEPLAATST)}
                     </TableCell>
                     <TableCell align="center">{klant.KLANT_BEDRIJF_NAAM}</TableCell>
                     <TableCell align="center">{ORDERID}</TableCell>
@@ -251,3 +280,5 @@ export default function EnhancedTable({bestellingen}) {
     </Box>
   );
 }
+
+export default EnhancedTable;

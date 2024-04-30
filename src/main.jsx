@@ -16,6 +16,7 @@ import ProfielPage from "./pages/ProfielPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import BestellingDetailPage from "./pages/BestellingDetailPage";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
               //   path: "gegevens",
               //   element: <GegevensPage />,
               // },
+              {
+                path: "bestellingen/:id",
+                element: <BestellingDetailPage />,
+              },
             ],
           },
         ],

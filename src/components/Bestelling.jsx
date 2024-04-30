@@ -8,12 +8,6 @@ import { getById } from "../api";
 export default function Bestelling({ bestelling }) {
   const { gebruikerRol } = useAuth();
 
-  // const {
-  //   data: bestelling,
-  //   isLoading,
-  //   error,
-  // } = useSWR("id", getById);
-
   if (gebruikerRol === "LEVERANCIER") {
     return (
       <BestellingLeverancier key={bestelling.ORDERID} bestelling={bestelling} />
