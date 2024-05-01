@@ -1,28 +1,31 @@
-import React from "react";
-import useSWR from "swr";
+import React, { useEffect } from "react";
+import useSWR, {mutate} from "swr";
+import { useSWRConfig } from 'swr';
 import { getAll } from "../api";
+import { Box, CircularProgress } from "@mui/material";
 import BestellingList from "../components/BestellingList";
-import { Box } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 const BestellingenPage = () => {
   const {
     data: bestellingen = [],
     isLoading,
     error,
-  } = useSWR("bestellingen", getAll);
-  
+  } = useSWR("bestellingen", getAll, {revalidateOnMount: true});
+
+  //data komt twee keer binnen
+
+  if(isLoading){
+    return <CircularProgress />;
+  }
+
   return (
     <>
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          borderRadius: 1,
-        }}
-      >
-        <BestellingList bestellingen={bestellingen} />
-      </Box>
+      <div className="h-full w-full rounded-md">
+        <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
+          <BestellingList bestellingen={bestellingen} />
+        </Box>
+      </div>
+        
     </>
   );
 };

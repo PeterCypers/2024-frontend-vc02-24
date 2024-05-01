@@ -8,7 +8,6 @@ import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom"
 
 
 import "./index.css";
-import Test from "./pages/Test";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -18,6 +17,7 @@ import BedrijfsGegevensPage from "./pages/BedrijfsGegevensPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import BestellingDetailPage from "./pages/BestellingDetailPage";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +29,7 @@ const theme = createTheme({
     allVariants: {
       fontFamily: "Comfortaa",
       textTransform: "none",
-      fontSize: 14,
+      fontSize: 16,
     },
   },
 });
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
               {
                 path: "gegevens",
                 element: <BedrijfsGegevensPage/>
+              },
+              {
+                path: "bestellingen/:id",
+                element: <BestellingDetailPage />,
               },
             ],
           },
