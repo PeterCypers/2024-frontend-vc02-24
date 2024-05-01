@@ -40,6 +40,12 @@ html {
     background-repeat: no-repeat;
 }
 
+#profiel-title{
+    background-image: url(/public/images/backgroundTitle.png), url('/public/images/books.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
 #h1{
     font-weight: bolder;
     font-size: large;
