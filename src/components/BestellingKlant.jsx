@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from '@mui/material/styles';
-import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper, TableHead } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -60,14 +60,14 @@ function TablePaginationActions(props) {
     </Box>
   );
 }
-//products -> invoegen nog
-function CustomPaginationActionsTable() {
+
+function CustomPaginationActionsTable({producten}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - producten.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -79,7 +79,7 @@ function CustomPaginationActionsTable() {
   };
 
   return (
-    <TableContainer component={Paper} className="bg-transparent">
+    <TableContainer component={Paper} style={{backgroundColor: 'transparent'}}>
       <Table className="min-w-96" aria-label="custom pagination table">
         <TableHead>
           <TableRow>
@@ -92,17 +92,17 @@ function CustomPaginationActionsTable() {
         </TableHead>
         <TableBody>
           {(rowsPerPage > 0
-            ? products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : products
+            ? producten.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : producten
           ).map((product) => (
-            <TableRow key={product.name}>
-              <TableCell component="th" scope="row" align="right">
-                {product.name}
+            <TableRow key={product.PRODUCT_NAAM}>
+              <TableCell component="th" scope="row" align="left">
+                {product.PRODUCT_NAAM}
               </TableCell>
-              <TableCell align="center">{product.aantal}</TableCell>
-              <TableCell align="center">{product.instock}</TableCell>
-              <TableCell align="center">{product.eenheidsprijs}</TableCell>
-              <TableCell align="center">{product.totaleprijs}</TableCell>
+              <TableCell align="center">{product.PRODUCT_AANTAL}</TableCell>
+              <TableCell align="center">{product.PRODUCT_STOCK}</TableCell>
+              <TableCell align="center">{product.PRODUCT_EENHEIDSPRIJS}</TableCell>
+              <TableCell align="center">todo</TableCell>
             </TableRow>
           ))}
           {emptyRows > 0 && (
@@ -115,8 +115,7 @@ function CustomPaginationActionsTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={products.length}
+              count={producten.length}
               rowsPerPage={rowsPerPage}
               page={page}
               slotProps={{
@@ -138,6 +137,11 @@ function CustomPaginationActionsTable() {
   );
 }
 
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+}
+
 const BestellingKlant = ({ bestelling }) => {
   const [open, setOpen] = useState(false);
 
@@ -148,23 +152,24 @@ const BestellingKlant = ({ bestelling }) => {
     BETALINGSTATUS,
     klant,
     leverancier,
+    producten,
   } = bestelling;
 
   return (
     <>
-      <div className="rounded h-screen w-auto">
-        <h2 className="text-red-500 font-extrabold">Gegevens</h2>
-        <div className=" grid grid-rows-4 grid-flow-col gap-4">
+      <div className="h-auto w-auto pt-5 rounded-md bg-gray-400 bg-opacity-65">
+        <h2 className="text-red-600 font-extrabold text-2xl">Gegevens</h2>
+        <div className=" grid grid-cols-4 gap-4">
           <div className="text-red-950 font-bold">Order id:</div>
           <div>{ORDERID}</div>
           <div className="text-red-950 font-bold">Datum geplaatst:</div>
-          <div>{DATUMGEPLAATST}</div>
+          <div>{formatDateTime(DATUMGEPLAATST)}</div>
           <div className="text-red-950 font-bold">Leverancier naam:</div>
           <div>{leverancier.LEVERANCIER_BEDRIJF_NAAM}</div>
           <div className="text-red-950 font-bold">Totale bedrag:</div>
           <div>prijs</div>
           <div className="text-red-950 font-bold">Leveradres:</div>
-          <div className="col-span-2">
+          <div className="col-span-3">
             <div>{klant.STRAAT}</div>
             <div>{klant.STRAATNR}</div>
             <div>{klant.STAD}</div>
@@ -172,18 +177,18 @@ const BestellingKlant = ({ bestelling }) => {
             <div>{klant.LAND}</div>
           </div>
           <div className="text-red-950 font-bold">Orderstatus:</div>
-          <div className="col-span-2">{ORDERSTATUS}</div>
+          <div className="col-span-3">{ORDERSTATUS}</div>
           <div className="text-red-950 font-bold">Bestalingstatus:</div>
-          <div className="col-span-2">{BETALINGSTATUS}</div>
+          <div className="col-span-3">{BETALINGSTATUS}</div>
           <div className="text-red-950 font-bold col-span-4">Betaalgegevens</div>
-          <div className="font-bold">Rekeningnummer:</div>
-          <div className="col-span-2">{leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}</div>
-          <div className="font-bold">BTW-nummer:</div>
-          <div className="col-span-2">{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</div>
+          <div className="font-bold pl-5">Rekeningnummer:</div>
+          <div className="col-span-3">{leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}</div>
+          <div className="font-bold pl-5">BTW-nummer:</div>
+          <div className="col-span-3">{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</div>
         </div>
         <div>
-          <h2 className="text-red-500 font-extrabold">Producten</h2>
-          <CustomPaginationActionsTable/>
+          <h2 className="text-red-600 font-extrabold text-2xl mt-5">Producten</h2>
+          <CustomPaginationActionsTable producten={producten}/>
         </div>
       </div>
     </>

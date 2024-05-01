@@ -2,6 +2,7 @@ import * as React from 'react';
 import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
 import {Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, FormControlLabel, Switch} from '@mui/material';
+import { useAuth } from '../contexts/Auth.context';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -192,7 +193,6 @@ function EnhancedTable({bestellingen}) {
       }
   }, [order, orderBy, page, rowsPerPage]);
 
-
   return (
     <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
       <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
@@ -211,7 +211,7 @@ function EnhancedTable({bestellingen}) {
               {visibleRows.map((bestelling, index) => {
                 const isItemSelected = isSelected(bestelling.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
-                const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, HERINNERINGSDATUM, klant } = bestelling;
+                const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, HERINNERINGSDATUM, klant, leverancier } = bestelling;
                 return (
                   <TableRow
                     hover
@@ -231,7 +231,7 @@ function EnhancedTable({bestellingen}) {
                     >
                       {formatDateTime(DATUMGEPLAATST)}
                     </TableCell>
-                    <TableCell align="center">{klant.KLANT_BEDRIJF_NAAM}</TableCell>
+                    <TableCell align="center">{name(klant, leverancier)}</TableCell>
                     <TableCell align="center">{ORDERID}</TableCell>
                     <TableCell align="center">{ORDERSTATUS}</TableCell>
                     <TableCell align="center">{BETALINGSTATUS}</TableCell>
@@ -266,6 +266,15 @@ function EnhancedTable({bestellingen}) {
       />
     </Box>
   );
+}
+
+function name(klant, leverancier){
+  const { gebruikerRol } = useAuth();
+
+  if(gebruikerRol === 'LEVERANCIER'){
+    return klant.KLANT_BEDRIJF_NAAM;
+  }
+  return leverancier.LEVERANCIER_BEDRIJF_NAAM;
 }
 
 export default EnhancedTable;

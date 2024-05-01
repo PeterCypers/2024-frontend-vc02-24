@@ -17,12 +17,11 @@ const BestellingDetailPage = () => {
   if(isLoading){
     return <CircularProgress />;
   }
-  
-  console.log(bestelling);
+
   return (
     <>
-      <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
-        {/* <Bestelling bestelling={bestelling} /> */}
+      <Box className='w-auto h-full rounded-md'>
+        <Bestelling bestelling={bestelling} />
       </Box>
     </>
   );
