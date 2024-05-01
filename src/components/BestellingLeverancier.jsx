@@ -148,7 +148,7 @@ const BestellingLeverancier = ({ bestelling }) => {
 
   return (
     <>
-      <div className="h-auto w-auto pt-5 rounded-md bg-gray-400 bg-opacity-65">
+      <div className="h-auto w-auto p-5 rounded-md bg-gray-400 bg-opacity-65">
         <h2 className="text-red-600 font-extrabold text-2xl">Gegevens</h2>
         <div className=" grid grid-cols-4 gap-4">
           <div className="text-red-950 font-bold">Order id:</div>
