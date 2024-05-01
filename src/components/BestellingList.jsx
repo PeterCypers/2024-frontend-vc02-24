@@ -185,13 +185,12 @@ function EnhancedTable({bestellingen}) {
           page * rowsPerPage,
           page * rowsPerPage + rowsPerPage,
         );
-      } else {
-        return stableSort(bestellingen, getComparator(order, orderBy)).slice(
-          page * rowsPerPage,
-          page * rowsPerPage + rowsPerPage,
-        );
       }
-  }, [order, orderBy, page, rowsPerPage]);
+      return stableSort(bestellingen, getComparator(order, orderBy)).slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage,
+      );
+  }, [order, orderBy, page, rowsPerPage, bestellingen]);
 
   return (
     <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
