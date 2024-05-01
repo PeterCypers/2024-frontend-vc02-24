@@ -2,8 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import useSWR from "swr";
 import { getById } from "../api";
-import { Box } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { Box, CircularProgress } from "@mui/material";
 import Bestelling from "../components/Bestelling";
 
 const BestellingDetailPage = () => {
@@ -14,11 +13,15 @@ const BestellingDetailPage = () => {
     isLoading, 
     error,
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
+
+  if(isLoading){
+    return <CircularProgress />;
+  }
   
   console.log(bestelling);
   return (
     <>
-      <Box className='w-auto h-screen' sx={{bgcolor: grey[400], borderRadius: 1}}>
+      <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
         {/* <Bestelling bestelling={bestelling} /> */}
       </Box>
     </>

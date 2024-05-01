@@ -33,6 +33,13 @@ html {
     background-repeat: no-repeat;
 }
 
+#bestelling-container {
+    background-image: url('/public/images/BestellingBackground1.png'), url('/public/images/BestellingBackground2.png'), url('/public/images/BestellingBackground3.png'), url('/public/images/BestellingBackground4.png');
+    background-size: 6rem;
+    background-position: left 306px top 11px, left 248px top 400px, right -32px top 100px, right -28px bottom;
+    background-repeat: no-repeat;
+}
+
 #h1{
     font-weight: bolder;
     font-size: large;

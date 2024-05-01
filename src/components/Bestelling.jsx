@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useAuth } from "../contexts/Auth.context";
-import useSWR from "swr";
 import BestellingLeverancier from "./BestellingLeverancier";
 import BestellingKlant from "./BestellingKlant";
-import { getById } from "../api";
 
 export default function Bestelling({ bestelling }) {
   const { gebruikerRol } = useAuth();

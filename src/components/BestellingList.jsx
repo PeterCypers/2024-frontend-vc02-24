@@ -1,20 +1,7 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
-import { grey } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
-import { getAll } from '../api';
+import {Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, FormControlLabel, Switch} from '@mui/material';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -30,7 +17,7 @@ function getComparatorKlant(order, orderBy) {
   return (a, b) => {
     if (orderBy === 'KLANT_BEDRIJF_NAAM') {
       if (!a.klant ||!b.klant) {
-        return 0; // or some other default value
+        return 0;
       }
       if (a.klant.KLANT_BEDRIJF_NAAM < b.klant.KLANT_BEDRIJF_NAAM) {
         return order === 'asc'? -1 : 1;
@@ -207,8 +194,8 @@ function EnhancedTable({bestellingen}) {
 
 
   return (
-    <Box sx={{bgcolor: grey[400], borderRadius: 1, width: '100%', height: '100%'}}>
-      <Paper sx={{bgcolor: grey[400], borderRadius: 1, width: '100%', height: '100%'}}>
+    <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
+      <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
         <TableContainer className='bg-transparent'>
           <Table className='min-w-96'
             aria-labelledby="tableTitle"

@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -88,7 +80,7 @@ function CustomPaginationActionsTable() {
 
   return (
     <TableContainer component={Paper} className="bg-transparent">
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table className="min-w-96" aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             <TableCell align="center">Naam</TableCell>
@@ -154,7 +146,7 @@ const BestellingLeverancier = ({ bestelling }) => {
 
   return (
     <>
-      <div className="bg-gray-400 rounded h-screen w-auto">
+      <div className="rounded h-screen w-auto">
         <h2 className="text-red-500 font-extrabold">Gegevens</h2>
         <div className=" grid grid-rows-4 grid-flow-col gap-4">
           <div className="text-red-950 font-bold">Order id:</div>

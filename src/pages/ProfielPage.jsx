@@ -11,7 +11,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import PaymentIcon from "@mui/icons-material/Payment";
 import NoteIcon from "@mui/icons-material/Note";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import { red, grey } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { Link, Outlet } from "react-router-dom";
 
 export default function ProfielPage() {
@@ -25,19 +25,16 @@ export default function ProfielPage() {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           p: 3,
-          marginBottom: 3,
           marginTop: 3,
         }}
       >
           <h1 id="h1">Accountoverzicht</h1>
       </Box>
-      <div
-        className="px-4 flex flex-grow w-full h-screen space-x-4"
-      >
-        <div className="h-full w-fit">
+      <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="bestelling-container">
+        <div className="h-full w-fit mt-10 mr-10">
           <SideMenu />
         </div>
-        <div className="h-full w-full">
+        <div className="h-full w-full mt-10 rounded-md">
           <Outlet />
         </div>
       </div>
@@ -85,7 +82,7 @@ const Badge = styled(BaseBadge)(
 
 function SideMenu() {
   return (
-    <Box className="w-64 max-w-full h-full overflow-auto rounded" sx={{bgcolor: grey[400]}}>
+    <Box className="w-56 max-w-full h-full overflow-auto rounded bg-gray-300">
       <MenuList>
         <Link to="gegevens">
           <MenuItem>
