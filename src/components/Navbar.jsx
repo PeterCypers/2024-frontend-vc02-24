@@ -1,8 +1,8 @@
-import { IoCart } from "react-icons/io5";
 import { Link, Outlet } from "react-router-dom";
 import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Divider } from '@mui/material';
 import { Login, Logout, Person } from '@mui/icons-material';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useState } from 'react';
 import { useAuth } from '../contexts/Auth.context';
 import { red } from "@mui/material/colors";
@@ -37,11 +37,9 @@ const Navbar = () => {
             />
           </li>
           <ul className="flex">
-            <li className="items-end">
-              <Link to="/winkelmand">
-                <IconButton disableRipple={true}>
-                  <IoCart className="text-red-600" size={38} />
-                </IconButton>
+            <li className="items-end mt-3">
+              <Link to="/notification">
+                  <NotificationsIcon className="text-red-600" fontSize="large"/>
               </Link>
             </li>
             <li>
