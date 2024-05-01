@@ -14,6 +14,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import BestellingenPage from "./pages/BestellingenPage";
 import ProfielPage from "./pages/ProfielPage";
 import BedrijfsGegevensPage from "./pages/BedrijfsGegevensPage";
+import NotificatiePage from "./pages/NotificatiePage";
+import BestellingDetailPage from "./pages/BestellingDetailPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
               {
                 path: "bestellingen",
                 element: <BestellingenPage />,
+              },
+              {
+                path: "bestellingen/:id",
+                element: <BestellingDetailPage />,
+              },
+              {
+                path: "notificaties",
+                element: <NotificatiePage />,
               },
               {
                 path: "gegevens",
