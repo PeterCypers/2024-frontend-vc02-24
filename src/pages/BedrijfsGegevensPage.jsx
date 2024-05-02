@@ -30,32 +30,29 @@ const BedrijfsGegevensPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 bg-white h-full w-full" id='gegevens-container'>
       <div>
-        <div className=" p-4">
+        <div className="p-4">
           <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{bedrijf.NAAM}</h1>
           <div id='bedrijfgegevensGridOne' className='grid grid-cols-2 gap-4'>
-            <div class='darkRedGegevens'>Sector:</div>
+            <div className="text-red-950 font-bold">Sector:</div>
             <div>{bedrijf.SECTOR}</div>
-            <div class='darkRedGegevens'>Adres:</div>
+            <div className="text-red-950 font-bold">Adres:</div>
             <div>{bedrijf.STRAAT} {bedrijf.STRAATNR} <br /> {bedrijf.STAD} {bedrijf.POSTCODE} {bedrijf.LAND}</div>
             <div id='bedrijfgegevensGridTwo' className='grid grid-cols-2 gap-4 col-span-2'>
-              <div class='darkRedGegevens'>Contactgegevens:</div>
+              <div className="text-red-950 font-bold">Contactgegevens:</div>
               <div>{bedrijf.EMAILADRES} <br /> {bedrijf.TELEFOONNUMMER}</div>
-              <div class='darkRedGegevens'>Rekeningnummer:</div>
+              <div className="text-red-950 font-bold">Rekeningnummer:</div>
               <div>{bedrijf.REKENINGNUMMER}</div>
-              <div class='darkRedGegevens'>BTW-nummer:</div>
+              <div className="text-red-950 font-bold">BTW-nummer:</div>
               <div>{bedrijf.BTWNR}</div>
             </div>
           </div>
 
         </div>
       </div>
-      <div className="p-4 w-56">
+      <div className="m-4 w-64">
         <img src={bedrijf.LOGO} alt="Image" className="w-full" />
-      </div>
-      <div className="h-8 col-span-2 min-h-24">
-          <img src="../../public/images/delawareFooter2.png" alt="Footer" className='h-24' style={{minWidth: "52rem"}} />
       </div>
     </div>
   );

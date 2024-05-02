@@ -50,6 +50,13 @@ html {
     background-size: auto;
 }
 
+#gegevens-container{
+    background-image: url(/public/images/delawareFooter2.png);
+    background-repeat: repeat-x;
+    background-size: 50rem;
+    background-position: top 550px left -5px;
+}
+
 #h1{
     font-weight: bolder;
     font-size: large;
@@ -65,8 +72,4 @@ html {
     #bedrijfgegevensGridTwo {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
-}
-.darkRedGegevens {
-    color: #5B1010;
-    font-weight: 600;
 }

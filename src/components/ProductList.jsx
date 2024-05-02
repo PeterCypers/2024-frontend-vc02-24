@@ -75,7 +75,7 @@ const ProductList = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, padding: 2 }}>
+      <Box className="flex justify-items-center gap-2 p-2">
         <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
         <FormControl variant="outlined" size="small" sx={{ width: 200 }}>
           <InputLabel id="sort-label">Sort By Price</InputLabel>
@@ -92,7 +92,7 @@ const ProductList = () => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ backgroundColor: 'grey.400', p: 2 }}>
+      <Box className="bg-gray-300 p-2 rounded-md">
         <Box className="flex justify-center my-2">
           <Pagination
             color="primary"

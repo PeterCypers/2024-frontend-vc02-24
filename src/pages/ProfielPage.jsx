@@ -18,8 +18,8 @@ import { useState } from "react";
 export default function ProfielPage() {
   const imageURL = "/public/images/backgroundTitle.png";
   return (
-    <div className="w-screen">
-      <Box 
+    <div className="w-full">
+      <Box
         sx={{
           backgroundImage: `url(${imageURL})`,
           backgroundPosition: "center",
@@ -27,6 +27,7 @@ export default function ProfielPage() {
           backgroundRepeat: "no-repeat",
           p: 3,
           marginTop: 3,
+          width: '100%',
         }} id="profiel-title"
       >
           <h1 id="h1">Accountoverzicht</h1>

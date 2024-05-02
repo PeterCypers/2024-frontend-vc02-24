@@ -190,7 +190,7 @@ function EnhancedTable({bestellingen}) {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       );
-  }, [order, orderBy, page, rowsPerPage, bestellingen]);
+  }, [bestellingen, order, orderBy, page, rowsPerPage]);
 
   return (
     <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
@@ -210,7 +210,7 @@ function EnhancedTable({bestellingen}) {
               {visibleRows.map((bestelling, index) => {
                 const isItemSelected = isSelected(bestelling.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
-                const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, HERINNERINGSDATUM, klant, leverancier } = bestelling;
+                const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, klant, leverancier } = bestelling;
                 return (
                   <TableRow
                     hover

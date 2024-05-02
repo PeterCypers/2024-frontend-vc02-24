@@ -12,7 +12,8 @@ const ProductPage = () => {
                     backgroundSize: 'cover', // Ensure the image covers the full area
                     backgroundPosition: 'center center', // Center the image
                     p: 2, 
-                    mb: 5,
+                    mb: 3,
+                    mt: 2,
                     color: 'white', // Text color
                     display: 'flex', // To use flexbox layout
                     alignItems: 'center', // Align items vertically
@@ -23,7 +24,7 @@ const ProductPage = () => {
                     Producten
                 </Typography>
             </Box>
-            <Box sx={{  p: 2, borderRadius: '20px', mt: -2, ml: 2, mr: 2 }}>
+            <Box className="p-1 ml-4 mr-4">
                 <ProductList />
             </Box>
         </>

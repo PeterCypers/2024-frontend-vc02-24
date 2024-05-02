@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTheme } from '@mui/material/styles';
-import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper, TableHead } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper, TableHead, FormControlLabel, Switch } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -63,6 +63,7 @@ function TablePaginationActions(props) {
 
 function CustomPaginationActionsTable({producten}) {
   const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -77,63 +78,75 @@ function CustomPaginationActionsTable({producten}) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  console.log(producten);
+
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
+
   return (
-    <TableContainer component={Paper} style={{backgroundColor: 'transparent'}}>
-      <Table className="min-w-96" aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Naam</TableCell>
-            <TableCell align="center">Aantal</TableCell>
-            <TableCell align="center">In stock</TableCell>
-            <TableCell align="center">Eenheidsprijs</TableCell>
-            <TableCell align="center">Totale prijs</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? producten.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : producten
-          ).map(product => (
-            <TableRow key={product.PRODUCT_NAAM}>
-              <TableCell component="th" scope="row" align="left">
-                {product.PRODUCT_NAAM}
-              </TableCell>
-              <TableCell align="center">{product.PRODUCT_AANTAL}</TableCell>
-              <TableCell align="center">{product.PRODUCT_STOCK}</TableCell>
-              <TableCell align="center">{product.PRODUCT_EENHEIDSPRIJS}</TableCell>
-              <TableCell align="center">todo</TableCell>
-            </TableRow>
-          ))}
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              count={producten.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+    <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
+      <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
+        <TableContainer className='bg-transparent'>
+          <Table className="min-w-96" aria-label="custom pagination table" size={dense ? 'small' : 'medium'}>
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Naam</TableCell>
+                <TableCell align="center">Aantal</TableCell>
+                <TableCell align="center">In stock</TableCell>
+                <TableCell align="center">Eenheidsprijs</TableCell>
+                <TableCell align="center">Totale prijs</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? producten.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : producten
+              ).map(product => (
+                <TableRow key={product.PRODUCT_NAAM}>
+                  <TableCell component="th" scope="row" align="left">
+                    {product.PRODUCT_NAAM}
+                  </TableCell>
+                  <TableCell align="center">{product.PRODUCT_AANTAL}</TableCell>
+                  <TableCell align="center">{product.PRODUCT_STOCK}</TableCell>
+                  <TableCell align="center">{product.PRODUCT_EENHEIDSPRIJS}</TableCell>
+                  <TableCell align="center">todo</TableCell>
+                </TableRow>
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  count={producten.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  slotProps={{
+                    select: {
+                      inputProps: {
+                        'aria-label': 'rows per page',
+                      },
+                      native: true,
+                    },
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Paper>
+      <FormControlLabel
+        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        label="Dense padding"
+      />
+    </Box>
   );
 }
 
