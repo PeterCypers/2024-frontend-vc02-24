@@ -5,7 +5,7 @@ import mockNotificaties from '../components/MockData/notificaties';
 
 const NotificatiePage = () => {
   return (
-    <Box sx={{ width: "100%", height: "100%", borderRadius: 1 }}>
+    <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
       <NotificatieList notificaties={mockNotificaties} />
     </Box>
   );

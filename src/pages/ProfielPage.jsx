@@ -101,7 +101,7 @@ function SideMenu() {
             <ListItemText>Bestellingen</ListItemText>
           </MenuItem>
         </Link>
-        <Link>
+        <Link to="notificaties">
           <MenuItem>
             <ListItemIcon>
               <Badge badgeContent={2} showZero>

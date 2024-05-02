@@ -19,7 +19,7 @@ import BestellingDetailPage from "./pages/BestellingDetailPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import BestellingDetailPage from "./pages/BestellingDetailPage";
+
 
 const theme = createTheme({
   palette: {
