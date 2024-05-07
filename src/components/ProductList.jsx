@@ -105,28 +105,35 @@ const ProductList = () => {
           </Select>
         </FormControl>
       </div>
-      <Box>
-        <Box className="flex justify-center my-2">
-          <Pagination
-            color="primary"
-            count={Math.ceil(filteredProducts.length / itemsPerPage)}
-            page={page}
-            onChange={handlePageChange}
-          />
-        </Box>
-        <Grid container spacing={2} justifyContent="center">
-          {currentProducts.map((product) => (
-            <ProductCard key={product.PRODUCTID} product={product} />
-          ))}
-        </Grid>
-        <Box className="flex justify-center my-2">
-          <Pagination
-            color="primary"
-            count={Math.ceil(filteredProducts.length / itemsPerPage)}
-            page={page}
-            onChange={handlePageChange}
-          />
-        </Box>
+        ) : (
+      <Box className="bg-gray-300 p-2 rounded-md">
+        {currentProducts.length === 0 ? (
+          <p className="text-center">Er zijn geen producten beschikbaar.</p>
+        ) : (
+          <>
+            <Box className="flex justify-center my-2">
+              <Pagination
+                color="primary"
+                count={Math.ceil(filteredProducts.length / itemsPerPage)}
+                page={page}
+                onChange={handlePageChange}
+              />
+            </Box>
+            <Grid container spacing={2} justifyContent="center">
+              {currentProducts.map((product) => (
+                <ProductCard key={product.PRODUCTID} product={product} />
+              ))}
+            </Grid>
+            <Box className="flex justify-center my-2">
+              <Pagination
+                color="primary"
+                count={Math.ceil(filteredProducts.length / itemsPerPage)}
+                page={page}
+                onChange={handlePageChange}
+              />
+            </Box>
+          </>
+        )}
       </Box>
     </>
   );
