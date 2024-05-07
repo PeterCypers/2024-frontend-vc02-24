@@ -1,33 +1,29 @@
 import React from 'react';
 import ProductList from '../components/ProductList';
-import { Container, Typography,Box } from '@mui/material';
 import productPageBackground from '/images/productPageBackground.png'; // Import the background image
+import { Box } from '@mui/material';
 
 const ProductPage = () => {
     return (
-        <>
+        <div className='w-full'>
             <Box 
                 sx={{ 
                     backgroundImage: `url(${productPageBackground})`, // Set the background image using the imported image
                     backgroundSize: 'cover', // Ensure the image covers the full area
-                    backgroundPosition: 'center center', // Center the image
-                    p: 2, 
+                    backgroundPosition: 'center', // Center the image
+                    backgroundRepeat: "no-repeat",
+                    p: 5, 
                     mb: 3,
                     mt: 2,
-                    color: 'white', // Text color
-                    display: 'flex', // To use flexbox layout
-                    alignItems: 'center', // Align items vertically
-                    height: '100px' 
+                    width: '100%',
                 }}
             >
-                <Typography id="h1" variant="h4" component="h1" className="ml-2">
-                    Producten
-                </Typography>
+                <h1 id='h1'>Producten</h1>
             </Box>
-            <Box className="p-1 ml-4 mr-4">
+            <div className="p-1 ml-4 mr-4 h-full" id="product-container">
                 <ProductList />
-            </Box>
-        </>
+            </div>
+        </div>
     );
 };
 

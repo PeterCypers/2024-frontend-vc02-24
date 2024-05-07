@@ -30,31 +30,11 @@ html {
 }
 
 #login-container {
-    background-image: url('/images/Login-background-start.png'), url('/images/Login-background-end.png');
+    background-image: url(/images/Login-background-start.png), url(/images/Login-background-end.png);
     background-size: 16rem;
     background-color: #C32828;
     background-position: left -12px top 16px, right -12px bottom 16px;
     background-repeat: no-repeat;
-}
-
-#bestelling-container {
-    background-image: url('/public/images/BestellingBackground1.png'), url('/public/images/BestellingBackground2.png'), url('/public/images/BestellingBackground3.png'), url('/public/images/BestellingBackground4.png');
-    background-size: 6rem;
-    background-position: left 306px top 11px, left 248px top 400px, right -32px top 100px, right -28px bottom;
-    background-repeat: no-repeat;
-}
-
-#profiel-title{
-    background-image: url(/public/images/backgroundTitle.png), url('/public/images/books.png');
-    background-repeat: no-repeat;
-    background-size: auto;
-}
-
-#gegevens-container{
-    background-image: url(/public/images/delawareFooter2.png);
-    background-repeat: repeat-x;
-    background-size: 50rem;
-    background-position: top 550px left -5px;
 }
 
 #h1{
@@ -62,6 +42,34 @@ html {
     font-size: large;
     color: white;
 }
+
+#product-container {
+    background-image: url(/images/ProductBackground1.png), url(/images/BestellingBackground3.png), url(/images/BestellingBackground1.png), url(/images/ProductBackground2.png);
+    background-repeat: no-repeat;
+    background-size: 15rem, 5rem, 8rem, 5rem;
+    background-position: top 82px right 12px, top 400px left 290px, top 565px right 280px, bottom 200px left 690px;
+}
+
+#profiel-title {
+    background-image: url(/images/backgroundTitle.png), url(/images/books.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#profiel-container {
+    background-image: url(/images/BestellingBackground1.png), url(/images/BestellingBackground2.png), url(/images/BestellingBackground3.png), url(/images/BestellingBackground4.png);
+    background-size: 8rem, 5rem, 5rem, 6rem;
+    background-position: left 295px top 2px, left 256px top 350px, right -24px top 100px, right -28px bottom 30px;
+    background-repeat: no-repeat;
+}
+
+#gegevens-container {
+    background-image: url(/images/delawareFooter2.png);
+    background-repeat: repeat-x;
+    background-size: 50rem;
+    background-position: top 550px left -5px;
+}
+
 @media screen and (max-width: 600px){
     #bedrijfgegevensGridOne {
         display: flex;

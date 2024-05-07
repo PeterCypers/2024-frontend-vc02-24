@@ -13,10 +13,9 @@ import NoteIcon from "@mui/icons-material/Note";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { red } from "@mui/material/colors";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
 
 export default function ProfielPage() {
-  const imageURL = "/public/images/backgroundTitle.png";
+  const imageURL = "/images/backgroundTitle.png";
   return (
     <div className="w-full">
       <Box
@@ -25,14 +24,14 @@ export default function ProfielPage() {
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          p: 3,
-          marginTop: 3,
+          p: 5,
+          my: 2,
           width: '100%',
         }} id="profiel-title"
       >
           <h1 id="h1">Accountoverzicht</h1>
       </Box>
-      <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="bestelling-container">
+      <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="profiel-container">
         <div className="h-full w-fit mt-10 mr-10">
           <SideMenu />
         </div>
@@ -84,7 +83,7 @@ const Badge = styled(BaseBadge)(
 
 function SideMenu() {
   return (
-    <Box className="w-56 max-w-full h-full overflow-auto rounded bg-gray-300">
+    <Box className="w-56 max-w-full h-full overflow-auto rounded">
       <MenuList>
         <Link to="gegevens">
           <MenuItem>

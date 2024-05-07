@@ -75,9 +75,9 @@ const ProductList = () => {
 
   return (
     <>
-      <Box className="flex justify-items-center gap-2 p-2">
+      <div className="flex justify-between justify-items-center content-center gap-2 p-2">
         <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
-        <FormControl variant="outlined" size="small" sx={{ width: 200 }}>
+        <FormControl className='w-52 self-center' variant="outlined" size="small" >
           <InputLabel id="sort-label">Sort By Price</InputLabel>
           <Select
             labelId="sort-label"
@@ -91,8 +91,8 @@ const ProductList = () => {
             <MenuItem value="low">Price: Low to High</MenuItem>
           </Select>
         </FormControl>
-      </Box>
-      <Box className="bg-gray-300 p-2 rounded-md">
+      </div>
+      <Box>
         <Box className="flex justify-center my-2">
           <Pagination
             color="primary"

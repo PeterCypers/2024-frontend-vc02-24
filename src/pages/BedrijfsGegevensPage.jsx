@@ -30,7 +30,7 @@ const BedrijfsGegevensPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 bg-white h-full w-full" id='gegevens-container'>
+    <div className="grid grid-cols-2 gap-6 h-full w-full p-5">
       <div>
         <div className="p-4">
           <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{bedrijf.NAAM}</h1>
@@ -51,8 +51,8 @@ const BedrijfsGegevensPage = () => {
 
         </div>
       </div>
-      <div className="m-4 w-64">
-        <img src={bedrijf.LOGO} alt="Image" className="w-full" />
+      <div className="ml-28 w-64">
+        <img src={bedrijf.LOGO} alt="Image" />
       </div>
     </div>
   );

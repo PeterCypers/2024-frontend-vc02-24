@@ -21,7 +21,7 @@ const BestellingenPage = () => {
   return (
     <>
       <div className="h-full w-full rounded-md">
-        <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
+        <Box className='w-auto h-screen p-10'>
           <BestellingList bestellingen={bestellingen} />
         </Box>
       </div>

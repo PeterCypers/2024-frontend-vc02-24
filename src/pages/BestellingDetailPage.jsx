@@ -20,7 +20,7 @@ const BestellingDetailPage = () => {
 
   return (
     <>
-      <Box className='w-auto h-full rounded-md'>
+      <Box className='w-auto h-full px-9 pt-4'>
         <Bestelling bestelling={bestelling} />
       </Box>
     </>

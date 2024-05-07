@@ -15,18 +15,35 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparatorKlant(order, orderBy) {
+  const { gebruikerRol } = useAuth();
   return (a, b) => {
-    if (orderBy === 'KLANT_BEDRIJF_NAAM') {
-      if (!a.klant ||!b.klant) {
+    if(gebruikerRol === "LEVERANCIER"){
+      if (orderBy === 'KLANT_BEDRIJF_NAAM') {
+        if (!a.klant ||!b.klant) {
+          return 0;
+        }
+        if (a.klant.KLANT_BEDRIJF_NAAM < b.klant.KLANT_BEDRIJF_NAAM) {
+          return order === 'asc'? -1 : 1;
+        }
+        if (a.klant.KLANT_BEDRIJF_NAAM > b.klant.KLANT_BEDRIJF_NAAM) {
+          return order === 'asc'? 1 : -1;
+        }
         return 0;
       }
-      if (a.klant.KLANT_BEDRIJF_NAAM < b.klant.KLANT_BEDRIJF_NAAM) {
-        return order === 'asc'? -1 : 1;
+    }
+    if(gebruikerRol === "KLANT"){
+      if (orderBy === 'KLANT_BEDRIJF_NAAM') {
+        if (!a.leverancier ||!b.leverancier) {
+          return 0;
+        }
+        if (a.leverancier.LEVERANCIER_BEDRIJF_NAAM < b.leverancier.LEVERANCIER_BEDRIJF_NAAM) {
+          return order === 'asc'? -1 : 1;
+        }
+        if (a.leverancier.LEVERANCIER_BEDRIJF_NAAM > b.leverancier.LEVERANCIER_BEDRIJF_NAAM) {
+          return order === 'asc'? 1 : -1;
+        }
+        return 0;
       }
-      if (a.klant.KLANT_BEDRIJF_NAAM > b.klant.KLANT_BEDRIJF_NAAM) {
-        return order === 'asc'? 1 : -1;
-      }
-      return 0;
     }
   };
 }
@@ -91,7 +108,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead className='bg-transparent'>
+    <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
@@ -99,7 +116,7 @@ function EnhancedTableHead(props) {
             align="center"
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
-
+            sx={{fontWeight: 'bold'}}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -125,12 +142,48 @@ function formatDateTime(dateString) {
   return date.toLocaleDateString();
 }
 
+function name(klant, leverancier){
+  const { gebruikerRol } = useAuth();
+
+  if(gebruikerRol === 'LEVERANCIER'){
+    return klant.KLANT_BEDRIJF_NAAM;
+  }
+  return leverancier.LEVERANCIER_BEDRIJF_NAAM;
+}
+
+function orderstatus(ORDERSTATUS) {
+  switch(ORDERSTATUS) {
+    case 'GEPLAATST' :
+      return <div className="col-span-3 font-black text-orange-300">Geplaatst</div>
+    case 'VERWERKT':
+      return <div className="col-span-3 font-black text-blue-300">Verwerkt</div>
+    case 'VERZONDEN':
+      return <div className="col-span-3 font-black text-purple-400">Verzonden</div>
+    case 'UIT_VOOR_LEVERING':
+      return <div className="col-span-3 font-black text-rose-300">Uit voor levering</div>
+    case 'GELEVERD':
+      return <div className="col-span-3 font-black text-red-400">Geleverd</div>
+    case 'VOLTOOID':
+      return <div className="col-span-3 font-black text-green-300">Voltooid</div>
+  }
+}
+
+function betalingstatus(BETALINGSTATUS) {
+  switch(BETALINGSTATUS) {
+    case 'ONVERWERKT':
+      return <div className="col-span-3 font-black text-yellow-300">Onverwerkt</div>
+    case 'FACTUUR_VERZONDEN':
+      return <div className="col-span-3 font-black text-indigo-400">Factuur verzonden</div>
+    case 'BETAALD':
+      return <div className="col-span-3 font-black text-green-400">Betaald</div>
+  }
+}
+
 function EnhancedTable({bestellingen}) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const navigate = useNavigate();
 
@@ -169,10 +222,6 @@ function EnhancedTable({bestellingen}) {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -193,14 +242,14 @@ function EnhancedTable({bestellingen}) {
   }, [bestellingen, order, orderBy, page, rowsPerPage]);
 
   return (
-    <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
-      <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
-        <TableContainer className='bg-transparent'>
-          <Table className='min-w-96'
+    <Box className="rounded-md w-full h-full">
+      <Paper className='rounded-md w-full h-fit'>
+        <TableContainer>
+          <Table className='min-w-96 rounded-md'
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={'medium'}
           >
-            <EnhancedTableHead className='bg-transparent'
+            <EnhancedTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -232,15 +281,15 @@ function EnhancedTable({bestellingen}) {
                     </TableCell>
                     <TableCell align="center">{name(klant, leverancier)}</TableCell>
                     <TableCell align="center">{ORDERID}</TableCell>
-                    <TableCell align="center">{ORDERSTATUS}</TableCell>
-                    <TableCell align="center">{BETALINGSTATUS}</TableCell>
+                    <TableCell align="center">{orderstatus(ORDERSTATUS)}</TableCell>
+                    <TableCell align="center">{betalingstatus(BETALINGSTATUS)}</TableCell>
                   </TableRow>
                 );
               })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (33) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -249,7 +298,7 @@ function EnhancedTable({bestellingen}) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination className='bg-transparent'
+        <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={bestellingen.length}
@@ -259,21 +308,9 @@ function EnhancedTable({bestellingen}) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
 
-function name(klant, leverancier){
-  const { gebruikerRol } = useAuth();
-
-  if(gebruikerRol === 'LEVERANCIER'){
-    return klant.KLANT_BEDRIJF_NAAM;
-  }
-  return leverancier.LEVERANCIER_BEDRIJF_NAAM;
-}
 
 export default EnhancedTable;
