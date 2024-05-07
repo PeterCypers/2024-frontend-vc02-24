@@ -1,64 +1,35 @@
-import React, { useState, useEffect } from "react";
-import useProducts from "../api/productClient";
-import ProductCard from "./ProductCard";
-import {
-  Grid,
-  CircularProgress,
-  Typography,
-  Box,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Pagination,
-} from "@mui/material";
-import SearchBar from "./SearchBar";
+import React, { useState, useEffect, useMemo } from 'react';
+import ProductCard from './ProductCard';
+import { Grid, CircularProgress, Typography, Box, Select, MenuItem, FormControl, InputLabel, Pagination } from '@mui/material';
+import SearchBar from './SearchBar';
+import useSWR from 'swr';
+import { getAll } from "../api";
 
 const ProductList = () => {
-  const { getAllProducts } = useProducts();
-  const [allProducts, setAllProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('');
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Fetch all products initially
-  useEffect(() => {
-    const fetchAllProducts = async () => {
-      setLoading(true);
-      try {
-        const fetchedProducts = await getAllProducts();
-        setAllProducts(fetchedProducts);
-        setFilteredProducts(fetchedProducts);
-        setError("");
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setError("Failed to fetch products");
-      }
-      setLoading(false);
-    };
+  const queryParams = useMemo(() => {
+    const filterParam = `${searchTerm ? 'filter=' : ''}${searchTerm || ''}`;
+    const orderParam = `${sortOrder ? 'order=' : ''}${sortOrder || ''}`;
+    const offsetParam = `offset=${(page-1)*itemsPerPage}`;
+    const limitParam = `limit=${itemsPerPage}`;
 
-    fetchAllProducts();
-  }, []);
+    return [limitParam, offsetParam, filterParam, orderParam].filter(str => str !== '').join('&');
+  }, [searchTerm, sortOrder, page, itemsPerPage]);
 
+  const {
+    data: productenData = { items: [] },
+    isLoading,
+    error,
+  } = useSWR(`products?${queryParams}`, getAll, {revalidateOnMount: true});
+  
   // Update filtered products based on search term and sort order
   useEffect(() => {
-    let filtered = allProducts.filter((product) =>
-      product.NAAM.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    if (sortOrder === "high") {
-      filtered = filtered.sort((a, b) => b.EENHEIDSPRIJS - a.EENHEIDSPRIJS);
-    } else if (sortOrder === "low") {
-      filtered = filtered.sort((a, b) => a.EENHEIDSPRIJS - b.EENHEIDSPRIJS);
-    }
-
-    setFilteredProducts(filtered);
     setPage(1); // Reset to first page when sorting changes
-  }, [sortOrder, searchTerm, allProducts]);
+  }, [searchTerm, sortOrder]);
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
@@ -71,16 +42,6 @@ const ProductList = () => {
   const handlePageChange = (event, value) => {
     setPage(value);
   };
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const currentProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  if (loading) {
-    return <CircularProgress />;
-  }
 
   if (error) {
     return <Typography color="error">{error}</Typography>;
@@ -100,39 +61,39 @@ const ProductList = () => {
             onChange={handleSortChange}
           >
             <MenuItem value="">Default</MenuItem>
-            <MenuItem value="high">Price: High to Low</MenuItem>
-            <MenuItem value="low">Price: Low to High</MenuItem>
+            <MenuItem value="desc">Price: High to Low</MenuItem>
+            <MenuItem value="asc">Price: Low to High</MenuItem>
           </Select>
         </FormControl>
       </div>
       <div>
-        {currentProducts.length === 0 ? (
-          <p className="text-center">Er zijn geen producten beschikbaar.</p>
-        ) : (
-          <>
-            <Box className="flex justify-center my-2">
-              <Pagination
-                color="primary"
-                count={Math.ceil(filteredProducts.length / itemsPerPage)}
-                page={page}
-                onChange={handlePageChange}
-              />
-            </Box>
-            <Grid container spacing={2} justifyContent="center">
-              {currentProducts.map((product) => (
-                <ProductCard key={product.PRODUCTID} product={product} />
-              ))}
-            </Grid>
-            <Box className="flex justify-center my-2">
-              <Pagination
-                color="primary"
-                count={Math.ceil(filteredProducts.length / itemsPerPage)}
-                page={page}
-                onChange={handlePageChange}
-              />
-            </Box>
-          </>
-        )}
+        {!isLoading ? <>
+          <Box className="flex justify-center my-2">
+            <Pagination
+              color="primary"
+              count={Math.ceil(productenData.total / itemsPerPage)}
+              page={page}
+              onChange={handlePageChange}
+            />
+          </Box>
+          <Grid container spacing={2} justifyContent="center">
+            {productenData.items.map(product => (
+              <ProductCard key={product.PRODUCTID} product={product} />
+            ))}
+          </Grid>
+          <Box className="flex justify-center my-2">
+            <Pagination
+              color="primary"
+              count={Math.ceil(productenData.total / itemsPerPage)}
+              page={page}
+              onChange={handlePageChange}
+            />
+          </Box>
+        </> : <>
+          <Box className="flex justify-center my-2 py-80">
+            <CircularProgress />
+          </Box>
+        </>}
       </div>
     </>
   );

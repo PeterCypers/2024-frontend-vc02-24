@@ -8,7 +8,7 @@ import BestellingList from "../components/BestellingList";
 
 const BestellingenPage = () => {
   const {
-    data: bestellingen = [],
+    data: bestellingen = { items: [] },
     isLoading,
     error,
   } = useSWR("bestellingen", getAll, {revalidateOnMount: true});

@@ -17,7 +17,7 @@ export const setAuthToken = (token) => {
 export const getAll = async (url) => {
   const { data } = await axios.get(`${baseUrl}/${url}`);
 
-  return data.items;
+  return data;
 };
 
 export const deleteById = async (url, { arg: id }) => {
