@@ -105,8 +105,7 @@ const ProductList = () => {
           </Select>
         </FormControl>
       </div>
-        ) : (
-      <Box className="bg-gray-300 p-2 rounded-md">
+      <div>
         {currentProducts.length === 0 ? (
           <p className="text-center">Er zijn geen producten beschikbaar.</p>
         ) : (
@@ -134,7 +133,7 @@ const ProductList = () => {
             </Box>
           </>
         )}
-      </Box>
+      </div>
     </>
   );
 };
