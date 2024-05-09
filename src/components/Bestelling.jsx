@@ -104,7 +104,9 @@ function CustomPaginationActionsTable({producten}) {
                   </TableCell>
                   <TableCell align="center">{product.PRODUCT_AANTAL}</TableCell>
                   <TableCell align="center">{product.PRODUCT_STOCK}</TableCell>
-                  <TableCell align="center">{product.PRODUCT_EENHEIDSPRIJS}</TableCell>
+                  <TableCell align="center">
+                    € {product.PRODUCT_EENHEIDSPRIJS}
+                  </TableCell>
                   <TableCell align="center">todo</TableCell>
                 </TableRow>
               ))}
