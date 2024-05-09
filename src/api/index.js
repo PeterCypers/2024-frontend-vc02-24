@@ -44,3 +44,45 @@ export const getById = async (url) => {
 
   return data;
 };
+
+export const updateNotificationStatus = async (
+  { NOTIFICATIEID, GEBRUIKERID, ORDERID, DATUM, BERICHT },
+  nieuweStatus
+) => {
+  console.log(NOTIFICATIEID);
+  try {
+    const response = await axios.put(
+      `${baseUrl}/notificaties/${NOTIFICATIEID}`,
+      {
+        gebruikerId: GEBRUIKERID,
+        orderId: ORDERID,
+        datum: DATUM,
+        notificatieStatus: nieuweStatus,
+        bericht: BERICHT,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating notification status:", error);
+    throw error;
+  }
+};
+
+export const updateAllNotifications = async () => {
+  try {
+    return await axios.post(`${baseUrl}/notificaties`, {});
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getNotifications = async (page = 1, limit = 10) => {
+  try {
+    const { data } = await axios.get(
+      `${baseUrl}/notificaties?page=${page}&limit=${limit}`
+    );
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};

@@ -9,7 +9,7 @@ const useProducts = () => {
       return response.data.data; // Moet overeenkomen met het data veld van de response
     } catch (error) {
       console.error("Er was een fout bij het ophalen van de producten:", error);
-      return []; // Retourneer een lege lijst in geval van een fout
+      return [];
     }
   }, []);
 
@@ -22,7 +22,7 @@ const useProducts = () => {
         `Er was een fout bij het ophalen van het product met id: ${id}`,
         error
       );
-      return null; // Retourneer null in geval van een fout
+      return null;
     }
   }, []);
 
