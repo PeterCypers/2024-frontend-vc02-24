@@ -45,13 +45,26 @@ export const getById = async (url) => {
   return data;
 };
 
-export const updateNotificationStatus = async (id, status) => {
+export const updateNotificationStatus = async (
+  { NOTIFICATIEID, GEBRUIKERID, ORDERID, DATUM, BERICHT },
+  nieuweStatus
+) => {
+  console.log(NOTIFICATIEID);
   try {
-    return await axios.put(`${baseUrl}/notificaties/${id}`, {
-      notificatieStatus: status,
-    });
+    const response = await axios.put(
+      `${baseUrl}/notificaties/${NOTIFICATIEID}`,
+      {
+        gebruikerId: GEBRUIKERID,
+        orderId: ORDERID,
+        datum: DATUM,
+        notificatieStatus: nieuweStatus,
+        bericht: BERICHT,
+      }
+    );
+    return response.data;
   } catch (error) {
-    handleError(error);
+    console.error("Error updating notification status:", error);
+    throw error;
   }
 };
 

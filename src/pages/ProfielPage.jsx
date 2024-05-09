@@ -21,7 +21,7 @@ const ProfielPage = () => {
   const imageURL = "/public/images/backgroundTitle.png";
   const { data: notificaties = [], error } = useSWR('notificaties', () => getAll('notificaties'));
 
-  const notificationCount = notificaties.length;
+  const ongelezenNotificatiesCount = notificaties.filter(n => n.NOTIFICATIESTATUS === 'nieuw').length;
 
   return (
     <div className="w-screen">
@@ -39,7 +39,7 @@ const ProfielPage = () => {
       </Box>
       <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="bestelling-container">
         <div className="h-full w-fit mt-10 mr-10">
-          <SideMenu notificationCount={notificationCount} />
+          <SideMenu ongelezenNotificatiesCount={ongelezenNotificatiesCount} />
         </div>
         <div className="h-full w-full mt-10 rounded-md">
           <Outlet />
@@ -89,7 +89,8 @@ const Badge = styled(BaseBadge)(
   `
 );
 
-function SideMenu({ notificationCount }) {
+
+function SideMenu({ ongelezenNotificatiesCount }) {
   return (
     <Box className="w-56 max-w-full h-full overflow-auto rounded bg-gray-300">
       <MenuList>
@@ -112,7 +113,7 @@ function SideMenu({ notificationCount }) {
         <Link to="notificaties">
           <MenuItem>
             <ListItemIcon>
-              <Badge badgeContent={notificationCount} showZero>
+              <Badge badgeContent={ongelezenNotificatiesCount} showZero>
                 <NoteIcon fontSize="small" />
               </Badge>
             </ListItemIcon>

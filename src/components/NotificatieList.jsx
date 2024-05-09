@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, TablePagination } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { getAll, updateAllNotifications } from "../api/index";  
+import { getAll, updateNotificationStatus } from "../api/index";
 
 const NotificatieList = () => {
   const [notificaties, setNotificaties] = useState([]);
@@ -11,21 +11,17 @@ const NotificatieList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const updateAndFetchNotificaties = async () => {
-      try {
-        
-        await updateAllNotifications();
-
-        
-        const fetchedNotificaties = await getAll('notificaties');
-        setNotificaties(fetchedNotificaties);
-      } catch (error) {
-        console.error('Fout bij het ophalen van notificaties:', error);
-      }
-    };
-
-    updateAndFetchNotificaties();
+    fetchNotificaties();
   }, []);
+
+  const fetchNotificaties = async () => {
+    try {
+      const fetchedNotificaties = await getAll('notificaties');
+      setNotificaties(fetchedNotificaties);
+    } catch (error) {
+      console.error('Fout bij het ophalen van notificaties:', error);
+    }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,8 +32,17 @@ const NotificatieList = () => {
     setPage(0);
   };
 
-  const handleRowClick = (orderId) => {
-    navigate(`/profiel/bestellingen/${orderId}`);
+  const handleRowClick = async (notificatie) => {
+    console.log(notificatie);
+    try {
+
+      await updateNotificationStatus(notificatie, "gelezen");
+      
+      fetchNotificaties(); 
+    } catch (error) {
+      console.error('Error updating notification status:', error);
+    }
+    navigate(`/profiel/bestellingen/${notificatie.ORDERID}`);
   };
 
   return (
@@ -55,7 +60,7 @@ const NotificatieList = () => {
             </TableHead>
             <TableBody>
               {notificaties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((notificatie) => (
-                <TableRow hover key={notificatie.NOTIFICATIEID} onClick={() => handleRowClick(notificatie.ORDERID)} sx={{ cursor: 'pointer' }}>
+                <TableRow hover onClick={() => handleRowClick(notificatie)} sx={{ cursor: 'pointer' }}>
                   <TableCell align="center">{new Date(notificatie.DATUM).toLocaleDateString()}</TableCell>
                   <TableCell align="left">{notificatie.BERICHT}</TableCell>
                   <TableCell align="center">{notificatie.NOTIFICATIESTATUS}</TableCell>
