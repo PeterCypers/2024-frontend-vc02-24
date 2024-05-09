@@ -44,3 +44,32 @@ export const getById = async (url) => {
 
   return data;
 };
+
+export const updateNotificationStatus = async (id, status) => {
+  try {
+    return await axios.put(`${baseUrl}/notificaties/${id}`, {
+      notificatieStatus: status,
+    });
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updateAllNotifications = async () => {
+  try {
+    return await axios.post(`${baseUrl}/notificaties`, {});
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getNotifications = async (page = 1, limit = 10) => {
+  try {
+    const { data } = await axios.get(
+      `${baseUrl}/notificaties?page=${page}&limit=${limit}`
+    );
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};

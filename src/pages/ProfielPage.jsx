@@ -1,3 +1,5 @@
+import React from "react";
+import useSWR from "swr";
 import { styled, Box } from "@mui/system";
 import { Badge as BaseBadge, badgeClasses } from "@mui/base/Badge";
 import {
@@ -13,10 +15,14 @@ import NoteIcon from "@mui/icons-material/Note";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { red } from "@mui/material/colors";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { getAll } from "../api";
 
-export default function ProfielPage() {
+const ProfielPage = () => {
   const imageURL = "/public/images/backgroundTitle.png";
+  const { data: notificaties = [], error } = useSWR('notificaties', () => getAll('notificaties'));
+
+  const notificationCount = notificaties.length;
+
   return (
     <div className="w-screen">
       <Box 
@@ -33,7 +39,7 @@ export default function ProfielPage() {
       </Box>
       <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="bestelling-container">
         <div className="h-full w-fit mt-10 mr-10">
-          <SideMenu />
+          <SideMenu notificationCount={notificationCount} />
         </div>
         <div className="h-full w-full mt-10 rounded-md">
           <Outlet />
@@ -41,7 +47,9 @@ export default function ProfielPage() {
       </div>
     </div>
   );
-}
+};
+
+export default ProfielPage;
 
 const Badge = styled(BaseBadge)(
   ({ theme }) => `
@@ -81,16 +89,16 @@ const Badge = styled(BaseBadge)(
   `
 );
 
-function SideMenu() {
+function SideMenu({ notificationCount }) {
   return (
     <Box className="w-56 max-w-full h-full overflow-auto rounded bg-gray-300">
       <MenuList>
         <Link to="gegevens">
           <MenuItem>
-           <ListItemIcon>
-             <PersonIcon fontSize="small" />
-           </ListItemIcon>
-           <ListItemText>Gegevens</ListItemText>
+            <ListItemIcon>
+              <PersonIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Gegevens</ListItemText>
           </MenuItem>
         </Link>
         <Link to="bestellingen">
@@ -104,14 +112,14 @@ function SideMenu() {
         <Link to="notificaties">
           <MenuItem>
             <ListItemIcon>
-              <Badge badgeContent={2} showZero>
+              <Badge badgeContent={notificationCount} showZero>
                 <NoteIcon fontSize="small" />
               </Badge>
             </ListItemIcon>
             <ListItemText>Notificaties</ListItemText>
           </MenuItem>
         </Link>
-        <Link>
+        <Link to="betalingen">
           <MenuItem>
             <ListItemIcon>
               <PaymentIcon fontSize="small" />
@@ -119,7 +127,7 @@ function SideMenu() {
             <ListItemText>Betalingen</ListItemText>
           </MenuItem>
         </Link>
-        <Link>
+        <Link to="chat-geschiedenis">
           <MenuItem>
             <ListItemIcon>
               <QuestionAnswerIcon fontSize="small" />

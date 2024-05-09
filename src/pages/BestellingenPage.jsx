@@ -5,6 +5,7 @@ import { getAll } from "../api";
 import { Box, CircularProgress } from "@mui/material";
 import BestellingList from "../components/BestellingList";
 
+
 const BestellingenPage = () => {
   const {
     data: bestellingen = [],

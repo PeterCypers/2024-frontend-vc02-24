@@ -38,7 +38,7 @@ const Navbar = () => {
           </li>
           <ul className="flex">
             <li className="items-end mt-3">
-              <Link to="/notification">
+              <Link to="/profiel/notificaties">
                   <NotificationsIcon className="text-red-600" fontSize="large"/>
               </Link>
             </li>

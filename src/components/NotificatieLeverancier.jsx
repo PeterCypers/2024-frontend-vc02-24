@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-export default function NotificatieKlant({ notificatie }) {
+export default function NotificatieLeverancier({ notificatie }) {
     return (
         <Box sx={{ padding: 2, borderBottom: '1px solid gray' }}>
             <Typography variant="subtitle1">{notificatie.BERICHT}</Typography>
