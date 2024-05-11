@@ -4,8 +4,11 @@ import Navbar from "./components/Navbar";
 import { AuthProvider } from "./contexts/Auth.context";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductPage from "./pages/ProductPage";
-import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
-
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
 
 import "./index.css";
 import Login from "./pages/Login";
@@ -16,10 +19,10 @@ import ProfielPage from "./pages/ProfielPage";
 import BedrijfsGegevensPage from "./pages/BedrijfsGegevensPage";
 import NotificatiePage from "./pages/NotificatiePage";
 import BestellingDetailPage from "./pages/BestellingDetailPage";
+import BetalingPage from "./pages/BetalingPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
 
 const theme = createTheme({
   palette: {
@@ -44,7 +47,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute />,
         children: [
           {
-            path: '/profiel',
+            path: "/profiel",
             element: <ProfielPage />,
             children: [
               {
@@ -61,11 +64,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "gegevens",
-                element: <BedrijfsGegevensPage/>
-              },
-              {
-                path: "bestellingen/:id",
-                element: <BestellingDetailPage />,
+                element: <BedrijfsGegevensPage />,
               },
             ],
           },
@@ -79,7 +78,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Navigate replace to="/products"/>,
+    element: <Navigate replace to="/products" />,
   },
   {
     path: "/login",
@@ -88,6 +87,10 @@ const router = createBrowserRouter([
   {
     path: "/logout",
     element: <Logout />,
+  },
+  {
+    path: "/bestelling/:id/betaling",
+    element: <BetalingPage />,
   },
   {
     path: "*",

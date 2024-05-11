@@ -1,12 +1,25 @@
-import React, { useState } from "react";
-import { useTheme } from '@mui/material/styles';
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 import { useAuth } from "../contexts/Auth.context";
-import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper, TableHead, FormControlLabel, Switch } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TablePagination,
+  TableRow,
+  Paper,
+  TableHead,
+  Button,
+} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import { Link } from "react-router-dom";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -35,34 +48,42 @@ function TablePaginationActions(props) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
   );
 }
 
-function CustomPaginationActionsTable({producten}) {
+function CustomPaginationActionsTable({ producten }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -81,9 +102,13 @@ function CustomPaginationActionsTable({producten}) {
 
   return (
     <Box className="rounded-md w-full h-full pt-2">
-      <Paper className='rounded-md w-full h-full'>
-        <TableContainer className='bg-transparent'>
-          <Table className="min-w-96" aria-label="custom pagination table" size={'small'}>
+      <Paper className="rounded-md w-full h-full">
+        <TableContainer className="bg-transparent">
+          <Table
+            className="min-w-96"
+            aria-label="custom pagination table"
+            size={"small"}
+          >
             <TableHead>
               <TableRow>
                 <TableCell align="center">Naam</TableCell>
@@ -95,7 +120,10 @@ function CustomPaginationActionsTable({producten}) {
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? producten.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ? producten.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
                 : producten
               ).map((product) => (
                 <TableRow key={product.PRODUCT_NAAM}>
@@ -119,14 +147,14 @@ function CustomPaginationActionsTable({producten}) {
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   count={producten.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   slotProps={{
                     select: {
                       inputProps: {
-                        'aria-label': 'rows per page',
+                        "aria-label": "rows per page",
                       },
                       native: true,
                     },
@@ -151,89 +179,121 @@ function formatDateTime(dateString) {
 
 function naam(leverancier, klant) {
   const { gebruikerRol } = useAuth();
-  if(gebruikerRol === 'LEVERANCIER')
-    return (
-        <>
-          <div className="text-red-950 font-bold">Klant naam:</div>
-          <div>{klant.KLANT_BEDRIJF_NAAM}</div>
-        </>
-     )
-  if(gebruikerRol === 'KLANT')
+  if (gebruikerRol === "LEVERANCIER")
     return (
       <>
-      <div className="text-red-950 font-bold">Leverancier naam:</div>
-          <div>{leverancier.LEVERANCIER_BEDRIJF_NAAM}</div>
+        <div className="text-red-950 font-bold">Klant naam:</div>
+        <div>{klant.KLANT_BEDRIJF_NAAM}</div>
       </>
-    )
+    );
+  if (gebruikerRol === "KLANT")
+    return (
+      <>
+        <div className="text-red-950 font-bold">Leverancier naam:</div>
+        <div>{leverancier.LEVERANCIER_BEDRIJF_NAAM}</div>
+      </>
+    );
 }
 
 function contact(klant) {
   const { gebruikerRol } = useAuth();
-  if(gebruikerRol === 'LEVERANCIER')
+  if (gebruikerRol === "LEVERANCIER")
     return (
       <>
         <div className="text-red-950 font-bold">Contactgegevens:</div>
-        <div className="col-span-3"> 
+        <div className="col-span-3">
           <div>{klant.KLANT_EMAILADRES}</div>
           <div>{klant.TELEFOONNUMMER}</div>
         </div>
       </>
-    )
-  if(gebruikerRol === 'KLANT')
-    return <></>
+    );
+  if (gebruikerRol === "KLANT") return <></>;
 }
 
 function orderstatus(ORDERSTATUS) {
-  switch(ORDERSTATUS) {
-    case 'GEPLAATST' :
-      return <div className="col-span-3 font-black text-orange-300">Geplaatst</div>
-    case 'VERWERKT':
-      return <div className="col-span-3 font-black text-blue-300">Verwerkt</div>
-    case 'VERZONDEN':
-      return <div className="col-span-3 font-black text-purple-400">Verzonden</div>
-    case 'UIT_VOOR_LEVERING':
-      return <div className="col-span-3 font-black text-rose-300">Uit voor levering</div>
-    case 'GELEVERD':
-      return <div className="col-span-3 font-black text-red-400">Geleverd</div>
-    case 'VOLTOOID':
-      return <div className="col-span-3 font-black text-green-300">Voltooid</div>
+  switch (ORDERSTATUS) {
+    case "GEPLAATST":
+      return (
+        <div className="col-span-3 font-black text-orange-300">Geplaatst</div>
+      );
+    case "VERWERKT":
+      return (
+        <div className="col-span-3 font-black text-blue-300">Verwerkt</div>
+      );
+    case "VERZONDEN":
+      return (
+        <div className="col-span-3 font-black text-purple-400">Verzonden</div>
+      );
+    case "UIT_VOOR_LEVERING":
+      return (
+        <div className="col-span-3 font-black text-rose-300">
+          Uit voor levering
+        </div>
+      );
+    case "GELEVERD":
+      return <div className="col-span-3 font-black text-red-400">Geleverd</div>;
+    case "VOLTOOID":
+      return (
+        <div className="col-span-3 font-black text-green-300">Voltooid</div>
+      );
   }
 }
 
 function betalingstatus(BETALINGSTATUS) {
-  switch(BETALINGSTATUS) {
-    case 'ONVERWERKT':
-      return <div className="col-span-3 font-black text-yellow-300">Onverwerkt</div>
-    case 'FACTUUR_VERZONDEN':
-      return <div className="col-span-3 font-black text-indigo-400">Factuur verzonden</div>
-    case 'BETAALD':
-      return <div className="col-span-3 font-black text-green-400">Betaald</div>
+  switch (BETALINGSTATUS) {
+    case "ONVERWERKT":
+      return (
+        <div className="col-span-3 font-black text-yellow-300">Onverwerkt</div>
+      );
+    case "FACTUUR_VERZONDEN":
+      return (
+        <div className="col-span-3 font-black text-indigo-400">
+          Factuur verzonden
+        </div>
+      );
+    case "BETAALD":
+      return (
+        <div className="col-span-3 font-black text-green-400">Betaald</div>
+      );
   }
 }
 
 function extra(leverancier, HERINNERINGSDATUM) {
   const { gebruikerRol } = useAuth();
-  if(gebruikerRol === 'LEVERANCIER')
+  if (gebruikerRol === "LEVERANCIER")
     return (
       <>
         <div className="text-red-950 font-bold">Herinneringsdatum:</div>
         <div className="col-span-3">{formatDateTime(HERINNERINGSDATUM)}</div>
       </>
-    )
-  if(gebruikerRol === 'KLANT')
-    return(
+    );
+  if (gebruikerRol === "KLANT")
+    return (
       <>
         <div className="text-red-950 font-bold col-span-4">Betaalgegevens</div>
         <div className="font-bold pl-5">Rekeningnummer:</div>
-        <div className="col-span-3">{leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}</div>
+        <div className="col-span-3">
+          {leverancier.LEVERANCIER_BEDRIJF_REKENINGNUMMER}
+        </div>
         <div className="font-bold pl-5">BTW-nummer:</div>
-        <div className="col-span-3">{leverancier.LEVERANCIER_BEDRIJF_BTWNR}</div>
+        <div className="col-span-3">
+          {leverancier.LEVERANCIER_BEDRIJF_BTWNR}
+        </div>
       </>
-    )
+    );
+}
+
+function betaling(BETALINGSTATUS, ORDERID) {
+  const { gebruikerRol } = useAuth();
+  if (gebruikerRol === "KLANT" && BETALINGSTATUS !== "BETAALD")
+    return (
+      <Button variant="contained" sx={{ marginTop: "10px" }}>
+        <Link to={`/bestelling/${ORDERID}/betaling`}>Betalen</Link>
+      </Button>
+    );
 }
 
 export default function Bestelling({ bestelling }) {
-
   const {
     DATUMGEPLAATST,
     ORDERID,
@@ -257,7 +317,7 @@ export default function Bestelling({ bestelling }) {
           {naam(leverancier, klant)}
           <div className="text-red-950 font-bold">Totale bedrag:</div>
           <div>prijs</div>
-          {contact(klant)}           
+          {contact(klant)}
           <div className="text-red-950 font-bold">Leveradres:</div>
           <div className="col-span-3">
             <div>{klant.STRAAT}</div>
@@ -269,15 +329,17 @@ export default function Bestelling({ bestelling }) {
           <div className="text-red-950 font-bold">Orderstatus:</div>
           <div className="col-span-3">{orderstatus(ORDERSTATUS)}</div>
           <div className="text-red-950 font-bold">Bestalingstatus:</div>
-          <div className="col-span-3">{betalingstatus(BETALINGSTATUS)}</div>
+          <div>{betalingstatus(BETALINGSTATUS)}</div>
+          <div className="col-span-2">{betaling(BETALINGSTATUS, ORDERID)}</div>
           {extra(leverancier, HERINNERINGSDATUM)}
         </div>
         <div>
-          <h2 className="text-red-600 font-extrabold text-2xl mt-5">Producten</h2>
-          <CustomPaginationActionsTable producten={producten}/>
+          <h2 className="text-red-600 font-extrabold text-2xl mt-5">
+            Producten
+          </h2>
+          <CustomPaginationActionsTable producten={producten} />
         </div>
       </div>
     </>
   );
-};
-
+}
