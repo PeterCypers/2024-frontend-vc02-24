@@ -23,7 +23,7 @@ const BestellingenPage = () => {
     <>
       <div className="h-full w-full rounded-md">
         <Box className='w-auto h-screen p-10'>
-          <BestellingList bestellingen={bestellingen} />
+          <BestellingList bestellingen={bestellingen.items} />
         </Box>
       </div>
         

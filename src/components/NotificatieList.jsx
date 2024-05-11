@@ -2,26 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, TablePagination } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { getAll, updateNotificationStatus } from "../api/index";
+import { updateNotificationStatus } from "../api/index";
 
-const NotificatieList = () => {
-  const [notificaties, setNotificaties] = useState([]);
+const NotificatieList = ({notificaties}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchNotificaties();
-  }, []);
-
-  const fetchNotificaties = async () => {
-    try {
-      const fetchedNotificaties = await getAll('notificaties');
-      setNotificaties(fetchedNotificaties);
-    } catch (error) {
-      console.error('Fout bij het ophalen van notificaties:', error);
-    }
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -33,11 +19,8 @@ const NotificatieList = () => {
   };
 
   const handleRowClick = async (notificatie) => {
-    console.log(notificatie);
     try {
-
       await updateNotificationStatus(notificatie, "gelezen");
-      
       fetchNotificaties(); 
     } catch (error) {
       console.error('Error updating notification status:', error);
