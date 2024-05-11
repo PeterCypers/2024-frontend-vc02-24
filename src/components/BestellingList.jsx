@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
-import {Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, FormControlLabel, Switch} from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, Toolbar } from '@mui/material';
 import { useAuth } from '../contexts/Auth.context';
+import BestellingFilterDialog from './BestellingFilterDialog';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -17,30 +18,30 @@ function descendingComparator(a, b, orderBy) {
 function getComparatorKlant(order, orderBy) {
   const { gebruikerRol } = useAuth();
   return (a, b) => {
-    if(gebruikerRol === "LEVERANCIER"){
+    if (gebruikerRol === "LEVERANCIER") {
       if (orderBy === 'KLANT_BEDRIJF_NAAM') {
-        if (!a.klant ||!b.klant) {
+        if (!a.klant || !b.klant) {
           return 0;
         }
         if (a.klant.KLANT_BEDRIJF_NAAM < b.klant.KLANT_BEDRIJF_NAAM) {
-          return order === 'asc'? -1 : 1;
+          return order === 'asc' ? -1 : 1;
         }
         if (a.klant.KLANT_BEDRIJF_NAAM > b.klant.KLANT_BEDRIJF_NAAM) {
-          return order === 'asc'? 1 : -1;
+          return order === 'asc' ? 1 : -1;
         }
         return 0;
       }
     }
-    if(gebruikerRol === "KLANT"){
+    if (gebruikerRol === "KLANT") {
       if (orderBy === 'KLANT_BEDRIJF_NAAM') {
-        if (!a.leverancier ||!b.leverancier) {
+        if (!a.leverancier || !b.leverancier) {
           return 0;
         }
         if (a.leverancier.LEVERANCIER_BEDRIJF_NAAM < b.leverancier.LEVERANCIER_BEDRIJF_NAAM) {
-          return order === 'asc'? -1 : 1;
+          return order === 'asc' ? -1 : 1;
         }
         if (a.leverancier.LEVERANCIER_BEDRIJF_NAAM > b.leverancier.LEVERANCIER_BEDRIJF_NAAM) {
-          return order === 'asc'? 1 : -1;
+          return order === 'asc' ? 1 : -1;
         }
         return 0;
       }
@@ -50,7 +51,7 @@ function getComparatorKlant(order, orderBy) {
 
 function getComparator(order, orderBy) {
   return order === 'desc'
-   ? (a, b) => descendingComparator(a, b, orderBy)
+    ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
@@ -116,7 +117,7 @@ function EnhancedTableHead(props) {
             align="center"
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{fontWeight: 'bold'}}
+            sx={{ fontWeight: 'bold' }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -142,18 +143,18 @@ function formatDateTime(dateString) {
   return date.toLocaleDateString();
 }
 
-function name(klant, leverancier){
+function name(klant, leverancier) {
   const { gebruikerRol } = useAuth();
 
-  if(gebruikerRol === 'LEVERANCIER'){
+  if (gebruikerRol === 'LEVERANCIER') {
     return klant.KLANT_BEDRIJF_NAAM;
   }
   return leverancier.LEVERANCIER_BEDRIJF_NAAM;
 }
 
 function orderstatus(ORDERSTATUS) {
-  switch(ORDERSTATUS) {
-    case 'GEPLAATST' :
+  switch (ORDERSTATUS) {
+    case 'GEPLAATST':
       return <div className="col-span-3 font-black text-orange-300">Geplaatst</div>
     case 'VERWERKT':
       return <div className="col-span-3 font-black text-blue-300">Verwerkt</div>
@@ -169,7 +170,7 @@ function orderstatus(ORDERSTATUS) {
 }
 
 function betalingstatus(BETALINGSTATUS) {
-  switch(BETALINGSTATUS) {
+  switch (BETALINGSTATUS) {
     case 'ONVERWERKT':
       return <div className="col-span-3 font-black text-yellow-300">Onverwerkt</div>
     case 'FACTUUR_VERZONDEN':
@@ -179,12 +180,17 @@ function betalingstatus(BETALINGSTATUS) {
   }
 }
 
-function EnhancedTable({bestellingen}) {
+function EnhancedTable({ bestellingen }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleFilterSubmit = (data) => {
+    console.log('Filter data:', data);
+  };
+
   const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
@@ -229,21 +235,25 @@ function EnhancedTable({bestellingen}) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - bestellingen.length) : 0;
 
   const visibleRows = React.useMemo(() => {
-      if (orderBy === 'KLANT_BEDRIJF_NAAM') {
-        return stableSort(bestellingen, getComparatorKlant(order, orderBy)).slice(
-          page * rowsPerPage,
-          page * rowsPerPage + rowsPerPage,
-        );
-      }
-      return stableSort(bestellingen, getComparator(order, orderBy)).slice(
+    if (orderBy === 'KLANT_BEDRIJF_NAAM') {
+      return stableSort(bestellingen, getComparatorKlant(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       );
+    }
+    return stableSort(bestellingen, getComparator(order, orderBy)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
   }, [bestellingen, order, orderBy, page, rowsPerPage]);
+
 
   return (
     <Box className="rounded-md w-full h-full">
       <Paper className='rounded-md w-full h-fit'>
+        <Toolbar>
+          <BestellingFilterDialog handleSubmit={handleFilterSubmit} />
+        </Toolbar>
         <TableContainer>
           <Table className='min-w-96 rounded-md'
             aria-labelledby="tableTitle"
