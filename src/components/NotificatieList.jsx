@@ -3,12 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, TablePagination } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { getAll, updateNotificationStatus } from "../api/index";
+import { useAuth } from "../contexts/Auth.context";
+import BetaalHerinnering from "./BetaalHerinnering";
 
 const NotificatieList = () => {
   const [notificaties, setNotificaties] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
+  //voor component BetaalHerinnering:
+  const { gebruikerRol } = useAuth();
+  const [orderIds, setOrderIds] = useState([]);
+  useEffect(() => {
+    const ids = notificaties.map(notificatie => notificatie.ORDERID);
+    setOrderIds(ids);
+  }, [notificaties]);
+  //end voor component BetaalHerinnering
 
   useEffect(() => {
     fetchNotificaties();
@@ -80,6 +90,10 @@ const NotificatieList = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </TableContainer>
+        { gebruikerRol === "LEVERANCIER" && (
+            <BetaalHerinnering orderIds={orderIds}/>
+          )
+        }
       </Paper>
     </Box>
   );
