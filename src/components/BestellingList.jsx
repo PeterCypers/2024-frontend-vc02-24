@@ -209,7 +209,7 @@ function BestellingenTable() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10]}
             component="div"
             count={bestellingen.total}
             rowsPerPage={rowsPerPage}
