@@ -2,7 +2,8 @@ import React from 'react';
 import useSWR from "swr";
 import { useAuth } from "../contexts/Auth.context";
 import { getById } from '../api';
-//gebruikerRol === "LEVERANCIER"
+import { Button, Link } from '@mui/material';
+
 const BedrijfsGegevensPage = () => {
   const { gebruikerRol, gebruikerId, loading } = useAuth();
   if (loading) {
@@ -30,9 +31,9 @@ const BedrijfsGegevensPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 h-full w-full p-5">
-      <div>
-        <div className="p-4">
+    <div className="grid grid-cols-2 gap-6 w-full m-5">
+      <div className="ml-5 mt-3">
+        <div>
           <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{bedrijf.NAAM}</h1>
           <div id='bedrijfgegevensGridOne' className='grid grid-cols-2 gap-4'>
             <div className="text-red-950 font-bold">Sector:</div>
@@ -48,11 +49,13 @@ const BedrijfsGegevensPage = () => {
               <div>{bedrijf.BTWNR}</div>
             </div>
           </div>
-
         </div>
       </div>
       <div className="ml-28 w-64">
         <img src={bedrijf.LOGO} alt="Image" />
+      </div>
+      <div className='ml-5'>
+        <Button variant="contained" href='/profiel/bedrijfsgegevens/wijzigen'>Gegevens wijzigen</Button>
       </div>
     </div>
   );
