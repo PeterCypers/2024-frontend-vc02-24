@@ -6,8 +6,7 @@ import { getAll, updateNotificationStatus } from "../api/index";
 import { useAuth } from "../contexts/Auth.context";
 import BetaalHerinnering from "./BetaalHerinnering";
 
-const NotificatieList = () => {
-  const [notificaties, setNotificaties] = useState([]);
+const NotificatieList = ({notificaties}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
@@ -20,19 +19,6 @@ const NotificatieList = () => {
   }, [notificaties]);
   //end voor component BetaalHerinnering
 
-  useEffect(() => {
-    fetchNotificaties();
-  }, []);
-
-  const fetchNotificaties = async () => {
-    try {
-      const fetchedNotificaties = await getAll('notificaties');
-      setNotificaties(fetchedNotificaties);
-    } catch (error) {
-      console.error('Fout bij het ophalen van notificaties:', error);
-    }
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -43,11 +29,8 @@ const NotificatieList = () => {
   };
 
   const handleRowClick = async (notificatie) => {
-    console.log(notificatie);
     try {
-
       await updateNotificationStatus(notificatie, "gelezen");
-      
       fetchNotificaties(); 
     } catch (error) {
       console.error('Error updating notification status:', error);
