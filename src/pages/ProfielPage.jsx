@@ -9,6 +9,7 @@ import {
   MenuList,
 } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PaymentIcon from "@mui/icons-material/Payment";
 import NoteIcon from "@mui/icons-material/Note";
@@ -101,6 +102,14 @@ function SideMenu({ ongelezenNotificatiesCount }) {
               <PersonIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText>Gegevens</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to="bedrijfsgegevens">
+          <MenuItem>
+            <ListItemIcon>
+              <ApartmentIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Bedrijfs gegevens</ListItemText>
           </MenuItem>
         </Link>
         <Link to="bestellingen">

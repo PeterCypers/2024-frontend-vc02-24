@@ -60,7 +60,7 @@ const router = createBrowserRouter([
                 element: <NotificatiePage />,
               },
               {
-                path: "gegevens",
+                path: "bedrijfsgegevens",
                 element: <BedrijfsGegevensPage/>
               },
               {

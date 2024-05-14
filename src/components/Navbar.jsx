@@ -6,6 +6,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useState } from 'react';
 import { useAuth } from '../contexts/Auth.context';
 import { red } from "@mui/material/colors";
+import Footer from "./Footer";
 
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
@@ -142,6 +143,7 @@ const Navbar = () => {
       </nav>
 
       <Outlet />
+      <Footer />
     </>
   );
 };
