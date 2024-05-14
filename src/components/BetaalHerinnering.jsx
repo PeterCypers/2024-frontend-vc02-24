@@ -23,7 +23,7 @@ const BetaalHerinnering = ({ orderIds }) => {
       }
 
       // Anders mag ze geupdate worden op vandaag TODO: controlleer of het werkt -> er is momenteel geen onbetaalde order om te controlleren
-      await updateOrderById(selectedValue, { HERINNERINGSDATUM: new Date().toISOString() });
+      await updateOrderById(selectedValue, { HERINNERINGSDATUM: new Date().toISOString().split('T')[0] });
 
       // Reset selectedValue after sending the request
       setSelectedValue('');
