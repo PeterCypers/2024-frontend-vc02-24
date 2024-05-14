@@ -1,8 +1,20 @@
 import { Button } from "@mui/material";
 import React from "react";
 import QRCode from "react-qr-code";
+import { Link, useParams } from "react-router-dom";
+import Factuur from "../components/Factuur";
+import useSWR from "swr";
+import { getById } from "../api";
 
 const BetalingPage = () => {
+  const { id } = useParams();
+
+  const {
+    data: bestelling,
+    isLoading,
+    error,
+  } = useSWR(id ? `bestellingen/${id}` : null, getById);
+
   return (
     <>
       <div id="betaling" className="h-screen">
@@ -17,8 +29,10 @@ const BetalingPage = () => {
           </div>
         </div>
         <div className="flex flex-row mt-10 justify-around w-screen">
-          <Button variant="contained">Annuleren</Button>
-          <Button variant="contained">Factuur downloaden</Button>
+          <Button variant="contained">
+            <Link to={"/profiel/bestellingen"}>Annuleren</Link>
+          </Button>
+          <Factuur bestelling={bestelling} />
         </div>
       </div>
     </>
