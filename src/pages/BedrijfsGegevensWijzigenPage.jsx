@@ -31,6 +31,15 @@ export default function Wijzigen() {
         <form
               onSubmit={handleSubmit()}
             >
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Bedrijfsnaam</InputLabel>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Sector</InputLabel>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Adres</InputLabel>
+              </FormControl>
               <FormControl required variant="standard">
                 <InputLabel htmlFor="email-input">E-mailadres</InputLabel>
                     {/* <OutlinedInput
@@ -40,6 +49,26 @@ export default function Wijzigen() {
                       sx={{ backgroundColor: "white" }}
                       {...register("email")}
                     /> */}
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Telefoonnummer</InputLabel>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Rekeningnummer</InputLabel>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">BTW-nummer</InputLabel>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="text">Logo</InputLabel>
+              </FormControl>
+              <FormControl>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                  >
+                    Wijzigen
+                  </Button>
               </FormControl>
         </form>
       </FormProvider>
