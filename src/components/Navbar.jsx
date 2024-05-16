@@ -7,29 +7,21 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useAuth } from '../contexts/Auth.context';
 import { getAll } from '../api/index';
 import { red } from '@mui/material/colors';
-import Footer from "./Footer";
+import useSWR from 'swr';
 
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [profielAnchorEl, setAnchorEl] = useState(null);
   const [notifAnchorEl, setNotifAnchorEl] = useState(null);
-  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
-  const open = Boolean(anchorEl);
-  const notifOpen = Boolean(notifAnchorEl);
+  const openProfielMenu = Boolean(profielAnchorEl);
+  const openNotifMenu = Boolean(notifAnchorEl);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const fetchedNotifications = await getAll('notificaties');
-        setNotifications(fetchedNotifications);
-      } catch ( error) {
-        console.error('Error fetching notifications:', error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
+  const {
+    data: notificaties = { items: [] },
+    isLoading,
+    error,
+  } = useSWR('notificaties', getAll, { revalidateOnMount: true });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,8 +40,8 @@ const Navbar = () => {
   };
 
   const handleNotificationSelect = (notif) => {
-    handleNotifClose(); 
-    navigate(`/profiel/bestellingen/${notif.ORDERID}`); 
+    handleNotifClose();
+    navigate(`/profiel/bestellingen/${notif.ORDERID}`);
   };
 
   function letterAvatar(letter) {
@@ -57,7 +49,6 @@ const Navbar = () => {
       children: `${letter}`,
     };
   }
-  
 
   return (
     <>
@@ -72,61 +63,61 @@ const Navbar = () => {
           </li>
           <ul className="flex">
             <li className="items-end mt-3">
-            <IconButton onClick={handleNotifClick}>
-  <Badge badgeContent={notifications.length} color="error">
-    <NotificationsIcon fontSize="large" style={{ color: red[500] }}/>
-  </Badge>
-</IconButton>
-              <Menu
-                anchorEl={notifAnchorEl}
-                open={notifOpen}
-                onClose={handleNotifClose}
-                PaperProps={{
-                  elevation: 1,
-                  sx: {
-                    minWidth: 250,
-                    maxWidth: 350,
-                    overflow: 'auto',
-                    '& .MuiMenuItem-root': {
-                      minHeight: 48,
-                      borderBottom: '1px solid #e0e0e0',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                        boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
+              <IconButton onClick={handleNotifClick}>
+                <Badge badgeContent={notificaties.items.length} color="error">
+                  <NotificationsIcon fontSize="large" style={{ color: red[500] }} />
+                </Badge>
+              </IconButton>
+                <Menu
+                  anchorEl={notifAnchorEl}
+                  open={openNotifMenu}
+                  onClose={handleNotifClose}
+                  PaperProps={{
+                    elevation: 1,
+                    sx: {
+                      minWidth: 250,
+                      maxWidth: 350,
+                      overflow: 'auto',
+                      '& .MuiMenuItem-root': {
+                        minHeight: 48,
+                        borderBottom: '1px solid #e0e0e0',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                          boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
+                        },
+                        '&:last-child': {
+                          borderBottom: 'none',
+                        }
                       },
-                      '&:last-child': {
-                        borderBottom: 'none', 
-                      }
                     },
-                  },
-                }}
-              >
-{notifications.slice(0, 5).map(notif => (
-  <MenuItem key={notif.id} onClick={() => handleNotificationSelect(notif)}>
-    {notif.BERICHT || 'Geen bericht beschikbaar'}
-  </MenuItem>
-))}
-<MenuItem onClick={() => navigate('/profiel/notificaties')} style={{ color: red[500] }}>
-  Alle notificaties bekijken
-</MenuItem>
-              </Menu>
+                  }}
+                >
+                  {notificaties.items.slice(0, 5).map(notif => (
+                    <MenuItem key={notif.id} onClick={() => handleNotificationSelect(notif)}>
+                      {notif.BERICHT || 'Geen bericht beschikbaar'}
+                    </MenuItem>
+                  ))}
+                  <MenuItem onClick={() => navigate('/profiel/notificaties')} style={{ color: red[500] }}>
+                    Alle notificaties bekijken
+                  </MenuItem>
+                </Menu>
             </li>
             <li>
-              <IconButton 
+              <IconButton
                 disableRipple={true}
                 onClick={handleClick}
-                aria-controls={open ? 'account-menu' : undefined}
+                aria-controls={openProfielMenu ? 'account-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
+                aria-expanded={openProfielMenu ? 'true' : undefined}
               >
-                {isAuthed && gebruikerLetter ? <Avatar {...letterAvatar(gebruikerLetter)} sx={{ bgcolor: red[600], width: 40, height: 40 }} /> : 
+                {isAuthed && gebruikerLetter ? <Avatar {...letterAvatar(gebruikerLetter)} sx={{ bgcolor: red[600], width: 40, height: 40 }} /> :
                   <Avatar sx={{ bgcolor: red[600], width: 40, height: 40 }} />
                 }
               </IconButton>
               <Menu
-                anchorEl={anchorEl}
+                anchorEl={profielAnchorEl}
                 id="account-menu"
-                open={open}
+                open={openProfielMenu}
                 onClose={handleClose}
                 onClick={handleClose}
                 PaperProps={{
@@ -164,7 +155,7 @@ const Navbar = () => {
                       <ListItemIcon>
                         <Person fontSize="small" />
                       </ListItemIcon>
-                      Accountoverzicht 
+                      Accountoverzicht
                     </MenuItem>
                   </Link>
                   <Link to="/">
