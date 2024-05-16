@@ -5,31 +5,22 @@ import { getById } from '../api';
 import { Button, Link } from '@mui/material';
 
 const BedrijfsGegevensPage = () => {
-  const { gebruikerRol, gebruikerId, loading } = useAuth();
+  const { gebruikerId, loading } = useAuth();
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  let getRequestString = "";
-  switch (gebruikerRol) {
-    case "LEVERANCIER": getRequestString = `levcompanydetails/${gebruikerId}`;
-      break;
-    case "KLANT": getRequestString = `cstcompanydetails/${gebruikerId}`;
-      break;
-    default:
-      break;
-  }
-  
   const {
     data: bedrijf,
     isLoading,
     error,
-  } = useSWR(`${getRequestString}`, getById);
+  } = useSWR(`bedrijfsgegevens/${gebruikerId}`, getById);
 
   if(isLoading){
     return <div>Loading...</div>
   }
 
+  console.log(bedrijf);
   return (
     <div className="grid grid-cols-2 gap-6 w-full m-5">
       <div className="ml-5 mt-3">
