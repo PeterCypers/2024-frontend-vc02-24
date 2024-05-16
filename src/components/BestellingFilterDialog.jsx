@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, IconButton, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit }) {
@@ -20,7 +20,6 @@ function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit })
   };
 
   return <Dialog
-    fullScreen={fullScreen}
     open={dialogOpen}
     aria-labelledby="responsive-dialog-title"
   >
