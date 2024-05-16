@@ -95,7 +95,7 @@ function SideMenu({ ongelezenNotificatiesCount }) {
   return (
     <Box className="w-56 max-w-full h-full overflow-auto rounded">
       <MenuList>
-        <Link to="gegevens">
+        <Link to="gebruikergegevens">
           <MenuItem>
             <ListItemIcon>
               <PersonIcon fontSize="small" />
