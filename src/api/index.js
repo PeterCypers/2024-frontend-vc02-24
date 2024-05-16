@@ -45,47 +45,6 @@ export const getById = async (url) => {
   return data;
 };
 
-export const updateBedrijfgegevens = async(
-  gebruikerId,
-  {
-    NAAM, 
-    BTWNR, 
-    EMAILADRES, 
-    LOGO, 
-    REKENINGNUMMER, 
-    SECTOR, 
-    TELEFOONNUMMER, 
-    LAND, 
-    POSTCODE, 
-    STAD, 
-    STRAAT, 
-    STRAATNR
-  }
-) => {
-  try{
-    const response = await axios.put(`${baseUrl}/bedrijfsgegevens`,
-      {
-        NAAM: NAAM, 
-        BTWNR: BTWNR, 
-        EMAILADRES: EMAILADRES, 
-        LOGO: LOGO, 
-        REKENINGNUMMER: REKENINGNUMMER, 
-        SECTOR: SECTOR, 
-        TELEFOONNUMMER: TELEFOONNUMMER, 
-        LAND: LAND, 
-        POSTCODE: POSTCODE, 
-        STAD: STAD, 
-        STRAAT: STRAAT, 
-        STRAATNR: STRAATNR,
-      }
-    );
-    return response.data;
-  } catch (error){
-    console.error("Error updating bedrijf gegevens:", error);
-    throw error;
-  }
-};
-
 export const updateNotificationStatus = async (
   { NOTIFICATIEID, GEBRUIKERID, ORDERID, DATUM, BERICHT },
   nieuweStatus
