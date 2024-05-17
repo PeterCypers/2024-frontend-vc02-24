@@ -16,7 +16,6 @@ import ProfielPage from "./pages/ProfielPage";
 import BedrijfsGegevensPage from "./pages/BedrijfsGegevensPage";
 import NotificatiePage from "./pages/NotificatiePage";
 import BestellingDetailPage from "./pages/BestellingDetailPage";
-import BedrijfsGegevensWijzigenPage from "./pages/BedrijfsGegevensWijzigenPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -63,10 +62,6 @@ const router = createBrowserRouter([
               {
                 path: "bedrijfsgegevens",
                 element: <BedrijfsGegevensPage />,
-              },
-              {
-                path:"bedrijfsgegevens/wijzigen",
-                element: <BedrijfsGegevensWijzigenPage />,
               },
             ],
           },
