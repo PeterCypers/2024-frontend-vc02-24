@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useAuth } from '../contexts/Auth.context';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Logout() {
   const { isAuthed, logout } = useAuth();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const manueelLogout = queryParams.get('manueel');
 
   useEffect(() => {
     logout();
@@ -21,7 +24,7 @@ export default function Logout() {
 
   return (
     <div className='m-4'>
-      <span>Je werd succesvol uitgelogd. </span>
+      <span>{manueelLogout === "true" ? "Je werd succesvol uitgelogd. " : "De sessie is verlopen. "}</span>
       <Link to="/" className="text-blue underline">
         <span>Terugkeren</span>
       </Link>

@@ -2,10 +2,14 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/Auth.context';
 
 export default function PrivateRoute() {
-  const { ready, isAuthed } = useAuth();
+  const { ready, isAuthed, tokenIsExpired } = useAuth();
   const { pathname } = useLocation();
 
-  const loginPath = `/login?redirect=${pathname}`;
+  if (tokenIsExpired) {
+    return <Navigate replace to="/logout?manueel=false" />
+  }
+
+  const loginPath = `/login?redirect=${pathname}}`;
 
   if (!ready) {
     return (

@@ -109,7 +109,7 @@ const Navbar = () => {
                       Producten
                     </MenuItem>
                   </Link>
-                  <Link to="/logout">
+                  <Link to="/logout?manueel=true">
                     <MenuItem>
                       <ListItemIcon>
                         <Logout fontSize="small" />

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../contexts/Auth.context";
@@ -16,7 +16,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
-  const { error, loading, login } = useAuth();
+  const { error, loading, login, isAuthed } = useAuth();
   const navigate = useNavigate();
   const { search } = useLocation();
   const [showPassword, setShowPassword] = useState(false);
@@ -38,17 +38,18 @@ export default function Login() {
 
   const handleLogin = useCallback(
     async ({ email, wachtwoord }) => {
-      const loggedIn = await login(email, wachtwoord);
-
-      if (loggedIn) {
-        navigate({
-          pathname: redirect,
-          replace: true,
-        });
-      }
+      await login(email, wachtwoord);
     },
-    [login, navigate, redirect]
+    [login]
   );
+
+  useEffect(() => {
+    if (isAuthed)
+      navigate({
+        pathname: redirect,
+        replace: true,
+      });
+  }, [isAuthed, navigate, redirect]);
 
   return (
     <div className="flex flex-col h-screen" id="login-container">
