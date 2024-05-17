@@ -16,9 +16,8 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function Login() {
-  const { error, loading, login, isAuthed } = useAuth();
+  const { error, loading, login, gebruikerRol, isAuthed } = useAuth();
   const navigate = useNavigate();
-  const { search } = useLocation();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -26,12 +25,6 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const redirect = useMemo(() => {
-    const urlParams = new URLSearchParams(search);
-    if (urlParams.has("redirect")) return urlParams.get("redirect");
-    return "/";
-  }, [search]);
 
   const methods = useForm();
   const { handleSubmit, register } = methods;
@@ -44,12 +37,13 @@ export default function Login() {
   );
 
   useEffect(() => {
-    if (isAuthed)
+    if (isAuthed) {
       navigate({
-        pathname: redirect,
+        pathname: gebruikerRol == "LEVERANCIER" ? "/profiel/bestellingen" : "/",
         replace: true,
       });
-  }, [isAuthed, navigate, redirect]);
+    }
+  }, [isAuthed, navigate]);
 
   return (
     <div className="flex flex-col h-screen" id="login-container">
