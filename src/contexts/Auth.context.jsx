@@ -26,11 +26,17 @@ export const AuthProvider = ({ children }) => {
   const [gebruikerRol, setGebruikerRol] = useState(localStorage.getItem(GEBRUIKER_ROL));
   const [gebruikerId, setGebruikerId] = useState(localStorage.getItem(GEBRUIKER_ID_KEY));
 
+  const [tokenIsExpired, setTokenIsExpired] = useState(false);
+
   useEffect(() => {
     api.setAuthToken(token);
     setIsAuthed(Boolean(token));
     setReady(true);
   }, [token]);
+
+  useEffect(() => {
+    api.setExpiryAction(logout);
+  }, []);
 
   const {
     isMutating: loginLoading,
@@ -38,9 +44,25 @@ export const AuthProvider = ({ children }) => {
     trigger: doLogin,
   } = useSWRMutation('gebruikers/login', api.post);
 
+  const logout = useCallback(() => {
+    setToken(null);
+    setGebruiker(null);
+    setGebruikerId(null);
+    setGebruikerLetter(null);
+    setGebruikerRol(null);
+
+    localStorage.removeItem(JWT_TOKEN_KEY);
+    localStorage.removeItem(GEBRUIKER_ID_KEY);
+    localStorage.removeItem(GEBRUIKER_LETTER);
+    localStorage.removeItem(GEBRUIKER_ROL);
+
+    setTokenIsExpired(true);
+  }, []);
+
   const setSession = useCallback(
     (token, gebruiker) => {
       setToken(token);
+      setTokenIsExpired(false);
       setGebruiker(gebruiker);
       setGebruikerLetter(gebruiker.naam[0]);
       setGebruikerRol(gebruiker.rol);
@@ -72,20 +94,7 @@ export const AuthProvider = ({ children }) => {
     },
     [doLogin, setSession],
   );
-
-  const logout = useCallback(() => {
-    setToken(null);
-    setGebruiker(null);
-    setGebruikerId(null);
-    setGebruikerLetter(null);
-    setGebruikerRol(null);
-
-    localStorage.removeItem(JWT_TOKEN_KEY);
-    localStorage.removeItem(GEBRUIKER_ID_KEY);
-    localStorage.removeItem(GEBRUIKER_LETTER);
-    localStorage.removeItem(GEBRUIKER_ROL);
-  }, []);
-
+  
   const value = useMemo(
     () => ({
       token,
@@ -97,6 +106,7 @@ export const AuthProvider = ({ children }) => {
       ready,
       loading: loginLoading,
       isAuthed,
+      tokenIsExpired,
       login,
       logout,
     }),

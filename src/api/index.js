@@ -6,6 +6,18 @@ export const axios = axiosRoot.create({
   baseURL: baseUrl,
 });
 
+export const setExpiryAction = (action) => {
+  axios.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      if (error?.response?.data?.message === "jwt expired")
+        action();
+  
+      return Promise.reject(error);
+    }
+  );
+}
+
 export const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers["Authorization"] = `Bearer ${token}`;
