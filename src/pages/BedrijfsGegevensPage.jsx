@@ -90,6 +90,7 @@ const BedrijfsGegevensPage = () => {
 
 const UpdateDialog = ({ open, handleClose, initialData, id }) => {
   const [formData, setFormData] = useState(initialData);
+
   const {
     trigger: saveBedrijf,
     error: saveError,
@@ -121,7 +122,7 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
         mutate(`bedrijfsgegevens/${id}`);
         handleClose()
       } catch(error){
-        
+
       }
     },
     [formData, id, saveBedrijf, saveError, handleClose]
@@ -167,6 +168,7 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
             onChange={handleChange}
           />
           <TextField
+            className="col-span-2"
             margin="dense"
             label="E-mailadres"
             type="email"
@@ -190,17 +192,6 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
           />
           <TextField
             margin="dense"
-            label="Rekeningnummer"
-            type="text"
-            fullWidth
-            required
-            variant="outlined"
-            name="REKENINGNUMMER"
-            value={formData.REKENINGNUMMER}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
             label="BTW-nummer"
             type="text"
             fullWidth
@@ -208,6 +199,18 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
             variant="outlined"
             name="BTWNR"
             value={formData.BTWNR}
+            onChange={handleChange}
+          />
+          <TextField
+            className="col-span-2"
+            margin="dense"
+            label="Rekeningnummer"
+            type="text"
+            fullWidth
+            required
+            variant="outlined"
+            name="REKENINGNUMMER"
+            value={formData.REKENINGNUMMER}
             onChange={handleChange}
           />
           <TextField
@@ -271,11 +274,13 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
           </Typography>
         </div>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Annuleren</Button>
-        <Button onClick={handleSaveData} color="primary">
-          Opslaan
-        </Button>
+      <DialogActions className="w-full">
+        <div className="flex justify-between w-full">
+          <Button onClick={handleClose}>Annuleren</Button>
+          <Button className="order-last" onClick={handleSaveData} color="primary">
+            Opslaan
+          </Button>
+        </div>
       </DialogActions>
     </Dialog>
   );
