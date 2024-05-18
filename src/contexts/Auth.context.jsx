@@ -62,7 +62,27 @@ export const AuthProvider = ({ children }) => {
     })();
   }, [isAuthed]);
 
+  const {
+    trigger: doMaakOngelezen
+  } = useSWRMutation('notificaties/maakOngelezen', api.post);
+
+  const setNieuwNotificatiesOngelezen = useCallback(
+    async () => {
+      try {
+        await doMaakOngelezen();
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    },
+    [doMaakOngelezen],
+  );
+
   const logout = useCallback(() => {
+    if (isAuthed) {
+      setNieuwNotificatiesOngelezen();
+    }
+
     setToken(null);
     setGebruiker(null);
     setGebruikerId(null);
@@ -75,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(GEBRUIKER_ROL);
 
     setTokenIsExpired(true);
-  }, []);
+  }, [isAuthed]);
 
   const setSession = useCallback(
     (token, gebruiker) => {
