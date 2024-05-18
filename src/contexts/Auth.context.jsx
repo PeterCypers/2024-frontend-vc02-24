@@ -44,6 +44,24 @@ export const AuthProvider = ({ children }) => {
     trigger: doLogin,
   } = useSWRMutation('gebruikers/login', api.post);
 
+  const {
+    trigger: doNotificatiesUpdate,
+  } = useSWRMutation(`notificaties`, api.post);
+
+  useEffect(() => {
+    (async () => {
+      if (!isAuthed) {
+        return;
+      }
+
+      try {
+        await doNotificatiesUpdate();
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [isAuthed]);
+
   const logout = useCallback(() => {
     setToken(null);
     setGebruiker(null);
@@ -94,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     },
     [doLogin, setSession],
   );
-  
+
   const value = useMemo(
     () => ({
       token,
