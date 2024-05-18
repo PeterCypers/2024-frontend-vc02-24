@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(GEBRUIKER_ROL);
 
     setTokenIsExpired(true);
-  }, []);
+  }, [isAuthed]);
 
   const setSession = useCallback(
     (token, gebruiker) => {
