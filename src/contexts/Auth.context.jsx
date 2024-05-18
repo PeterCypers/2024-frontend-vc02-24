@@ -44,7 +44,27 @@ export const AuthProvider = ({ children }) => {
     trigger: doLogin,
   } = useSWRMutation('gebruikers/login', api.post);
 
+  const {
+    trigger: doMaakOngelezen
+  } = useSWRMutation('notificaties/maakOngelezen', api.post);
+
+  const setNieuwNotificatiesOngelezen = useCallback(
+    async () => {
+      try {
+        await doMaakOngelezen();
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    },
+    [doMaakOngelezen],
+  );
+
   const logout = useCallback(() => {
+    if (isAuthed) {
+      setNieuwNotificatiesOngelezen();
+    }
+
     setToken(null);
     setGebruiker(null);
     setGebruikerId(null);
