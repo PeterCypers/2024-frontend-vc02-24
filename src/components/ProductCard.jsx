@@ -21,7 +21,7 @@ return (
   </CardContent>
   <CardActions className="mt-auto justify-between">
     <Typography variant="body2" className='flex-grow'>
-      Stock: {STOCK || 'N/A'}
+      {STOCK === 0 ? <p>Order</p> : <p>Stock: {STOCK}</p> || "N/A"}
     </Typography>
     <Box className="flex justify-items-center">
       <Typography variant="body2" className='mr-1'>

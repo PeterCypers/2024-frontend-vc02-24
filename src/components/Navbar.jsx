@@ -150,8 +150,8 @@ const Navbar = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
-                {isAuthed ? <>
-                  <Link to="/profiel">
+                {isAuthed ? <div key={isAuthed}>
+                  <Link to="/profiel/gebruikergegevens">
                     <MenuItem>
                       <ListItemIcon>
                         <Person fontSize="small" />
@@ -167,6 +167,7 @@ const Navbar = () => {
                       Producten
                     </MenuItem>
                   </Link>
+                  <Divider />
                   <Link to="/logout?manueel=true">
                     <MenuItem>
                       <ListItemIcon>
@@ -184,7 +185,7 @@ const Navbar = () => {
                       Inloggen
                     </MenuItem>
                   </Link>
-                </>}
+                </div>}
               </Menu>
             </li>
           </ul>

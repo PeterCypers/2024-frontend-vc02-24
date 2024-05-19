@@ -11,9 +11,7 @@ import {
 import PersonIcon from '@mui/icons-material/Person';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import InventoryIcon from "@mui/icons-material/Inventory";
-import PaymentIcon from "@mui/icons-material/Payment";
 import NoteIcon from "@mui/icons-material/Note";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { red } from "@mui/material/colors";
 import { Link, Outlet } from "react-router-dom";
 import { getAll } from "../api";
@@ -24,7 +22,7 @@ const ProfielPage = () => {
   const ongelezenNotificatiesCount = notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length;
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <Box
         sx={{
           backgroundImage: `url(${imageURL})`,
@@ -38,11 +36,11 @@ const ProfielPage = () => {
       >
           <h1 id="h1">Accountoverzicht</h1>
       </Box>
-      <div className="px-4 flex flex-grow w-full h-screen space-x-4" id="profiel-container">
+      <div className="px-4 flex flex-grow w-full h-full space-x-4" id="profiel-container">
         <div className="h-full w-fit mt-10 mr-10">
           <SideMenu ongelezenNotificatiesCount={ongelezenNotificatiesCount} />
         </div>
-        <div className="h-full w-full mt-10 rounded-md">
+        <div className="h-full w-full mt-10">
           <Outlet />
         </div>
       </div>
@@ -90,7 +88,6 @@ const Badge = styled(BaseBadge)(
   `
 );
 
-
 function SideMenu({ ongelezenNotificatiesCount }) {
   return (
     <Box className="w-56 max-w-full h-full overflow-auto rounded">
@@ -127,22 +124,6 @@ function SideMenu({ ongelezenNotificatiesCount }) {
               </Badge>
             </ListItemIcon>
             <ListItemText>Notificaties</ListItemText>
-          </MenuItem>
-        </Link>
-        <Link to="betalingen">
-          <MenuItem>
-            <ListItemIcon>
-              <PaymentIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Betalingen</ListItemText>
-          </MenuItem>
-        </Link>
-        <Link to="chat-geschiedenis">
-          <MenuItem>
-            <ListItemIcon>
-              <QuestionAnswerIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Chat-geschiedenis</ListItemText>
           </MenuItem>
         </Link>
       </MenuList>

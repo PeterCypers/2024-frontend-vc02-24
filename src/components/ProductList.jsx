@@ -68,27 +68,15 @@ const ProductList = () => {
       </div>
       <div>
         {!isLoading ? <>
-          <Box className="flex justify-center my-2">
-            <Pagination
-              color="primary"
-              count={Math.ceil(productenData.total / itemsPerPage)}
-              page={page}
-              onChange={handlePageChange}
-            />
-          </Box>
-          <Grid container spacing={2} justifyContent="center">
-            {productenData.items.map(product => (
-              <ProductCard key={product.PRODUCTID} product={product} />
-            ))}
-          </Grid>
-          <Box className="flex justify-center my-2">
-            <Pagination
-              color="primary"
-              count={Math.ceil(productenData.total / itemsPerPage)}
-              page={page}
-              onChange={handlePageChange}
-            />
-          </Box>
+          <div>
+            {productenData.items.length === 0 ? <></> : paginationClasses(productenData, itemsPerPage, handlePageChange, page)}
+            <Grid container spacing={2} justifyContent="center">
+              {productenData.items.map(product => (
+                <ProductCard key={product.PRODUCTID} product={product} />
+              ))}
+            </Grid>
+            {productenData.items.length === 0 ? <></> : paginationClasses(productenData, itemsPerPage, handlePageChange, page)}
+          </div>
         </> : <>
           <Box className="flex justify-center my-2 py-80">
             <CircularProgress />
@@ -96,6 +84,19 @@ const ProductList = () => {
         </>}
       </div>
     </>
+  );
+};
+
+function paginationClasses(productenData, itemsPerPage, handlePageChange, page){
+  return (
+    <Box className="flex justify-center my-2">
+      <Pagination
+        color="primary"
+        count={Math.ceil(productenData.total / itemsPerPage)}
+        page={page}
+        onChange={handlePageChange}
+      />
+    </Box>
   );
 };
 

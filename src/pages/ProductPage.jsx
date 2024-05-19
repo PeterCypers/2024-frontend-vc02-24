@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 
 const ProductPage = () => {
     return (
-        <div className='w-full'>
+        <div className='w-full min-h-screen'>
             <Box 
                 sx={{ 
                     backgroundImage: `url(${productPageBackground})`, // Set the background image using the imported image

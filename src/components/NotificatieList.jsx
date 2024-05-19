@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, TablePagination } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { getAll, updateNotificationStatus } from "../api/index";
+import { updateNotificationStatus } from "../api/index";
 import { useAuth } from "../contexts/Auth.context";
 import BetaalHerinnering from "./BetaalHerinnering";
 
@@ -31,7 +31,7 @@ const NotificatieList = ({notificaties}) => {
   const handleRowClick = async (notificatie) => {
     try {
       await updateNotificationStatus(notificatie, "gelezen");
-      fetchNotificaties(); 
+      fetchNotificaties(); //werkt dit?
     } catch (error) {
       console.error('Error updating notification status:', error);
     }
@@ -39,16 +39,16 @@ const NotificatieList = ({notificaties}) => {
   };
 
   return (
-    <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
-      <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
-        <TableContainer className='bg-transparent'>
+    <Box className="rounded-md w-full h-full">
+      <Paper className='rounded-md w-full h-fit'>
+        <TableContainer>
           <Table aria-label="notification table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Datum</TableCell>
-                <TableCell align="center">Bericht</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Order ID</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Datum</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Bericht</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Status</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Order ID</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -56,14 +56,13 @@ const NotificatieList = ({notificaties}) => {
                 <TableRow hover onClick={() => handleRowClick(notificatie)} sx={{ cursor: 'pointer' }}>
                   <TableCell align="center">{new Date(notificatie.DATUM).toLocaleDateString()}</TableCell>
                   <TableCell align="left">{notificatie.BERICHT}</TableCell>
-                  <TableCell align="center">{notificatie.NOTIFICATIESTATUS}</TableCell>
-                  <TableCell sx={{ color: red[500] }} align="center">{notificatie.ORDERID}</TableCell>
+                  <TableCell align="center">{formatNotificatiestatus(notificatie.NOTIFICATIESTATUS)}</TableCell>
+                  <TableCell sx={{ color: red[500], fontWeight: 'bold'}} align="center">{notificatie.ORDERID}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
           <TablePagination
-            className='bg-transparent'
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={notificaties.length}
@@ -73,13 +72,24 @@ const NotificatieList = ({notificaties}) => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </TableContainer>
-        { gebruikerRol === "LEVERANCIER" && (
+      </Paper>
+      { gebruikerRol === "LEVERANCIER" && (
             <BetaalHerinnering orderIds={orderIds}/>
           )
         }
-      </Paper>
     </Box>
   );
 };
+
+function formatNotificatiestatus(NOTIFICATIESTATUS){
+  switch(NOTIFICATIESTATUS){
+    case "ongelezen": 
+      return <div className="font-black text-violet-400">Ongelezen</div>;
+    case "nieuw":
+      return <div className="font-black text-pink-400">Nieuw</div>
+    case "gelezen":
+      return <div className="font-black text-teal-500">Gelezen</div>
+  }
+}
 
 export default NotificatieList;

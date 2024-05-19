@@ -147,10 +147,10 @@ function BestellingenTable() {
 
   return (
     <>
-      <BestellingFilterDialog dialogOpen={dialogOpen} handleDialogClose={handleDialogClose} handleSubmit={handleFilterSubmit} />
+      <BestellingFilterDialog  dialogOpen={dialogOpen} handleDialogClose={handleDialogClose} handleSubmit={handleFilterSubmit} />
       <Box className="rounded-md w-full h-full">
         <Paper className='rounded-md w-full h-fit'>
-          <Toolbar>
+          <Toolbar className="flex justify-end">
             <IconButton
               onClick={handleFilterClick}
             >

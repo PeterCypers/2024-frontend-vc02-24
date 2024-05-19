@@ -2,7 +2,6 @@ import { Button, Dialog, DialogActions, DialogContent, TextField } from "@mui/ma
 import React, { useState } from "react";
 
 function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit }) {
-
   const [datum, setDatum] = useState('');
   const [naam, setNaam] = useState('');
   const [orderId, setOrderid] = useState('');
@@ -23,7 +22,7 @@ function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit })
     open={dialogOpen}
     aria-labelledby="responsive-dialog-title"
   >
-    <DialogContent className="flex flex-col space-y-4">
+    <DialogContent className="flex flex-col space-y-4 w-96">
       <TextField
         label="Datum"
         variant="outlined"
