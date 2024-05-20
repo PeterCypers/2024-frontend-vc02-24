@@ -7,9 +7,29 @@ class ActionProvider {
 
  handleProductsList = () => {
   const message = this.createChatBotMessage(
-    "We have the following resources for products:",
+    "We hebben volgende resources voor products:",
     {
       widget : "ProductLinks",
+    }
+    );
+    this.updateChatbotState(message);
+ }
+
+ handleOrderList = () => {
+  const message = this.createChatBotMessage(
+    "We hebben volgende resources voor orders:",
+    {
+      widget : "OrderLinks",
+    }
+    );
+    this.updateChatbotState(message);
+ }
+
+ handleRemindersList = () => {
+  const message = this.createChatBotMessage(
+    "We hebben volgende resources voor reminders:",
+    {
+      widget : "ReminderLinks",
     }
     );
     this.updateChatbotState(message);
@@ -37,19 +57,26 @@ class ActionProvider {
 
 
  greet() {
-  const greetingMessage = this.createChatBotMessage("Hi, friend.");
+  const greetingMessage = this.createChatBotMessage(`Hallo`);
   this.updateChatbotState(greetingMessage);
  }
 
  goodbyeMessage(){
-  const goodbyeMessage = this.createChatBotMessage("Goodbye! Have a nice day!");
+  const goodbyeMessage = this.createChatBotMessage("Tot ziens! Nog een prettige dag verder!");
   this.updateChatbotState(goodbyeMessage);
  }
 
- whereProducts() {
-  const whereProductsMessage = this.createChatBotMessage("You can find information about products on our products page.");
-  this.updateChatbotState(whereProductsMessage);
+
+ helpMessage(){
+  const helpMessage = this.createChatBotMessage("Waar kan ik je mee helpen?");
+  this.updateChatbotState(helpMessage);
  }
+
+ //vervangen door handleProductsList()
+//  whereProducts() {
+//   const whereProductsMessage = this.createChatBotMessage("U kan informatie vinden over onze producten op de home page.");
+//   this.updateChatbotState(whereProductsMessage);
+//  }
 
 
 }

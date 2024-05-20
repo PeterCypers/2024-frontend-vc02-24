@@ -15,10 +15,17 @@ const DelawareBotOptions = (props) => {
       handler: props.actionProvider.handleProductsList,
       id: 1,
     },
-    { text: "Data visualization", handler: () => {}, id: 2 },
-    { text: "APIs", handler: () => {}, id: 3 },
-    { text: "Security", handler: () => {}, id: 4 },
-    { text: "Interview prep", handler: () => {}, id: 5 },
+    { 
+      text: "Orders",
+      handler: props.actionProvider.handleOrderList,
+      id: 2 
+    },
+    { text: "Reminders",
+      handler: props.actionProvider.handleRemindersList,
+      id: 3 
+    },
+    // { text: "Security", handler: () => {}, id: 4 },
+    // { text: "Interview prep", handler: () => {}, id: 5 },
   ];
 
   const optionsMarkup = options.map((option) => (

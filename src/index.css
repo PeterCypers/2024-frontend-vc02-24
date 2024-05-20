@@ -138,7 +138,18 @@ html {
     bottom: 20px;
     animation: animate 3s linear infinite;
   }
-  
+/* chatbot rules */
+  #chatBot{
+    margin-left: 40px;
+    margin-top: 30px;
+  }
+  .react-chatbot-kit-chat-inner-container{
+    border: 2px solid rgb(213, 37, 37);
+  }
+  .react-chatbot-kit-chat-input-container{
+    border-bottom: 2px solid rgb(213, 37, 37);
+  }
+    
   @keyframes animateWaves {
     0% {
       background-position-x: 1000px;

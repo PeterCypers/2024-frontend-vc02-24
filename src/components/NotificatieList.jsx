@@ -5,7 +5,6 @@ import { red } from "@mui/material/colors";
 import { getAll, updateNotificationStatus } from "../api/index";
 import { useAuth } from "../contexts/Auth.context";
 import BetaalHerinnering from "./BetaalHerinnering";
-import Chatbox from "./chatBox/Chatbox";
 
 const NotificatieList = ({notificaties}) => {
   const [page, setPage] = useState(0);
@@ -40,7 +39,6 @@ const NotificatieList = ({notificaties}) => {
   };
 
   return (
-    <>
     <Box className="rounded-md w-full h-full pt-5" style={{backgroundColor: 'transparent'}}>
       <Paper className='rounded-md w-full h-full' style={{backgroundColor: 'transparent'}}>
         <TableContainer className='bg-transparent'>
@@ -81,12 +79,6 @@ const NotificatieList = ({notificaties}) => {
         }
       </Paper>
     </Box>
-
-    {/* chatbox */}
-    <div>
-        <Chatbox />
-    </div>
-    </>
   );
 };
 
