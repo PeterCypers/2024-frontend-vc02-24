@@ -40,6 +40,7 @@ const NotificatieList = ({notificaties}) => {
 
   return (
     <Box className="rounded-md w-full h-full">
+      <h2 className="text-red-600 font-extrabold text-2xl pb-3">Notificaties</h2>
       <Paper className='rounded-md w-full h-fit'>
         <TableContainer>
           <Table aria-label="notification table">

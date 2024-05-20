@@ -149,6 +149,7 @@ function BestellingenTable() {
     <>
       <BestellingFilterDialog  dialogOpen={dialogOpen} handleDialogClose={handleDialogClose} handleSubmit={handleFilterSubmit} />
       <Box className="rounded-md w-full h-full">
+        <h2 className="text-red-600 font-extrabold text-2xl pb-3">Bestellingen</h2>
         <Paper className='rounded-md w-full h-fit'>
           <Toolbar className="flex justify-end">
             <IconButton
