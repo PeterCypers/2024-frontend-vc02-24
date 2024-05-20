@@ -19,6 +19,7 @@ import BestellingDetailPage from "./pages/BestellingDetailPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Chatbox from "./components/chatBox/Chatbox";
 
 
 const theme = createTheme({
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
                 path: "bestellingen/:id",
                 element: <BestellingDetailPage />,
               },
+              {
+                path: "chat-geschiedenis",
+                element: <Chatbox/>
+              }
             ],
           },
         ],
