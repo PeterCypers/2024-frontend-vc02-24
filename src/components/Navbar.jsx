@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/Auth.context';
 import { getAll } from '../api/index';
 import { red } from '@mui/material/colors';
 import useSWR from 'swr';
+import Footer from './Footer';
 
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
@@ -64,7 +65,7 @@ const Navbar = () => {
           <ul className="flex">
             <li className="items-end mt-3">
               <IconButton onClick={handleNotifClick}>
-                <Badge badgeContent={notificaties.items.length} color="error">
+                <Badge badgeContent={notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length} color="error">
                   <NotificationsIcon fontSize="large" style={{ color: red[500] }} />
                 </Badge>
               </IconButton>
