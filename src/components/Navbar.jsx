@@ -9,6 +9,7 @@ import { getAll } from '../api/index';
 import { red } from '@mui/material/colors';
 import useSWR from 'swr';
 import Footer from './Footer';
+import ChatFloatingButton from './ChatFloatingButton';
 
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
@@ -192,6 +193,7 @@ const Navbar = () => {
       </nav>
 
       <Outlet />
+      <ChatFloatingButton />
       <Footer />
     </>
   );

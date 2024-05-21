@@ -14,7 +14,7 @@ const LinkList = (props) => {
       >
         {link.text}
       </a> */}
-      <p>{link.text}</p>
+      {/* <p>{link.text}</p> */}
     </li>
   ));
 

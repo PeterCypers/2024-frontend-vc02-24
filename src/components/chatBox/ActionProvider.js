@@ -7,7 +7,7 @@ class ActionProvider {
 
  handleProductsList = () => {
   const message = this.createChatBotMessage(
-    "We hebben volgende resources voor products:",
+    "U kan informatie vinden over onze producten op de home page.",
     {
       widget : "ProductLinks",
     }
@@ -17,7 +17,7 @@ class ActionProvider {
 
  handleOrderList = () => {
   const message = this.createChatBotMessage(
-    "We hebben volgende resources voor orders:",
+    `U kan informatie vinden over de orders in de bestellingen tab. U kan ook info vinden in de notificaties tab. Click op een order voor meer details.`,
     {
       widget : "OrderLinks",
     }
@@ -27,7 +27,7 @@ class ActionProvider {
 
  handleRemindersList = () => {
   const message = this.createChatBotMessage(
-    "We hebben volgende resources voor reminders:",
+    "Het is mogelijk om een betalingsherinnering te sturen naar de klant. Navigeer naar de notificaties tab. Kies een order en click op verzenden.",
     {
       widget : "ReminderLinks",
     }

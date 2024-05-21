@@ -74,11 +74,11 @@ const config = {
       widgetFunc: (props) => <LinkList {...props} />,
       props: {
         options: [
-          {
-            text: 'U kan informatie vinden over onze producten op de home page.',
-            url: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/',
-            id: 1,
-          },
+          // {
+          //   text: 'U kan informatie vinden over onze producten op de home page.',
+          //   url: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/',
+          //   id: 1,
+          // },
           // {
           //   text: 'Delaware Products Guide',
           //   url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide',
@@ -93,48 +93,48 @@ const config = {
       },
     },
     {
-      widgetName: 'OrderLinks',
+      widgetName: "OrderLinks",
       widgetFunc: (props) => <LinkList {...props} />,
       props: {
         options: [
-          {
-            text: 'U kan informatie vinden over de orders in de bestellingen tab.',
-            url: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/',
-            id: 1,
-          },
-          {
-            text: 'U kan ook info vinden in de notificaties tab.',
-            url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide',
-            id: 2,
-          },
-          {
-            text: 'Click op een order voor meer details',
-            url: 'https://frontendmasters.com',
-            id: 3,
-          },
+          // {
+          //   text: "U kan informatie vinden over de orders in de bestellingen tab.",
+          //   url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/",
+          //   id: 1,
+          // },
+          // {
+          //   text: "U kan ook info vinden in de notificaties tab.",
+          //   url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+          //   id: 2,
+          // },
+          // {
+          //   text: "Click op een order voor meer details",
+          //   url: "https://frontendmasters.com",
+          //   id: 3,
+          // },
         ],
       },
     },
     {
-      widgetName: 'ReminderLinks',
+      widgetName: "ReminderLinks",
       widgetFunc: (props) => <LinkList {...props} />,
       props: {
         options: [
-          {
-            text: 'Het is mogelijk om een betalingsherinnering te sturen naar de klant.',
-            url: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/',
-            id: 1,
-          },
-          {
-            text: 'Navigeer naar de notificaties tab.',
-            url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide',
-            id: 2,
-          },
-          {
-            text: 'Kies een order en click op verzenden.',
-            url: 'https://frontendmasters.com',
-            id: 3,
-          },
+          // {
+          //   text: "Het is mogelijk om een betalingsherinnering te sturen naar de klant.",
+          //   url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/",
+          //   id: 1,
+          // },
+          // {
+          //   text: "Navigeer naar de notificaties tab.",
+          //   url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+          //   id: 2,
+          // },
+          // {
+          //   text: "Kies een order en click op verzenden.",
+          //   url: "https://frontendmasters.com",
+          //   id: 3,
+          // },
         ],
       },
     },

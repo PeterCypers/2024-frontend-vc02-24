@@ -1,16 +1,17 @@
 import React from 'react';
 import ProductList from '../components/ProductList';
-import productPageBackground from '/images/productPageBackground.png'; // Import the background image
+import productPageBackground from '/images/productPageBackground.png'; 
 import { Box } from '@mui/material';
+import ChatFloatingButton from '../components/ChatFloatingButton';
 
 const ProductPage = () => {
     return (
         <div className='w-full'>
             <Box 
                 sx={{ 
-                    backgroundImage: `url(${productPageBackground})`, // Set the background image using the imported image
-                    backgroundSize: 'cover', // Ensure the image covers the full area
-                    backgroundPosition: 'center', // Center the image
+                    backgroundImage: `url(${productPageBackground})`, 
+                    backgroundSize: 'cover', 
+                    backgroundPosition: 'center', 
                     backgroundRepeat: "no-repeat",
                     p: 5, 
                     mb: 3,
@@ -22,6 +23,9 @@ const ProductPage = () => {
             </Box>
             <div className="p-1 ml-4 mr-4 h-full" id="product-container">
                 <ProductList />
+
+
+                
             </div>
         </div>
     );
