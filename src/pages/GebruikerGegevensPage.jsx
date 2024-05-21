@@ -1,27 +1,97 @@
-import React, { useState } from 'react';
-import useSWR from "swr";
+import React, { useCallback, useState } from 'react';
+import useSWR, {mutate} from "swr";
 import { useAuth } from "../contexts/Auth.context";
-import { getById, updateGebruiker } from '../api';
-import { IconButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { getById, save } from "../api";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography } from '@mui/material';
+import useSWRMutation from 'swr/mutation';
 
-const UpdateDialog = ({ open, handleClose, initialData, onSave }) => {
-    const [formData, setFormData] = useState(initialData);
+const GebruikersGegevensPage = () => {
+  const { gebruikerId, loading } = useAuth();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-    const handleChange = (event) => {
-      const { name, value } = event.target;
-      setFormData(prev => ({ ...prev, [name]: value }));
-    };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    const handleSave = () => {
-      onSave(formData);
-      handleClose();
-    };
+  const {
+    data: gebruiker,
+    isLoading,
+  } = useSWR(`gebruikers/${gebruikerId}`, getById);
 
-    return (
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Update Gegevens</DialogTitle>
-        <DialogContent>
+  const handleOpenEdit = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="flex flex-col space-y-6 w-1/2 m-5 mt-8 pl-5">
+      <div>
+        <h1 className="text-2xl font-bold mb-2" style={{ color: "#C32828" }}>{gebruiker.naam}</h1>
+        <div id='gebruikersgegevensGrid' className='grid grid-cols-2 gap-4'>
+          <div className="text-red-950 font-bold">Naam:</div>
+          <div>{gebruiker.naam}</div>
+          <div className="text-red-950 font-bold">E-mailadres:</div>
+          <div>{gebruiker.email}</div>
+        </div>
+      </div>
+      <div>
+        <Button variant="contained" onClick={handleOpenEdit}>
+          Gegevens wijzigen
+        </Button>
+      </div>
+      <UpdateDialog
+        open={dialogOpen}
+        handleClose={handleCloseDialog}
+        initialData={gebruiker}
+        id={gebruikerId}
+      />
+    </div>
+  );
+};
+
+const UpdateDialog = ({ open, handleClose, initialData, id }) => {
+  const [formData, setFormData] = useState(initialData);
+
+  const {
+    trigger: saveGebruiker,
+    error: saveError,
+  } = useSWRMutation(`gebruikers`, save);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveData = useCallback(
+    async () => {
+      try {
+        await saveGebruiker({
+          emailadres: formData.email,
+          wachtwoord: formData.wachtwoord,
+          naam: formData.naam,
+          id: id,
+        });
+        mutate(`gebruikers/${id}`);
+        handleClose();
+      } catch (error) {
+
+      }
+    },
+    [formData, id, saveGebruiker, saveError, handleClose]
+  );
+
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>Update Gegevens</DialogTitle>
+      <DialogContent>
+        <div className="flex flex-col space-y-3">
           <TextField
             margin="dense"
             label="Naam"
@@ -52,66 +122,17 @@ const UpdateDialog = ({ open, handleClose, initialData, onSave }) => {
             value={formData.wachtwoord}
             onChange={handleChange}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Annuleren</Button>
-          <Button onClick={handleSave} color="primary">Opslaan</Button>
-        </DialogActions>
-      </Dialog>
-    );
-};
-
-const GebruikersGegevensPage = () => {
-    const { gebruikerId } = useAuth();
-    const [dialogOpen, setDialogOpen] = useState(false);
-
-    const {
-      data: gebruiker,
-      mutate,
-      isLoading,
-    } = useSWR(`gebruikers/${gebruikerId}`, getById);
-
-    const handleOpenEdit = () => {
-      setDialogOpen(true);
-    };
-
-    const handleCloseDialog = () => {
-      setDialogOpen(false);
-    };
-
-    const handleSaveData = async (data) => {
-      await updateGebruiker(gebruikerId, {
-        EMAILADRES: data.email,
-        WACHTWOORD: data.wachtwoord,
-        NAAM: data.naam,
-        ROL: gebruiker.rol, 
-        ISACTIEF: gebruiker.isActief 
-      });
-      mutate(); 
-    };
-
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <div className="grid grid-cols-2 gap-6 h-full w-full p-5">
-        <div>
-          <div className="p-4">
-            <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{gebruiker.naam}</h1>
-            <div id='gebruikersgegevensGrid' className='grid grid-cols-2 gap-4'>
-              <div className="text-red-950 font-bold">Naam:</div>
-              <div>{gebruiker.naam} <IconButton onClick={handleOpenEdit}><EditIcon /></IconButton></div>
-              <div className="text-red-950 font-bold">E-mailadres:</div>
-              <div>{gebruiker.email} <IconButton onClick={handleOpenEdit}><EditIcon /></IconButton></div>
-              <div className="text-red-950 font-bold">Wachtwoord:</div>
-              <div>{gebruiker.wachtwoord} <IconButton onClick={handleOpenEdit}><EditIcon /></IconButton></div>
-            </div>
-          </div>
+          <Typography className="text-red-600">
+            {saveError ? "Alle velden moeten ingevuld zijn" : null}
+          </Typography>
         </div>
-        <UpdateDialog open={dialogOpen} handleClose={handleCloseDialog} initialData={gebruiker} onSave={handleSaveData} />
-      </div>
-    );
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Annuleren</Button>
+        <Button className="order-last" onClick={handleSaveData} color="primary">Opslaan</Button>
+      </DialogActions>
+    </Dialog>
+  );
 };
 
 export default GebruikersGegevensPage;
