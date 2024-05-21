@@ -21,7 +21,7 @@ import { getAll } from "../api";
 const ProfielPage = () => {
   const imageURL = "/public/images/backgroundTitle.png";
   const { data: notificaties = { items: [] }, error } = useSWR('notificaties', () => getAll('notificaties'));
-  const ongelezenNotificatiesCount = notificaties.items.filter(n => n.NOTIFICATIESTATUS === 'nieuw').length;
+  const ongelezenNotificatiesCount = notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length;
 
   return (
     <div className="w-full">

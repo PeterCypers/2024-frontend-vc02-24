@@ -1,23 +1,48 @@
-import { Link, Outlet } from "react-router-dom";
-import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Divider } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Badge } from '@mui/material';
 import { Login, Logout, Person } from '@mui/icons-material';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { useState } from 'react';
 import { useAuth } from '../contexts/Auth.context';
-import { red } from "@mui/material/colors";
-import Footer from "./Footer";
+import { getAll } from '../api/index';
+import { red } from '@mui/material/colors';
+import useSWR from 'swr';
+import Footer from './Footer';
 
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
+  const [profielAnchorEl, setAnchorEl] = useState(null);
+  const [notifAnchorEl, setNotifAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const openProfielMenu = Boolean(profielAnchorEl);
+  const openNotifMenu = Boolean(notifAnchorEl);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const {
+    data: notificaties = { items: [] },
+    isLoading,
+    error,
+  } = useSWR('notificaties', getAll, { revalidateOnMount: true });
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleNotifClick = (event) => {
+    setNotifAnchorEl(event.currentTarget);
+  };
+
+  const handleNotifClose = () => {
+    setNotifAnchorEl(null);
+  };
+
+  const handleNotificationSelect = (notif) => {
+    handleNotifClose();
+    navigate(`/profiel/bestellingen/${notif.ORDERID}`);
   };
 
   function letterAvatar(letter) {
@@ -25,7 +50,7 @@ const Navbar = () => {
       children: `${letter}`,
     };
   }
-  
+
   return (
     <>
       <nav className="border-b-2 border-gray-100">
@@ -39,28 +64,61 @@ const Navbar = () => {
           </li>
           <ul className="flex">
             <li className="items-end mt-3">
-              <Link to="/profiel/notificaties">
-                  <NotificationsIcon className="text-red-600" fontSize="large"/>
-              </Link>
+              <IconButton onClick={handleNotifClick}>
+                <Badge badgeContent={notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length} color="error">
+                  <NotificationsIcon fontSize="large" style={{ color: red[500] }} />
+                </Badge>
+              </IconButton>
+                <Menu
+                  anchorEl={notifAnchorEl}
+                  open={openNotifMenu}
+                  onClose={handleNotifClose}
+                  PaperProps={{
+                    elevation: 1,
+                    sx: {
+                      minWidth: 250,
+                      maxWidth: 350,
+                      overflow: 'auto',
+                      '& .MuiMenuItem-root': {
+                        minHeight: 48,
+                        borderBottom: '1px solid #e0e0e0',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                          boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
+                        },
+                        '&:last-child': {
+                          borderBottom: 'none',
+                        }
+                      },
+                    },
+                  }}
+                >
+                  {notificaties.items.slice(0, 5).map(notif => (
+                    <MenuItem key={notif.id} onClick={() => handleNotificationSelect(notif)}>
+                      {notif.BERICHT || 'Geen bericht beschikbaar'}
+                    </MenuItem>
+                  ))}
+                  <MenuItem onClick={() => navigate('/profiel/notificaties')} style={{ color: red[500] }}>
+                    Alle notificaties bekijken
+                  </MenuItem>
+                </Menu>
             </li>
             <li>
-              <IconButton 
+              <IconButton
                 disableRipple={true}
                 onClick={handleClick}
-                aria-controls={open ? 'account-menu' : undefined}
+                aria-controls={openProfielMenu ? 'account-menu' : undefined}
                 aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
+                aria-expanded={openProfielMenu ? 'true' : undefined}
               >
-                {isAuthed && gebruikerLetter ? <div key={isAuthed}>
-                  <Avatar {...letterAvatar(gebruikerLetter)} sx={{ bgcolor: red[600], width: '40px', height: '40px'}} />
-                </div> : <div key={isAuthed}>
-                  <Avatar sx={{ bgcolor: red[600], width: '40px', height: '40px'}} />
-                </div>}
+                {isAuthed && gebruikerLetter ? <Avatar {...letterAvatar(gebruikerLetter)} sx={{ bgcolor: red[600], width: 40, height: 40 }} /> :
+                  <Avatar sx={{ bgcolor: red[600], width: 40, height: 40 }} />
+                }
               </IconButton>
               <Menu
-                anchorEl={anchorEl}
+                anchorEl={profielAnchorEl}
                 id="account-menu"
-                open={open}
+                open={openProfielMenu}
                 onClose={handleClose}
                 onClick={handleClose}
                 PaperProps={{
@@ -92,13 +150,13 @@ const Navbar = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
-                {isAuthed ? <div key={isAuthed}>
+                {isAuthed ? <>
                   <Link to="/profiel">
                     <MenuItem>
                       <ListItemIcon>
                         <Person fontSize="small" />
                       </ListItemIcon>
-                      Accountoverzicht 
+                      Accountoverzicht
                     </MenuItem>
                   </Link>
                   <Link to="/">
@@ -117,7 +175,7 @@ const Navbar = () => {
                       Uitloggen
                     </MenuItem>
                   </Link>
-                </div> : <div key={isAuthed}>
+                </> : <>
                   <Link to="/login">
                     <MenuItem>
                       <ListItemIcon>
@@ -126,16 +184,7 @@ const Navbar = () => {
                       Inloggen
                     </MenuItem>
                   </Link>
-                  {/*<Divider />
-                   <Link to="/">
-                    <MenuItem>
-                      <ListItemIcon>
-                        <Settings fontSize="small" />
-                      </ListItemIcon>
-                      Producten
-                    </MenuItem>
-                  </Link> */}
-                </div>}
+                </>}
               </Menu>
             </li>
           </ul>
