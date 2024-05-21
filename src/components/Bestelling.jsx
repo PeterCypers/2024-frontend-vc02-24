@@ -107,7 +107,7 @@ function CustomPaginationActionsTable({producten}) {
                   <TableCell align="center">
                     € {product.PRODUCT_EENHEIDSPRIJS}
                   </TableCell>
-                  <TableCell align="center">todo</TableCell>
+                  <TableCell align="center">€ {parseFloat(product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL).toFixed(2)}</TableCell>
                 </TableRow>
               ))}
               {emptyRows > 0 && (
@@ -245,6 +245,14 @@ export default function Bestelling({ bestelling }) {
     producten,
   } = bestelling;
 
+  const getTotalePrijs = () => {
+    let totalePrijs = 0;
+    producten.forEach(product => {
+      totalePrijs += product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL;
+    });
+    return totalePrijs;
+  }
+
   return (
     <>
       <div className="h-auto w-auto p-5">
@@ -256,7 +264,7 @@ export default function Bestelling({ bestelling }) {
           <div>{formatDateTime(DATUMGEPLAATST)}</div>
           {naam(leverancier, klant)}
           <div className="text-red-950 font-bold">Totale bedrag:</div>
-          <div>prijs</div>
+          <div>€ {parseFloat(getTotalePrijs()).toFixed(2)}</div>
           {contact(klant)}           
           <div className="text-red-950 font-bold">Leveradres:</div>
           <div className="col-span-3">
@@ -268,7 +276,7 @@ export default function Bestelling({ bestelling }) {
           </div>
           <div className="text-red-950 font-bold">Orderstatus:</div>
           <div className="col-span-3">{orderstatus(ORDERSTATUS)}</div>
-          <div className="text-red-950 font-bold">Bestalingstatus:</div>
+          <div className="text-red-950 font-bold">Betalingstatus:</div>
           <div className="col-span-3">{betalingstatus(BETALINGSTATUS)}</div>
           {extra(leverancier, HERINNERINGSDATUM)}
         </div>
