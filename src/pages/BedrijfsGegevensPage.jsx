@@ -40,9 +40,9 @@ const BedrijfsGegevensPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 min-h-screen w-full p-5">
+    <div className="grid grid-cols-2 gap-6 min-h-screen w-full px-10 pt-7">
       <div>
-        <div className="p-4">
+        <div>
           <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{bedrijf.NAAM}</h1>
           <div id='bedrijfgegevensGridOne' className='grid grid-cols-2 gap-4'>
             <div className="text-red-950 font-bold">Sector:</div>
@@ -128,7 +128,7 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
 
   return (
     <Dialog maxWidth={"lg"} open={open} onClose={handleClose}>
-      <DialogTitle>Bedrijf gegevens wijzigen</DialogTitle>
+      <DialogTitle className="text-red-600 font-extrabold text-2xl">Bedrijf gegevens wijzigen</DialogTitle>
       <DialogContent>
         <div className="grid grid-cols-2 gap-3 w-fit">
           <TextField

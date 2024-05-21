@@ -50,26 +50,26 @@ const ProductList = () => {
   return (
     <>
       <div className="flex justify-between justify-items-center content-center gap-2 p-2">
-        <SearchBar handleClick={handleSearch} placeholder_text="Search products..." />
+        <SearchBar handleClick={handleSearch} placeholder_text="Producten zoeken..." />
         <FormControl className='w-52 self-center' variant="outlined" size="small" >
-          <InputLabel id="sort-label">Sort By Price</InputLabel>
+          <InputLabel id="sort-label">Sorteren op prijs</InputLabel>
           <Select
             labelId="sort-label"
             id="sort-select"
             value={sortOrder}
-            label="Sort By Price"
+            label="Sorteren op prijs"
             onChange={handleSortChange}
           >
-            <MenuItem value="">Default</MenuItem>
-            <MenuItem value="desc">Price: High to Low</MenuItem>
-            <MenuItem value="asc">Price: Low to High</MenuItem>
+            <MenuItem value="">Standaard</MenuItem>
+            <MenuItem value="desc">Hoog naar laag</MenuItem>
+            <MenuItem value="asc">Laag naar hoog</MenuItem>
           </Select>
         </FormControl>
       </div>
       <div>
         {!isLoading ? <>
           <div>
-            {productenData.items.length === 0 ? <></> : paginationClasses(productenData, itemsPerPage, handlePageChange, page)}
+            {productenData.items.length === 0 ? <p className='flex justify-center place-items-center w-screen h-96'>Geen resultaten gevonden</p> : paginationClasses(productenData, itemsPerPage, handlePageChange, page)}
             <Grid container spacing={2} justifyContent="center">
               {productenData.items.map(product => (
                 <ProductCard key={product.PRODUCTID} product={product} />

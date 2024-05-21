@@ -26,8 +26,8 @@ const NotificatiePage = () => {
   }
 
   return (
-    <div className="h-full w-full rounded-md">
-      <Box className='w-auto h-screen p-10'>
+    <div className="min-h-screen w-full rounded-md">
+      <Box className='w-auto h-auto px-10 pt-7'>
         <NotificatieList notificaties={notificaties.items} />
       </Box>
     </div>

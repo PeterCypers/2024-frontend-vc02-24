@@ -1,13 +1,14 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { visuallyHidden } from '@mui/utils';
 import { useNavigate } from 'react-router-dom';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, Toolbar, CircularProgress, Typography, IconButton } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, Toolbar, CircularProgress, Typography, TableFooter } from '@mui/material';
 import { useAuth } from '../contexts/Auth.context';
 import BestellingFilterDialog from './BestellingFilterDialog';
 import useSWR from 'swr';
 import { getAll } from '../api';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import IconButton from '@mui/material/IconButton';
 
 const requestFields = ["DATUMGEPLAATST", "BEDRIJF_NAAM", "ORDERID", "ORDERSTATUS", "BETALINGSTATUS"];
 
@@ -148,78 +149,83 @@ function BestellingenTable() {
   return (
     <>
       <BestellingFilterDialog  dialogOpen={dialogOpen} handleDialogClose={handleDialogClose} handleSubmit={handleFilterSubmit} />
-      <Box className="rounded-md w-full h-full">
-        <h2 className="text-red-600 font-extrabold text-2xl pb-3">Bestellingen</h2>
-        <Paper className='rounded-md w-full h-fit'>
-          <Toolbar className="flex justify-end">
-            <IconButton
-              onClick={handleFilterClick}
-            >
-              {filterValues == '' ? <FilterListIcon /> : <FilterListOffIcon />}
-            </IconButton>
-          </Toolbar>
-          <TableContainer>
-            <Table className='min-w-96 rounded-md'
-              aria-labelledby="tableTitle"
-              size={'medium'}
-            >
-              <BestellingenTableHead
-                order={order}
-                orderField={orderField}
-                onRequestSort={handleRequestSort}
-                rowCount={bestellingen.length}
-              />
-              <TableBody>
-                {bestellingen.items.map((bestelling, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, klant, leverancier } = bestelling;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, ORDERID, bestelling)}
-                      tabIndex={-1}
-                      key={ORDERID}
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        align='center'
+      <div className="h-fit w-auto">
+        <Box className="rounded-md w-full h-full">
+          <Paper className='rounded-md w-full h-full'>
+            <Toolbar className="flex justify-between justify-items-end-end ">
+              <h2 className="text-red-600 font-extrabold text-2xl">Bestellingen</h2>
+              <IconButton
+                onClick={handleFilterClick}
+              >
+                {filterValues == '' ? <FilterListIcon /> : <FilterListOffIcon />}
+              </IconButton>
+            </Toolbar>
+            <TableContainer>
+              <Table className='min-w-96 rounded-md'
+                aria-labelledby="tableTitle"
+                size={'medium'}
+              >
+                <BestellingenTableHead
+                  order={order}
+                  orderField={orderField}
+                  onRequestSort={handleRequestSort}
+                  rowCount={bestellingen.length}
+                />
+                <TableBody>
+                  {bestellingen.items.map((bestelling, index) => {
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    const { DATUMGEPLAATST, ORDERID, ORDERSTATUS, BETALINGSTATUS, klant, leverancier } = bestelling;
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, ORDERID, bestelling)}
+                        tabIndex={-1}
+                        key={ORDERID}
+                        sx={{ cursor: 'pointer' }}
                       >
-                        {formatDateTime(DATUMGEPLAATST)}
-                      </TableCell>
-                      <TableCell align="center">{formatName(klant, leverancier)}</TableCell>
-                      <TableCell align="center">{ORDERID}</TableCell>
-                      <TableCell align="center">{formatOrderstatus(ORDERSTATUS)}</TableCell>
-                      <TableCell align="center">{formatBetalingstatus(BETALINGSTATUS)}</TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                          align='center'
+                        >
+                          {formatDateTime(DATUMGEPLAATST)}
+                        </TableCell>
+                        <TableCell align="center">{formatName(klant, leverancier)}</TableCell>
+                        <TableCell align="center">{ORDERID}</TableCell>
+                        <TableCell align="center">{formatOrderstatus(ORDERSTATUS)}</TableCell>
+                        <TableCell align="center">{formatBetalingstatus(BETALINGSTATUS)}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow
+                      style={{
+                        height: (53) * emptyRows,
+                      }}
+                    >
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (33) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
+                  )}
+                </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      rowsPerPageOptions={[5, 10, 25]}
+                      count={bestellingen.total}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10]}
-            component="div"
-            count={bestellingen.total}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Box>
+                </TableFooter>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </Box>
+      </div>
     </>
   );
 }

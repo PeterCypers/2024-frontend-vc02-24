@@ -23,7 +23,7 @@ export default function Bestelling({ bestelling }) {
 
   return (
     <>
-      <div className="h-fit w-auto p-5">
+      <div className="h-fit w-auto">
         <h2 className="text-red-600 font-extrabold text-2xl pb-3">Gegevens</h2>
         <div className=" grid grid-cols-4 gap-4">
           <div className="text-red-950 font-bold">Order id:</div>
@@ -129,7 +129,7 @@ function CustomPaginationActionsTable({producten}) {
   return (
     <Box className="rounded-md w-full h-full pt-2">
       <Paper className='rounded-md w-full h-full'>
-        <TableContainer className='bg-transparent'>
+        <TableContainer>
           <Table className="min-w-96" aria-label="custom pagination table" size={'small'}>
             <TableHead>
               <TableRow>

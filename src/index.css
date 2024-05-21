@@ -43,17 +43,10 @@ html {
     color: white;
 }
 
-#product-container {
-    background-image: url(/images/ProductBackground1.png), url(/images/BestellingBackground3.png), url(/images/BestellingBackground1.png), url(/images/ProductBackground2.png);
-    background-repeat: no-repeat;
-    background-size: 15rem, 5rem, 8rem, 5rem;
-    background-position: top 82px right 12px, top 400px left 290px, top 565px right 280px, bottom 200px left 690px;
-}
-
 #profiel-title {
     background-image: url(/images/backgroundTitle.png), url(/images/books.png);
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 100%;
 }
 
 #profiel-container {
@@ -82,62 +75,6 @@ html {
     }
 }
 
-.footer {
-    position: relative;
-    margin-top: 70px;
-    width: 100%;
-    background: rgba(220, 38, 38);
-    min-height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .footer p {
-    color: #fff;
-    margin: 15px 0 10px 0;
-    font-size: 1rem;
-    font-weight: 300;
-  }
-  
-  .wave {
-    position: absolute;
-    top: -80px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: url(/images/Wave.png);
-    background-size: 1000px 100px;
-  }
-  
-  .wave#wave1 {
-    z-index: 1000;
-    opacity: 1;
-    bottom: 0;
-    animation: animateWaves 4s linear infinite;
-  }
-  
-  .wave#wave2 {
-    z-index: 999;
-    opacity: 0.5;
-    bottom: 10px;
-    animation: animate 4s linear infinite !important;
-  }
-  
-  .wave#wave3 {
-    z-index: 1000;
-    opacity: 0.2;
-    bottom: 15px;
-    animation: animateWaves 3s linear infinite;
-  }
-  
-  .wave#wave4 {
-    z-index: 999;
-    opacity: 0.7;
-    bottom: 20px;
-    animation: animate 3s linear infinite;
-  }
 /* chatbot rules */
   #chatBot{
     margin-left: 40px;
@@ -149,22 +86,5 @@ html {
   .react-chatbot-kit-chat-input-container{
     border-bottom: 2px solid rgb(213, 37, 37);
   }
-    
-  @keyframes animateWaves {
-    0% {
-      background-position-x: 1000px;
-    }
-    100% {
-      background-positon-x: 0px;
-    }
-  }
-  
-  @keyframes animate {
-    0% {
-      background-position-x: -1000px;
-    }
-    100% {
-      background-positon-x: 0px;
-    }
-  }
+
   

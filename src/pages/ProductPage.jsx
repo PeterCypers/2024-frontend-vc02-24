@@ -20,7 +20,7 @@ const ProductPage = () => {
             >
                 <h1 id='h1'>Producten</h1>
             </Box>
-            <div className="p-1 ml-4 mr-4 h-full" id="product-container">
+            <div className="p-1 ml-4 mr-4 h-full">
                 <ProductList />
             </div>
         </div>

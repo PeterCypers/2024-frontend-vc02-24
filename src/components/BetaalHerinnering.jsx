@@ -6,6 +6,10 @@ const BetaalHerinnering = ({ orderIds }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  let orderids = orderIds.filter((value, index, self) => {
+    return self.indexOf(value) === index
+  })
+
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     setFeedbackMessage('');
@@ -49,7 +53,7 @@ const BetaalHerinnering = ({ orderIds }) => {
           <MenuItem disabled value="">
             Order Id
           </MenuItem>
-          {orderIds.map(orderId => (
+          {orderids.map(orderId => (
             <MenuItem key={orderId} value={orderId}>{orderId}</MenuItem>
           ))}
         </Select>

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit }) {
@@ -22,6 +22,7 @@ function BestellingFilterDialog({ dialogOpen, handleDialogClose, handleSubmit })
     open={dialogOpen}
     aria-labelledby="responsive-dialog-title"
   >
+    <DialogTitle className="text-red-600 font-extrabold text-2xl">Filteren</DialogTitle>
     <DialogContent className="flex flex-col space-y-4 w-96">
       <TextField
         label="Datum"
