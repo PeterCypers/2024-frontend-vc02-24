@@ -4,7 +4,7 @@ import QRCode from "react-qr-code";
 import { Link, useParams } from "react-router-dom";
 import Factuur from "../components/Factuur";
 import useSWR from "swr";
-import { getById, updateBetaling } from "../api";
+import { getById, post } from "../api";
 
 const BetalingPage = () => {
   const { id } = useParams();
@@ -16,15 +16,15 @@ const BetalingPage = () => {
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
 
   useEffect(() => {
-    const saveData = async () => {
+    const createBetaling = async () => {
       try {
-        await updateBetaling(`betaling/${id}`);
+        await post("betaling", { arg: id });
       } catch (error) {
         console.log("Failed to save data: ", error);
       }
     };
     if (id) {
-      saveData();
+      createBetaling();
     }
   }, [id]);
 
