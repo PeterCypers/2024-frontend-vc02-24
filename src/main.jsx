@@ -62,11 +62,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "bedrijfsgegevens",
-                element: <BedrijfsGegevensPage/>
-              },
-              {
-                path: "bestellingen/:id",
-                element: <BestellingDetailPage />,
+                element: <BedrijfsGegevensPage />,
               },
               {
                 path: "chat-geschiedenis",
