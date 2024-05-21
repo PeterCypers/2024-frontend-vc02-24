@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import useSWR, {mutate} from "swr";
+import useSWR, { mutate } from "swr";
 import { useAuth } from "../contexts/Auth.context";
 import { getById, save } from "../api";
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import useSWRMutation from 'swr/mutation';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const GebruikersGegevensPage = () => {
   const { gebruikerId, loading } = useAuth();
@@ -58,6 +59,7 @@ const GebruikersGegevensPage = () => {
 
 const UpdateDialog = ({ open, handleClose, initialData, id }) => {
   const [formData, setFormData] = useState(initialData);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     trigger: saveGebruiker,
@@ -87,6 +89,12 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
     [formData, id, saveGebruiker, saveError, handleClose]
   );
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Update Gegevens</DialogTitle>
@@ -113,12 +121,24 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
             onChange={handleChange}
           />
           <TextField
-            margin="dense"
             label="Wachtwoord"
-            type="password"
-            fullWidth
             variant="outlined"
             name="wachtwoord"
+            type={showPassword ? "text" : "password"}
+            sx={{ backgroundColor: "white", color: "#FFFFFF" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             value={formData.wachtwoord}
             onChange={handleChange}
           />
