@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Badge } from '@mui/material';
+import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Badge, Divider } from '@mui/material';
 import { Login, Logout, Person } from '@mui/icons-material';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -176,7 +176,7 @@ const Navbar = () => {
                       Uitloggen
                     </MenuItem>
                   </Link>
-                </> : <>
+                </div> : <>
                   <Link to="/login">
                     <MenuItem>
                       <ListItemIcon>
@@ -185,7 +185,7 @@ const Navbar = () => {
                       Inloggen
                     </MenuItem>
                   </Link>
-                </div>}
+                </>}
               </Menu>
             </li>
           </ul>
