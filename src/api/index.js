@@ -44,24 +44,6 @@ export const getById = async (url) => {
 
   return data;
 };
-export const updateGebruiker = async (
-  id,
-  { EMAILADRES, WACHTWOORD, NAAM, ROL, ISACTIEF }
-) => {
-  try {
-    const response = await axios.put(`${baseUrl}/gebruikers/${id}`, {
-      EMAILADRES: EMAILADRES,
-      WACHTWOORD: WACHTWOORD,
-      NAAM: NAAM,
-      rol: ROL,
-      isActief: ISACTIEF,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error updating user:", error);
-    throw error;
-  }
-};
 
 export const updateNotificationStatus = async (
   { NOTIFICATIEID, GEBRUIKERID, ORDERID, DATUM, BERICHT },
