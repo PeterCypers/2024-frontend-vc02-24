@@ -86,3 +86,13 @@ export const getNotifications = async (page = 1, limit = 10) => {
     handleError(error);
   }
 };
+
+export const updateBetaling = async (url) => {
+  try {
+    const response = await axios.put(`${baseUrl}/${url}`);
+    return response.data;
+  } catch (error) {
+    console.log("Error updating betaling:", error);
+    throw error;
+  }
+};

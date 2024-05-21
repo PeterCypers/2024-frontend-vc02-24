@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import QRCode from "react-qr-code";
 import { Link, useParams } from "react-router-dom";
 import Factuur from "../components/Factuur";
 import useSWR from "swr";
-import { getById } from "../api";
+import { getById, updateBetaling } from "../api";
 
 const BetalingPage = () => {
   const { id } = useParams();
@@ -14,6 +14,19 @@ const BetalingPage = () => {
     isLoading,
     error,
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
+
+  useEffect(() => {
+    const saveData = async () => {
+      try {
+        await updateBetaling(`betaling/${id}`);
+      } catch (error) {
+        console.log("Failed to save data: ", error);
+      }
+    };
+    if (id) {
+      saveData();
+    }
+  }, [id]);
 
   return (
     <>
