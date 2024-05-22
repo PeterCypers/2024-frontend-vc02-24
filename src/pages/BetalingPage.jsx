@@ -18,7 +18,8 @@ const BetalingPage = () => {
   useEffect(() => {
     const createBetaling = async () => {
       try {
-        await post("betaling", { arg: id });
+        console.log(id);
+        await post("betaling", { arg: { ORDERID: id } });
       } catch (error) {
         console.log("Failed to save data: ", error);
       }
