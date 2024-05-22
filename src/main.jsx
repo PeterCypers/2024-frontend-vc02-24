@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Navbar from "./components/Navbar";
 import { AuthProvider } from "./contexts/Auth.context";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductPage from "./pages/ProductPage";
@@ -24,7 +23,7 @@ import BetalingPage from "./pages/BetalingPage";
 
 import "@fontsource/comfortaa";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Chatbox from "./components/chatBox/Chatbox";
+import HoofdPage from "./pages/HoofdPage";
 
 const theme = createTheme({
   palette: {
@@ -43,7 +42,7 @@ const theme = createTheme({
 
 const router = createBrowserRouter([
   {
-    element: <Navbar />,
+    element: <HoofdPage />,
     children: [
       {
         element: <PrivateRoute />,
@@ -71,10 +70,6 @@ const router = createBrowserRouter([
               {
                 path: "bedrijfsgegevens",
                 element: <BedrijfsGegevensPage />,
-              },
-              {
-                path: "chat-geschiedenis",
-                element: <Chatbox/>
               }
             ],
           },
