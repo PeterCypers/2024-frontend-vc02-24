@@ -11,14 +11,11 @@ const BetalingPage = () => {
 
   const {
     data: bestelling,
-    isLoading,
-    error,
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
 
   useEffect(() => {
     const createBetaling = async () => {
       try {
-        console.log(id);
         await post("betaling", { arg: { ORDERID: id } });
       } catch (error) {
         console.log("Failed to save data: ", error);
@@ -32,21 +29,25 @@ const BetalingPage = () => {
   return (
     <>
       <div id="betaling" className="h-screen">
-        <div className="flex-col place-content-between mx-auto w-min">
+        <div className="flex flex-col justify-between justify-items-center mx-auto w-min gap-36">
           <img
             className="mb-8 mt-10 min-w-96"
             src="/images/Delaware-logo.png"
             alt="Delaware logo"
           />
-          <div className=" w-min mx-auto">
+          <div className="w-min mx-auto">
             <QRCode value="Bestelling betalen..." size={250} />
           </div>
         </div>
-        <div className="flex flex-row mt-10 justify-around w-screen">
-          <Button variant="contained">
-            <Link to={"/profiel/bestellingen"}>Annuleren</Link>
-          </Button>
-          <Factuur bestelling={bestelling} />
+        <div className="grid grid-cols-2 absolute bottom-28 w-screen">
+          <div className="justify-self-start mx-32">
+            <Button variant="contained">
+              <Link to={"/profiel/bestellingen"}>Terug</Link>
+            </Button>
+          </div>
+          <div className="justify-self-end mx-32">
+            <Factuur bestelling={bestelling} />
+          </div>
         </div>
       </div>
     </>

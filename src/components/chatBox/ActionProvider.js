@@ -7,7 +7,7 @@ class ActionProvider {
 
  handleProductsList = () => {
   const message = this.createChatBotMessage(
-    "U kan informatie vinden over onze producten op de home page.",
+    "U kunt informatie vinden over onze producten op de begin pagina.",
     {
       widget : "ProductLinks",
     }
@@ -17,7 +17,7 @@ class ActionProvider {
 
  handleOrderList = () => {
   const message = this.createChatBotMessage(
-    `U kan informatie vinden over de orders in de bestellingen tab. U kan ook info vinden in de notificaties tab. Click op een order voor meer details.`,
+    `U kan informatie vinden over de bestelling in de bestellingen tab. U kan deze infomatie vinden in de notificaties tab als u op een notificatie klikt.`,
     {
       widget : "OrderLinks",
     }
@@ -27,7 +27,7 @@ class ActionProvider {
 
  handleRemindersList = () => {
   const message = this.createChatBotMessage(
-    "Het is mogelijk om een betalingsherinnering te sturen naar de klant. Navigeer naar de notificaties tab. Kies een order en click op verzenden.",
+    "Het is mogelijk om een betalingsherinnering te sturen naar de klant. Navigeer naar de notificaties tab. Kies een bestelling door de order id aan te kliken en durk dan op verzenden.",
     {
       widget : "ReminderLinks",
     }
@@ -47,14 +47,11 @@ class ActionProvider {
   };
 
   updateChatbotState(message) {
-    // NOTICE: This function is set in the constructor, and is passed in from the top level Chatbot component. The setState function here actually manipulates the top level state of the Chatbot, so it's important that we make sure that we preserve the previous state.
-
     this.setState((prevState) => ({
       ...prevState,
       messages: [...prevState.messages, message],
     }));
   }
-
 
  greet() {
   const greetingMessage = this.createChatBotMessage(`Hallo, kan ik je ergens mee helpen?`);
@@ -66,19 +63,10 @@ class ActionProvider {
   this.updateChatbotState(goodbyeMessage);
  }
 
-
  helpMessage(){
   const helpMessage = this.createChatBotMessage("Waar kan ik je mee helpen?");
   this.updateChatbotState(helpMessage);
  }
-
- //vervangen door handleProductsList()
-//  whereProducts() {
-//   const whereProductsMessage = this.createChatBotMessage("U kan informatie vinden over onze producten op de home page.");
-//   this.updateChatbotState(whereProductsMessage);
-//  }
-
-
 }
 
 export default ActionProvider;

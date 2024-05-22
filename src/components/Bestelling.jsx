@@ -22,7 +22,6 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import { Link } from "react-router-dom";
 
 export default function Bestelling({ bestelling }) {
-
   const {
     DATUMGEPLAATST,
     ORDERID,
@@ -44,9 +43,9 @@ export default function Bestelling({ bestelling }) {
 
   return (
     <>
-      <div className="h-fit w-auto">
-        <h2 className="text-red-600 font-extrabold text-2xl pb-3">Gegevens</h2>
-        <div className=" grid grid-cols-4 gap-4">
+      <div className="min-h-screen w-auto">
+        <h2>Gegevens</h2>
+        <div className=" grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4">
           <div className="text-red-950 font-bold">Order id:</div>
           <div>{ORDERID}</div>
           <div className="text-red-950 font-bold">Datum geplaatst:</div>
@@ -62,13 +61,13 @@ export default function Bestelling({ bestelling }) {
           </div>
           <div className="text-red-950 font-bold">Orderstatus:</div>
           <div className="col-span-3">{orderstatus(ORDERSTATUS)}</div>
-          <div className="text-red-950 font-bold">Betalingstatus:</div>
-          <div>{betalingstatus(BETALINGSTATUS)}</div>
+          <div className="text-red-950 font-bold self-center">Betalingstatus:</div>
+          <div className="self-center">{betalingstatus(BETALINGSTATUS)}</div>
           <div className="col-span-2">{betaling(BETALINGSTATUS, ORDERID)}</div>
           {extra(leverancier, HERINNERINGSDATUM)}
         </div>
         <div>
-          <h2 className="text-red-600 font-extrabold text-2xl mt-5">Producten</h2>
+          <h2 className="mt-5">Producten</h2>
           <CustomPaginationActionsTable producten={producten}/>
         </div>
       </div>
@@ -161,13 +160,11 @@ function CustomPaginationActionsTable({ producten }) {
         <TableContainer>
           <Table className="min-w-96" aria-label="custom pagination table" size={'small'}>
             <TableHead>
-              <TableRow>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Naam</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Aantal</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">In stock</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Eenheidsprijs</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Totale prijs</TableCell>
-              </TableRow>
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
@@ -176,8 +173,8 @@ function CustomPaginationActionsTable({ producten }) {
                     page * rowsPerPage + rowsPerPage
                   )
                 : producten
-              ).map((product) => (
-                <TableRow key={product.PRODUCT_NAAM}>
+              ).map((product, index) => (
+                <TableRow key={index}>
                   <TableCell component="th" scope="row" align="left">
                     {product.PRODUCT_NAAM}
                   </TableCell>
@@ -338,7 +335,7 @@ function betaling(BETALINGSTATUS, ORDERID) {
   const { gebruikerRol } = useAuth();
   if (gebruikerRol === "KLANT" && BETALINGSTATUS !== "BETAALD")
     return (
-      <Button variant="contained" sx={{ marginTop: "10px" }}>
+      <Button variant="contained">
         <Link to={`/bestelling/${ORDERID}/betaling`}>Betalen</Link>
       </Button>
     );

@@ -7,7 +7,8 @@
 .learning-option-button {
   padding: 0.5rem;
   border-radius: 25px;
-  background: transparent;
-  border: 1px solid rgb(238, 64, 64);
+  background: white;
+  color: #DC2626;
+  border: 1px solid #DC2626;
   margin: 3px;
 }

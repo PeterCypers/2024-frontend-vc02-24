@@ -40,38 +40,34 @@ const BedrijfsGegevensPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 min-h-screen w-full px-10 pt-7">
-      <div>
+    <div className="min-h-screen w-full px-10 pt-7">
+      <div className="grid xl:grid-cols-2 md:grid-cols-1 gap-6">
         <div>
-          <h1 className="text-2xl font-bold mb-2" style={{color: "#C32828"}}>{bedrijf.NAAM}</h1>
-          <div id='bedrijfgegevensGridOne' className='grid grid-cols-2 gap-4'>
+          <h2>{bedrijf.NAAM}</h2>
+          <div className='md:grid grid-cols-2 sm:grid-cols-1 xl:grid-cols-3 gap-4'>
             <div className="text-red-950 font-bold">Sector:</div>
-            <div>{bedrijf.SECTOR}</div>
+            <div className="col-span-2">{bedrijf.SECTOR}</div>
             <div className="text-red-950 font-bold">Adres:</div>
-            <div>
-              {bedrijf.STRAAT} {bedrijf.STRAATNR} <br /> {bedrijf.STAD}{" "}
-              {bedrijf.POSTCODE} {bedrijf.LAND}
+            <div className="col-span-2">
+              <div>{bedrijf.STRAAT} {bedrijf.STRAATNR}</div>
+              <div>{bedrijf.POSTCODE} {bedrijf.STAD} {bedrijf.LAND}</div>
             </div>
-            <div
-              id="bedrijfgegevensGridTwo"
-              className="grid grid-cols-2 gap-4 col-span-2"
-            >
-              <div className="text-red-950 font-bold">Contactgegevens:</div>
-              <div>
-                {bedrijf.EMAILADRES} <br /> {bedrijf.TELEFOONNUMMER}
-              </div>
-              <div className="text-red-950 font-bold">Rekeningnummer:</div>
-              <div>{bedrijf.REKENINGNUMMER}</div>
-              <div className="text-red-950 font-bold">BTW-nummer:</div>
-              <div>{bedrijf.BTWNR}</div>
+            <div className="text-red-950 font-bold">Contactgegevens:</div>
+            <div className="col-span-2">
+              <div>{bedrijf.EMAILADRES}</div>
+              <div>{bedrijf.TELEFOONNUMMER}</div>
             </div>
+            <div className="text-red-950 font-bold">Rekeningnummer:</div>
+            <div className="col-span-2">{bedrijf.REKENINGNUMMER}</div>
+            <div className="text-red-950 font-bold">BTW-nummer:</div>
+            <div className="col-span-2">{bedrijf.BTWNR}</div>
           </div>
         </div>
+        <div className="ml-28 w-64">
+          <img src={bedrijf.LOGO} alt="Image" />
+        </div>
       </div>
-      <div className="ml-28 w-64">
-        <img src={bedrijf.LOGO} alt="Image" />
-      </div>
-      <div className="ml-5">
+      <div className="mt-8">
         <Button variant="contained" onClick={handleOpenEdit}>
           Gegevens wijzigen
         </Button>
@@ -127,7 +123,7 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
   );
 
   return (
-    <Dialog maxWidth={"lg"} open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle className="text-red-600 font-extrabold text-2xl">Bedrijf gegevens wijzigen</DialogTitle>
       <DialogContent>
         <div className="grid grid-cols-2 gap-3 w-fit">

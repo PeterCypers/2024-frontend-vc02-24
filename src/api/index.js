@@ -61,7 +61,6 @@ export const updateNotificationStatus = async (
   { NOTIFICATIEID, GEBRUIKERID, ORDERID, DATUM, BERICHT },
   nieuweStatus
 ) => {
-  console.log(NOTIFICATIEID);
   try {
     const response = await axios.put(
       `${baseUrl}/notificaties/${NOTIFICATIEID}`,

@@ -9,7 +9,7 @@ class MessageParser {
     const lowerCaseMessage = message.toLowerCase();
 
 
-    const greetingKeywords = ["hello", "hallo", "hi", "hoi","ahoy","dag","goeiedag"];
+    const greetingKeywords = ["hello", "hallo", "hi", "hey", "hoi","ahoy","dag","goeiedag"];
     if (greetingKeywords.some(keyword => lowerCaseMessage.includes(keyword))) {
       this.actionProvider.greet();
     }
@@ -19,7 +19,6 @@ class MessageParser {
     }
 
     if(lowerCaseMessage.includes("product")){
-      //this.actionProvider.whereProducts();
       this.actionProvider.handleProductsList();
     }
 

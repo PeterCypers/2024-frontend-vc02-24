@@ -26,7 +26,7 @@ const BetaalHerinnering = ({ orderIds }) => {
         return;
       }
 
-      // Anders mag ze geupdate worden op vandaag TODO: controlleer of het werkt -> er is momenteel geen onbetaalde order om te controlleren
+      // Anders mag ze geupdate worden op vandaag
       await updateOrderById(selectedValue, { HERINNERINGSDATUM: new Date().toISOString().split('T')[0] });
 
       // Reset selectedValue after sending the request
@@ -41,7 +41,7 @@ const BetaalHerinnering = ({ orderIds }) => {
 
   return (
     <Box className="w-full h-fit mt-5">
-      <h2 className="text-red-600 font-extrabold text-2xl mb-4">BetalingsHerinnering</h2>
+      <h2 className="mb-4">BetalingsHerinnering</h2>
       <div className="grid grid-cols-2 gap-x-10 ml-3 w-fit" >
         <Select
           value={selectedValue}
