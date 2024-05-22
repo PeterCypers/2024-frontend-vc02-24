@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/Auth.context';
 
+// De lay-out nog te checken 
 export default function PrivateRoute() {
   const { ready, isAuthed, tokenIsExpired } = useAuth();
   const { pathname } = useLocation();

@@ -6,6 +6,10 @@ const BetaalHerinnering = ({ orderIds }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
+  let orderids = orderIds.filter((value, index, self) => {
+    return self.indexOf(value) === index
+  })
+
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     setFeedbackMessage('');
@@ -36,32 +40,33 @@ const BetaalHerinnering = ({ orderIds }) => {
   };
 
   return (
-    <Box p={2}>
+    <Box className="w-full h-fit mt-5">
       <h2 className="text-red-600 font-extrabold text-2xl mb-4">BetalingsHerinnering</h2>
-      <Box display="flex" alignItems="center" gap={2}>
+      <div className="grid grid-cols-2 gap-x-10 ml-3 w-fit" >
         <Select
           value={selectedValue}
           onChange={handleChange}
-          variant="outlined"
+          variant="standard"
           style={{ minWidth: "8rem" }}
           displayEmpty
         >
           <MenuItem disabled value="">
             Order Id
           </MenuItem>
-          {orderIds.map(orderId => (
+          {orderids.map(orderId => (
             <MenuItem key={orderId} value={orderId}>{orderId}</MenuItem>
           ))}
         </Select>
         <Button variant="contained" color="primary" onClick={handleButtonClick}>
           Verzenden
         </Button>
-      </Box>
-      {feedbackMessage && (
-        <Box mt={2}>
-          {feedbackMessage}
-        </Box>
-      )}
+        {feedbackMessage && (
+          <Box className="mt-3 col-span-2">
+            <p className="text-red-600">{feedbackMessage}</p>
+          </Box>
+        )}  
+      </div>
+
     </Box>
 
   );

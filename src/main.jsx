@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Navigate replace to="/products"/>,
+    element: <Navigate replace to="/products"/>,  //als een leverancier naar welke pagina word je dan doorgestuurt als een pagina niet bestaat
   },
   {
     path: "/login",

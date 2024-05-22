@@ -3,11 +3,11 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const buttonStyle = {
-  bgcolor: "black",
+  bgcolor: "#c92d2d",
   color: "white",
   marginTop: "2%",
   ":hover": {
-    bgcolor: "#c92d2d",
+    bgcolor: "#dc0000",
   },
 };
 

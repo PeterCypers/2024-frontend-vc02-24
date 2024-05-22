@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme } from '@mui/material/styles';
 import { useAuth } from "../contexts/Auth.context";
 import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TablePagination, TableRow, Paper, TableHead, FormControlLabel, Switch } from '@mui/material';
@@ -7,6 +7,60 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+
+export default function Bestelling({ bestelling }) {
+
+  const {
+    DATUMGEPLAATST,
+    ORDERID,
+    ORDERSTATUS,
+    BETALINGSTATUS,
+    HERINNERINGSDATUM,
+    klant,
+    leverancier,
+    producten,
+  } = bestelling;
+
+  const getTotalePrijs = () => {
+    let totalePrijs = 0;
+    producten.forEach(product => {
+      totalePrijs += product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL;
+    });
+    return totalePrijs;
+  }
+
+  return (
+    <>
+      <div className="h-fit w-auto">
+        <h2 className="text-red-600 font-extrabold text-2xl pb-3">Gegevens</h2>
+        <div className=" grid grid-cols-4 gap-4">
+          <div className="text-red-950 font-bold">Order id:</div>
+          <div>{ORDERID}</div>
+          <div className="text-red-950 font-bold">Datum geplaatst:</div>
+          <div>{formatDateTime(DATUMGEPLAATST)}</div>
+          {naam(leverancier, klant)}
+          <div className="text-red-950 font-bold">Totale bedrag:</div>
+          <div>&euro; {parseFloat(getTotalePrijs()).toFixed(2)}</div>
+          {contact(klant)}           
+          <div className="text-red-950 font-bold">Leveradres:</div>
+          <div className="col-span-3">
+            <div>{klant.STRAAT} {klant.STRAATNR}</div>
+            <div>{klant.POSTCODE} {klant.STAD} {klant.LAND}</div>
+          </div>
+          <div className="text-red-950 font-bold">Orderstatus:</div>
+          <div className="col-span-3">{orderstatus(ORDERSTATUS)}</div>
+          <div className="text-red-950 font-bold">Betalingstatus:</div>
+          <div className="col-span-3">{betalingstatus(BETALINGSTATUS)}</div>
+          {extra(leverancier, HERINNERINGSDATUM)}
+        </div>
+        <div>
+          <h2 className="text-red-600 font-extrabold text-2xl mt-5">Producten</h2>
+          <CustomPaginationActionsTable producten={producten}/>
+        </div>
+      </div>
+    </>
+  );
+};
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -82,15 +136,15 @@ function CustomPaginationActionsTable({producten}) {
   return (
     <Box className="rounded-md w-full h-full pt-2">
       <Paper className='rounded-md w-full h-full'>
-        <TableContainer className='bg-transparent'>
+        <TableContainer>
           <Table className="min-w-96" aria-label="custom pagination table" size={'small'}>
             <TableHead>
               <TableRow>
-                <TableCell align="center">Naam</TableCell>
-                <TableCell align="center">Aantal</TableCell>
-                <TableCell align="center">In stock</TableCell>
-                <TableCell align="center">Eenheidsprijs</TableCell>
-                <TableCell align="center">Totale prijs</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }} align="center">Naam</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }} align="center">Aantal</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }} align="center">In stock</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }} align="center">Eenheidsprijs</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }} align="center">Totale prijs</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -105,9 +159,9 @@ function CustomPaginationActionsTable({producten}) {
                   <TableCell align="center">{product.PRODUCT_AANTAL}</TableCell>
                   <TableCell align="center">{product.PRODUCT_STOCK}</TableCell>
                   <TableCell align="center">
-                    € {product.PRODUCT_EENHEIDSPRIJS}
+                    &euro; {product.PRODUCT_EENHEIDSPRIJS}
                   </TableCell>
-                  <TableCell align="center">€ {parseFloat(product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL).toFixed(2)}</TableCell>
+                  <TableCell align="center">&euro; {parseFloat(product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL).toFixed(2)}</TableCell>
                 </TableRow>
               ))}
               {emptyRows > 0 && (
@@ -119,7 +173,7 @@ function CustomPaginationActionsTable({producten}) {
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  rowsPerPageOptions={[5, 10, { label: 'All', value: -1 }]}
                   count={producten.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
@@ -231,61 +285,3 @@ function extra(leverancier, HERINNERINGSDATUM) {
       </>
     )
 }
-
-export default function Bestelling({ bestelling }) {
-
-  const {
-    DATUMGEPLAATST,
-    ORDERID,
-    ORDERSTATUS,
-    BETALINGSTATUS,
-    HERINNERINGSDATUM,
-    klant,
-    leverancier,
-    producten,
-  } = bestelling;
-
-  const getTotalePrijs = () => {
-    let totalePrijs = 0;
-    producten.forEach(product => {
-      totalePrijs += product.PRODUCT_EENHEIDSPRIJS * product.PRODUCT_AANTAL;
-    });
-    return totalePrijs;
-  }
-
-  return (
-    <>
-      <div className="h-auto w-auto p-5">
-        <h2 className="text-red-600 font-extrabold text-2xl">Gegevens</h2>
-        <div className=" grid grid-cols-4 gap-4">
-          <div className="text-red-950 font-bold">Order id:</div>
-          <div>{ORDERID}</div>
-          <div className="text-red-950 font-bold">Datum geplaatst:</div>
-          <div>{formatDateTime(DATUMGEPLAATST)}</div>
-          {naam(leverancier, klant)}
-          <div className="text-red-950 font-bold">Totale bedrag:</div>
-          <div>€ {parseFloat(getTotalePrijs()).toFixed(2)}</div>
-          {contact(klant)}           
-          <div className="text-red-950 font-bold">Leveradres:</div>
-          <div className="col-span-3">
-            <div>{klant.STRAAT}</div>
-            <div>{klant.STRAATNR}</div>
-            <div>{klant.STAD}</div>
-            <div>{klant.POSTCODE} </div>
-            <div>{klant.LAND}</div>
-          </div>
-          <div className="text-red-950 font-bold">Orderstatus:</div>
-          <div className="col-span-3">{orderstatus(ORDERSTATUS)}</div>
-          <div className="text-red-950 font-bold">Betalingstatus:</div>
-          <div className="col-span-3">{betalingstatus(BETALINGSTATUS)}</div>
-          {extra(leverancier, HERINNERINGSDATUM)}
-        </div>
-        <div>
-          <h2 className="text-red-600 font-extrabold text-2xl mt-5">Producten</h2>
-          <CustomPaginationActionsTable producten={producten}/>
-        </div>
-      </div>
-    </>
-  );
-};
-

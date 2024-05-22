@@ -11,21 +11,26 @@ const NotificatiePage = () => {
   });
 
   if (error) {
-    return <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>Fout bij het laden van notificaties.</Box>;
+    return <Box className='w-auto h-screen rounded-md'>Fout bij het laden van notificaties.</Box>;
   }
 
   if (!notificaties?.items?.length || isValidating) {
+    if(notificaties.items.length === 0){
+      return <Box className='w-auto h-screen rounded-md'></Box>;
+    }
     return (
-      <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65' display="flex" justifyContent="center" alignItems="center">
+      <Box className='w-auto h-screen rounded-md' display="flex" justifyContent="center" alignItems="center">
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box className='w-auto h-screen rounded-md bg-gray-400 bg-opacity-65'>
-      <NotificatieList notificaties={notificaties.items} />
-    </Box>
+    <div className="min-h-screen w-full rounded-md">
+      <Box className='w-auto h-auto px-10 pt-7'>
+        <NotificatieList notificaties={notificaties.items} />
+      </Box>
+    </div>
   );
 };
 

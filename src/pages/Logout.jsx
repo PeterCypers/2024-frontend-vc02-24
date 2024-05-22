@@ -14,7 +14,7 @@ export default function Logout() {
 
   if (isAuthed) {
     return (
-      <div>
+      <div className='w-full h-full'>
         <div className='m-4'>
           <h1>Uitloggen...</h1>
         </div>
@@ -23,11 +23,14 @@ export default function Logout() {
   }
 
   return (
-    <div className='m-4'>
-      <span>{manueelLogout === "true" ? "Je werd succesvol uitgelogd. " : "De sessie is verlopen. "}</span>
-      <Link to="/" className="text-blue underline">
-        <span>Terugkeren</span>
-      </Link>
+    <div className='flex justify-center place-items-center w-screen h-screen'>
+      <div className='object-center'>
+        <span>{manueelLogout === "true" ? "Je werd succesvol uitgelogd. " : "De sessie is verlopen. "}</span>
+        <Link to="/" className="text-red-500 text-blue underline">
+          <span>Terugkeren</span>
+        </Link>
+      </div>
     </div>
+
   );
 }

@@ -5,8 +5,8 @@ import BestellingList from "../components/BestellingList";
 
 const BestellingenPage = () => {
   return (
-    <div className="h-full w-full rounded-md">
-      <Box className='w-auto h-screen p-10'>
+    <div className="min-h-screen w-full rounded-md">
+      <Box className='w-auto h-auto px-10 pt-7'>
         <BestellingList />
       </Box>
 
