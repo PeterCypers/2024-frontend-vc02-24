@@ -101,10 +101,13 @@ export const getNotifications = async (page = 1, limit = 10) => {
 
 export const updateOrderById = async (orderId, updatedOrderData) => {
   try {
-    const { data } = await axios.put(`${baseUrl}/bestellingen/${orderId}`, updatedOrderData);
+    const { data } = await axios.put(
+      `${baseUrl}/bestellingen/${orderId}`,
+      updatedOrderData
+    );
     return data;
   } catch (error) {
-    console.error('Error updating order by ID:', error);
+    console.error("Error updating order by ID:", error);
     throw error;
   }
 };
