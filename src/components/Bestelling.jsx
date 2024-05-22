@@ -160,11 +160,13 @@ function CustomPaginationActionsTable({ producten }) {
         <TableContainer>
           <Table className="min-w-96" aria-label="custom pagination table" size={'small'}>
             <TableHead>
+              <TableRow>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Naam</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Aantal</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">In stock</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Eenheidsprijs</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }} align="center">Totale prijs</TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0

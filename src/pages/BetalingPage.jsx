@@ -36,23 +36,24 @@ const BetalingPage = () => {
   return (
     <>
       <div id="betaling" className="h-screen">
-        <div className="flex flex-col justify-between justify-items-center mx-auto w-min gap-36">
-          <img
-            className="mb-8 mt-10 min-w-96"
-            src="/images/Delaware-logo.png"
-            alt="Delaware logo"
-          />
-          <div className="w-min mx-auto">
+        <div className="grid grid-cols-3 md:gap-10 sm:gap-5 h-full w-full">
+          <div className="col-span-3 w-min justify-self-center">
+            <img
+              className="mb-8 mt-10 min-w-96"
+              src="/images/Delaware-logo.png"
+              alt="Delaware logo"
+            />
+          </div>
+          <div className="col-span-3 w-min justify-self-center">
             <QRCode value="Bestelling betalen..." size={250} />
           </div>
-        </div>
-        <div className="grid grid-cols-2 absolute bottom-28 w-screen">
-          <div className="justify-self-start mx-32">
+          <div className="justify-self-center">
             <Button variant="contained">
               <Link to={"/profiel/bestellingen"}>Terug</Link>
             </Button>
           </div>
-          <div className="justify-self-end mx-32">
+          <div></div>
+          <div className="justify-self-center">
             <Factuur bestelling={bestelling} />
           </div>
         </div>

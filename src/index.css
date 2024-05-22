@@ -72,11 +72,13 @@ h2 {
     background-position: top 550px left -5px;
 }
 
-#betaling {
-    background-image: url("/images/Image (17).png"), url("/images/Image (18).png"), url("/images/Image (19).png"), url("/images/Image (20).png");
-    background-size: 12rem, 12rem, 12rem, 12rem;
-    background-repeat: no-repeat;
-    background-position: top right, top left, bottom left, bottom right;
+@media(min-width: 640px){
+    #betaling {
+        background-image: url("/images/Image (17).png"), url("/images/Image (18).png"), url("/images/Image (19).png"), url("/images/Image (20).png");
+        background-size: 12rem, 12rem, 12rem, 12rem;
+        background-repeat: no-repeat;
+        background-position: top right, top left, bottom left, bottom right;
+    }
 }
 
 /* chatbot rules */

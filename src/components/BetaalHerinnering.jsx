@@ -41,7 +41,7 @@ const BetaalHerinnering = ({ orderIds }) => {
 
   return (
     <Box className="w-full h-fit mt-5">
-      <h2 className="mb-4">BetalingsHerinnering</h2>
+      <h2 className="mb-4">Betalingsherinnering</h2>
       <div className="grid grid-cols-2 gap-x-10 ml-3 w-fit" >
         <Select
           value={selectedValue}
