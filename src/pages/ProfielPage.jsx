@@ -37,8 +37,8 @@ const ProfielPage = () => {
       >
         <h1 id="h1">Accountoverzicht</h1>
       </Box>
-      <div className="px-4 flex flex-grow w-full h-full space-x-4" id="profiel-container">
-        <div className="h-full w-fit mt-10 mr-10">
+      <div className="px-4 flex flex-col sm:flex-row flex-grow w-full h-full space-x-4" id="profiel-container">
+        <div className="h-full ml-10 md:ml-0 w-fit mt-10 mr-10">
           <SideMenu ongelezenNotificatiesCount={ongelezenNotificatiesCount} />
         </div>
         <div className="h-full w-full mt-10">

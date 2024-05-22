@@ -49,11 +49,13 @@ html {
     background-size: 100%;
 }
 
-#profiel-container {
-    background-image: url(/images/BestellingBackground1.png), url(/images/BestellingBackground2.png), url(/images/BestellingBackground3.png), url(/images/BestellingBackground4.png);
-    background-size: 8rem, 5rem, 5rem, 6rem;
-    background-position: left 295px top 2px, left 256px top 350px, right -24px top 100px, right -28px bottom 30px;
-    background-repeat: no-repeat;
+@media (min-width: 640px) {
+    #profiel-container {
+        background-image: url(/images/BestellingBackground1.png), url(/images/BestellingBackground2.png), url(/images/BestellingBackground3.png), url(/images/BestellingBackground4.png);
+        background-size: 8rem, 5rem, 5rem, 6rem;
+        background-position: left 295px top 2px, left 256px top 350px, right -24px top 100px, right -28px bottom 30px;
+        background-repeat: no-repeat;
+    }
 }
 
 #gegevens-container {
