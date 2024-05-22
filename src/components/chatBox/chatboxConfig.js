@@ -4,10 +4,7 @@ import { createChatBotMessage } from 'react-chatbot-kit';
 import DelawareBotOptions from './chatBoxComponents/BotOptions/DelawareBotOptions';
 import LinkList from './chatBoxComponents/LinkList/LinkList';
 
-
-const enmsg = ["Hi, I'm here to help. What are you looking for?"];
 const nlmsg = ["Goeiedag, kan ik u ergens mee helpen?"];
-const oldBGC_hex = ['#376B7E'];
 
 const config = {
   botName: 'DelawareHelperBot',
@@ -18,10 +15,7 @@ const config = {
   ],
   customStyles: {
     botMessageBox: {
-      backgroundColor: '#EF4444',
-    },
-    chatButton: {
-      backgroundColor: '#EF4444',
+      backgroundColor: '#FFFEFE',
     },
   },
   widgets: [

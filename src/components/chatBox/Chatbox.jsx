@@ -7,9 +7,7 @@ import MessageParser from './MessageParser';
 import config from './chatboxConfig';
 
 //default, moet je niet meegeven (ter info)
-const old_placeholder = "Write your messages here";
 const nl_placeholder = "Schrijf hier je vragen";
-const old_headerText = "Conversation with <botname>"; //botname from config.botname
 const nl_headerText = "Conversatie met DelawareHelperBot"; //botname from config.botname
 
 function Chatbox() {

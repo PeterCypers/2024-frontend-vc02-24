@@ -37,7 +37,6 @@ class Factuur extends React.Component {
     }));
 
     return {
-      // mode: "development",
       images: {
         logo: bestelling.leverancier.LEVERANCIER_BEDRIJF_LOGO,
       },
@@ -64,13 +63,6 @@ class Factuur extends React.Component {
       settings: {
         currency: "EUR",
         locale: "nl-NL",
-        // "margin-top": 25, // Default to 25
-        // "margin-right": 25, // Default to 25
-        // "margin-left": 25, // Default to 25
-        // "margin-bottom": 25, // Default to 25
-        // "format": "Letter", // Defaults to A4,
-        // "height": "1000px", // allowed units: mm, cm, in, px
-        // "width": "500px", // allowed units: mm, cm, in, px
       },
       translate: {
         invoice: "FACTUUR",

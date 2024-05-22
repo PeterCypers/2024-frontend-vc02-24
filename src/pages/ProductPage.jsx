@@ -2,7 +2,6 @@ import React from 'react';
 import ProductList from '../components/ProductList';
 import productPageBackground from '/images/productPageBackground.png'; 
 import { Box } from '@mui/material';
-import ChatFloatingButton from '../components/ChatFloatingButton';
 
 const ProductPage = () => {
     return (
@@ -23,9 +22,6 @@ const ProductPage = () => {
             </Box>
             <div className="p-1 ml-4 mr-4 h-full">
                 <ProductList />
-
-
-                
             </div>
         </div>
     );

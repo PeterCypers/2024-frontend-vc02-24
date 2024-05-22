@@ -6,14 +6,6 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function SearchBar({ handleClick, placeholder_text }) {
   const [text, setText] = React.useState("");
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      console.log(text);
-      handleClick(text);
-    }
-  };
-
   return (
     <Paper
       component="form"

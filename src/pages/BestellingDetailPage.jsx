@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { getById } from "../api";
 import { Box, CircularProgress } from "@mui/material";
 import Bestelling from "../components/Bestelling";
-import { useAuth } from "../contexts/Auth.context";
 
 const BestellingDetailPage = () => {
   const { id } = useParams();
@@ -12,7 +11,6 @@ const BestellingDetailPage = () => {
   const {
     data: bestelling,
     isLoading,
-    error,
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
 
   if (isLoading) {

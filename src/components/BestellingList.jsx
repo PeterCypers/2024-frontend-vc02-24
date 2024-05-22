@@ -153,7 +153,7 @@ function BestellingenTable() {
         <Box className="rounded-md w-full h-full">
           <Paper className='rounded-md w-full h-full'>
             <Toolbar className="flex justify-between justify-items-end-end ">
-              <h2 className="text-red-600 font-extrabold text-2xl">Bestellingen</h2>
+              <h2 className="pt-3">Bestellingen</h2>
               <IconButton
                 onClick={handleFilterClick}
               >

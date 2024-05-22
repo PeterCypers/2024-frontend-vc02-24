@@ -31,7 +31,7 @@ const NotificatieList = ({notificaties}) => {
   const handleRowClick = async (notificatie) => {
     try {
       await updateNotificationStatus(notificatie, "gelezen");
-      fetchNotificaties(); //werkt dit?
+      
     } catch (error) {
       console.error('Error updating notification status:', error);
     }
@@ -40,17 +40,15 @@ const NotificatieList = ({notificaties}) => {
 
   return (
     <Box className="rounded-md w-full h-full">
-      <h2 className="text-red-600 font-extrabold text-2xl pb-3">Notificaties</h2>
+      <h2>Notificaties</h2>
       <Paper className='rounded-md w-full h-fit'>
         <TableContainer>
-          <Table aria-label="notification table">
+          <Table>
             <TableHead>
-              <TableRow>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Datum</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Bericht</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Status</TableCell>
-                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Order ID</TableCell>
-              </TableRow>
+              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Datum</TableCell>
+              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Bericht</TableCell>
+              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Status</TableCell>
+              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Order ID</TableCell>
             </TableHead>
             <TableBody>
               {notificaties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((notificatie) => (

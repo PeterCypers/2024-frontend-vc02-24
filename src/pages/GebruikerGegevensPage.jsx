@@ -32,17 +32,15 @@ const GebruikersGegevensPage = () => {
   }
 
   return (
-    <div className="flex flex-col space-y-6 w-1/2 m-5 mt-8 pl-5">
-      <div>
-        <h1 className="text-2xl font-bold mb-2" style={{ color: "#C32828" }}>{gebruiker.naam}</h1>
-        <div id='gebruikersgegevensGrid' className='grid grid-cols-2 gap-4'>
-          <div className="text-red-950 font-bold">Naam:</div>
-          <div>{gebruiker.naam}</div>
-          <div className="text-red-950 font-bold">E-mailadres:</div>
-          <div>{gebruiker.email}</div>
-        </div>
+    <div className="min-h-screen w-full px-10 pt-7">
+      <h2>Gegevens</h2>
+      <div className='grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 gap-4'>
+        <div className="text-red-950 font-bold">Naam:</div>
+        <div className='col-span-4'>{gebruiker.naam}</div>
+        <div className="text-red-950 font-bold">E-mailadres:</div>
+        <div className='col-span-4'>{gebruiker.email}</div>
       </div>
-      <div>
+      <div className='mt-8'>
         <Button variant="contained" onClick={handleOpenEdit}>
           Gegevens wijzigen
         </Button>
@@ -97,9 +95,9 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Update Gegevens</DialogTitle>
+      <DialogTitle className="text-red-600 font-extrabold text-2xl">Update Gegevens</DialogTitle>
       <DialogContent>
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 w-fit">
           <TextField
             margin="dense"
             label="Naam"
@@ -147,9 +145,11 @@ const UpdateDialog = ({ open, handleClose, initialData, id }) => {
           </Typography>
         </div>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Annuleren</Button>
-        <Button className="order-last" onClick={handleSaveData} color="primary">Opslaan</Button>
+      <DialogActions className='w-full'>
+        <div className='flex justify-between w-full'>
+          <Button onClick={handleClose}>Annuleren</Button>
+          <Button className="order-last" onClick={handleSaveData} color="primary">Opslaan</Button>
+        </div>
       </DialogActions>
     </Dialog>
   );

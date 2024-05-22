@@ -16,7 +16,11 @@ const NotificatiePage = () => {
 
   if (!notificaties?.items?.length || isValidating) {
     if(notificaties.items.length === 0){
-      return <Box className='w-auto h-screen rounded-md'></Box>;
+      return (
+        <Box className='flex justify-center w-auto h-screen rounded-md mt-36'>
+          <p>U heeft geen notificaties</p>
+        </Box>
+      );
     }
     return (
       <Box className='w-auto h-screen rounded-md' display="flex" justifyContent="center" alignItems="center">
