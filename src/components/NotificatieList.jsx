@@ -45,14 +45,16 @@ const NotificatieList = ({notificaties}) => {
         <TableContainer>
           <Table>
             <TableHead>
-              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Datum</TableCell>
-              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Bericht</TableCell>
-              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Status</TableCell>
-              <TableCell align="center" sx={{ fontWeight: 'bold' }}>Order ID</TableCell>
+              <TableRow>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Datum</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Bericht</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Status</TableCell>
+                <TableCell align="center" sx={{ fontWeight: 'bold' }}>Order ID</TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
-              {notificaties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((notificatie) => (
-                <TableRow hover onClick={() => handleRowClick(notificatie)} sx={{ cursor: 'pointer' }}>
+              {notificaties.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((notificatie, index) => (
+                <TableRow key={index} hover onClick={() => handleRowClick(notificatie)} sx={{ cursor: 'pointer' }}>
                   <TableCell align="center">{new Date(notificatie.DATUM).toLocaleDateString()}</TableCell>
                   <TableCell align="left">{notificatie.BERICHT}</TableCell>
                   <TableCell align="center">{formatNotificatiestatus(notificatie.NOTIFICATIESTATUS)}</TableCell>
