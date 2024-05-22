@@ -55,7 +55,7 @@ const SideMenu = React.memo(({ ongelezenNotificatiesCount }) => {
             <ListItemIcon>
               <PersonIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Gegevens</ListItemText>
+            <ListItemText>Gebruikersgegevens</ListItemText>
           </MenuItem>
         </Link>
         <Link to="bedrijfsgegevens">
@@ -63,7 +63,7 @@ const SideMenu = React.memo(({ ongelezenNotificatiesCount }) => {
             <ListItemIcon>
               <ApartmentIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Bedrijfs gegevens</ListItemText>
+            <ListItemText>Bedrijfsgegevens</ListItemText>
           </MenuItem>
         </Link>
         <Link to="bestellingen">
