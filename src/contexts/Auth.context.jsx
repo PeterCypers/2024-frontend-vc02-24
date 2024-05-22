@@ -122,6 +122,10 @@ export const AuthProvider = ({ children }) => {
           wachtwoord,
         });
 
+        if (gebruiker.rol == "ADMINISTRATOR") {
+          throw Error("Administrators kunnen niet inloggen.");
+        }
+
         setSession(token, gebruiker);
 
         return true;
