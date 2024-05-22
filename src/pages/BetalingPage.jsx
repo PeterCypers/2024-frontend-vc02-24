@@ -7,13 +7,15 @@ import useSWR from "swr";
 import { useAuth } from "../contexts/Auth.context";
 import { getById, post } from "../api";
 
+const fetcher = (url) => getById(url);
+
 const BetalingPage = () => {
   const { id } = useParams();
   const { isAuthed } = useAuth();
 
   const {
     data: bestelling
-  } = useSWR(id ? `bestellingen/${id}` : null, getById);
+  } = useSWR(isAuthed && id ? `bestellingen/${id}` : null, fetcher);
 
   const createBetaling = useCallback(async () => {
     try {

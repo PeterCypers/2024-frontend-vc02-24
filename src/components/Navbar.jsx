@@ -17,6 +17,8 @@ import { getAll } from "../api/index";
 import { red } from "@mui/material/colors";
 import useSWR from "swr";
 
+const fetcher = (url) => getAll(url);
+
 const Navbar = () => {
   const { isAuthed, gebruikerLetter } = useAuth();
   const [profielAnchorEl, setAnchorEl] = useState(null);
@@ -25,10 +27,11 @@ const Navbar = () => {
   const openProfielMenu = Boolean(profielAnchorEl);
   const openNotifMenu = Boolean(notifAnchorEl);
 
-  const {
-    data: notificaties = { items: [] },
-    isLoading,
-  } = useSWR("notificaties", getAll, { revalidateOnMount: true });
+  const { 
+    data: notificaties = { items: [] }, 
+    error, 
+    isLoading 
+  } = useSWR( isAuthed ? "notificaties" : null, fetcher, { revalidateOnMount: true });
 
   const ongelezenNotificatiesCount = useMemo(() => { 
     if (isLoading) {

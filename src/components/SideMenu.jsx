@@ -47,7 +47,6 @@ const Badge = styled(BaseBadge)(
 );
 
 const SideMenu = React.memo(({ ongelezenNotificatiesCount }) => {
-  console.log(ongelezenNotificatiesCount)
   return (
     <Box className="w-56 max-w-full h-full overflow-auto rounded">
       <MenuList>
