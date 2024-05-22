@@ -1,33 +1,35 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import QRCode from "react-qr-code";
 import { Link, useParams } from "react-router-dom";
 import Factuur from "../components/Factuur";
 import useSWR from "swr";
+import { useAuth } from "../contexts/Auth.context";
 import { getById, post } from "../api";
 
 const BetalingPage = () => {
   const { id } = useParams();
+  const { isAuthed } = useAuth();
 
   const {
-    data: bestelling,
-    isLoading,
-    error,
+    data: bestelling
   } = useSWR(id ? `bestellingen/${id}` : null, getById);
 
-  useEffect(() => {
-    const createBetaling = async () => {
-      try {
-        console.log(id);
-        await post("betaling", { arg: { ORDERID: id } });
-      } catch (error) {
-        console.log("Failed to save data: ", error);
-      }
-    };
-    if (id) {
-      createBetaling();
+  const createBetaling = useCallback(async () => {
+    try {
+      await post("betaling", { arg: { ORDERID: id } });
+    } catch (error) {
+      console.log("Failed to save data: ", error);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (!id || !isAuthed) {
+      return;
+    }
+
+    createBetaling();
+  }, [id, isAuthed]);
 
   return (
     <>
