@@ -27,13 +27,13 @@ const BedrijfsGegevensPage = () => {
     error,
   } = useSWR(`bedrijfsgegevens/${gebruikerId}`, getById);
 
-  const handleOpenEdit = () => {
+  const handleOpenEdit = useCallback(() => {
     setDialogOpen(true);
-  };
+  }, []);
 
-  const handleCloseDialog = () => {
+  const handleCloseDialog = useCallback(() => {
     setDialogOpen(false);
-  };
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;

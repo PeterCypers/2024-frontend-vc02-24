@@ -18,8 +18,8 @@ const ProfielPage = () => {
     if (isLoading) {
       return 0;
     }
-    
-    return notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length 
+
+    return notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length;
   }, [notificaties]);
 
   return (

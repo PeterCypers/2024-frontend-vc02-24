@@ -19,6 +19,7 @@ export default function Login() {
   const { error, loading, login, gebruikerRol, isAuthed } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const methods = useForm();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -26,7 +27,6 @@ export default function Login() {
     event.preventDefault();
   };
 
-  const methods = useForm();
   const { handleSubmit, register } = methods;
 
   const handleLogin = useCallback(
