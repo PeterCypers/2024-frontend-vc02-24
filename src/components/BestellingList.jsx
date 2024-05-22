@@ -47,6 +47,7 @@ const headCells = [
 
 function BestellingenTable() {
   const navigate = useNavigate();
+  const { gebruikerRol, isLoading: isAuthLoading } = useAuth();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -55,7 +56,7 @@ function BestellingenTable() {
   const [filterValues, setFilterValues] = useState('');
   const [filterFields, setFilterFields] = useState('');
 
-  const [dialogOpen, setDialogOpen] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const queryParams = useMemo(() => {
     const filter = filterValues && filterFields ? `filterValues=${filterValues}&filterFields=${filterFields}` : '';
@@ -138,7 +139,7 @@ function BestellingenTable() {
     return page > 0 ? Math.max(0, (1 + page) * rowsPerPage - bestellingen.length) : 0;
   }, [page, bestellingen, rowsPerPage]);
 
-  if (isLoading) {
+  if (isLoading || isAuthLoading) {
     return <CircularProgress />;
   }
 
@@ -192,7 +193,7 @@ function BestellingenTable() {
                         >
                           {formatDateTime(DATUMGEPLAATST)}
                         </TableCell>
-                        <TableCell align="center">{formatName(klant, leverancier)}</TableCell>
+                        <TableCell align="center">{formatName(klant, leverancier, gebruikerRol)}</TableCell>
                         <TableCell align="center">{ORDERID}</TableCell>
                         <TableCell align="center">{formatOrderstatus(ORDERSTATUS)}</TableCell>
                         <TableCell align="center">{formatBetalingstatus(BETALINGSTATUS)}</TableCell>
@@ -272,9 +273,7 @@ function formatDateTime(dateString) {
   return date.toLocaleDateString();
 }
 
-function formatName(klant, leverancier) {
-  const { gebruikerRol } = useAuth();
-
+function formatName(klant, leverancier, gebruikerRol) {
   if (gebruikerRol === 'LEVERANCIER') {
     return klant.KLANT_BEDRIJF_NAAM;
   }
