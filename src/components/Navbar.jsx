@@ -27,13 +27,13 @@ const Navbar = () => {
   const openProfielMenu = Boolean(profielAnchorEl);
   const openNotifMenu = Boolean(notifAnchorEl);
 
-  const { 
-    data: notificaties = { items: [] }, 
-    error, 
-    isLoading 
-  } = useSWR( isAuthed ? "notificaties" : null, fetcher, { revalidateOnMount: true });
+  const {
+    data: notificaties = { items: [] },
+    error,
+    isLoading
+  } = useSWR(isAuthed ? "notificaties" : null, fetcher, { revalidateOnMount: true });
 
-  const ongelezenNotificatiesCount = useMemo(() => { 
+  const ongelezenNotificatiesCount = useMemo(() => {
     if (isLoading) {
       return 0;
     }
@@ -79,24 +79,25 @@ const Navbar = () => {
           />
         </li>
         <ul className="flex">
-          <li className={ongelezenNotificatiesCount ? "items-end mt-3": "items-end mt-1"}>
+          <li className={ongelezenNotificatiesCount ? "items-end mt-3" : "items-end mt-1"}>
             {isAuthed ? (
               <IconButton onClick={handleNotifClick}>
                 {
-                  ongelezenNotificatiesCount ? <Badge
-                    badgeContent={ ongelezenNotificatiesCount }
-                    color="error"
-                  >
+                  ongelezenNotificatiesCount ?
+                    <Badge
+                      badgeContent={ongelezenNotificatiesCount}
+                      color="error"
+                    >
+                      <NotificationsIcon
+                        fontSize="large"
+                        style={{ color: red[500] }}
+                      />
+                    </Badge>
+                    :
                     <NotificationsIcon
                       fontSize="large"
                       style={{ color: red[500] }}
                     />
-                  </Badge> 
-                  : 
-                  <NotificationsIcon
-                    fontSize="large"
-                    style={{ color: red[500] }}
-                  />
                 }
               </IconButton>
             ) : (
@@ -223,16 +224,14 @@ const Navbar = () => {
                   </Link>
                 </div>
               ) : (
-                <>
-                  <Link to="/login">
-                    <MenuItem>
-                      <ListItemIcon>
-                        <Login fontSize="small" />
-                      </ListItemIcon>
-                      Inloggen
-                    </MenuItem>
-                  </Link>
-                </>
+                <Link to="/login">
+                  <MenuItem>
+                    <ListItemIcon>
+                      <Login fontSize="small" />
+                    </ListItemIcon>
+                    Inloggen
+                  </MenuItem>
+                </Link>
               )}
             </Menu>
           </li>
