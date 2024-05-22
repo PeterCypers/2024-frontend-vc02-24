@@ -80,39 +80,4 @@ h2 {
         background-position: top right, top left, bottom left, bottom right;
     }
 }
-
-/* chatbot rules */
-.react-chatbot-kit-chat-container {
-    width: 300px;
-}
-
-.react-chatbot-kit-chat-inner-container {
-    background-color: #D9D9D9;
-}
-
-.react-chatbot-kit-chat-header {
-    background-color: #DC2626;
-    color: white;
-    text-align: center;
-}
-
-.react-chatbot-kit-chat-input-container {
-    border: white;
-}
-
-.react-chatbot-kit-chat-btn-send {
-    background-color: #DC2626;
-}
-
-.react-chatbot-kit-chat-bot-avatar-container {
-    background: linear-gradient(to bottom right, #ff3300 28%, #ff99cc 100%);
-}
-
-.react-chatbot-kit-chat-bot-message {
-    color: black;
-}
-
-.react-chatbot-kit-error {
-    color: #ff3300;
-}
   

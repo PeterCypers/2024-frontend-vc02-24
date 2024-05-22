@@ -4,10 +4,8 @@ import {
   Dialog,
   useTheme,
   useMediaQuery,
-  IconButton,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
-import CloseIcon from "@mui/icons-material/Close";
 import Chatbox from "./chatBox/Chatbox";
 
 const ChatFloatingButton = () => {
