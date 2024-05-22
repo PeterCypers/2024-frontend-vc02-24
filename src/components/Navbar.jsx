@@ -129,13 +129,14 @@ const Navbar = () => {
             >
               {notificaties.items.slice(0, 5).map((notif) => (
                 <MenuItem
-                  key={notif.id}
+                  key={notif.NOTIFICATIEID}
                   onClick={() => handleNotificationSelect(notif)}
                 >
                   {notif.BERICHT || "Geen bericht beschikbaar"}
                 </MenuItem>
               ))}
               <MenuItem
+                key="notificaties"
                 onClick={() => navigate("/profiel/notificaties")}
                 style={{ color: red[500] }}
               >
@@ -196,48 +197,48 @@ const Navbar = () => {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
               {isAuthed ? (
-                <div key={isAuthed}>
-                  <Link to="/profiel/gebruikergegevens">
-                    <MenuItem>
+                <div>
+                  <MenuItem>
+                    <Link to="/profiel/gebruikergegevens">
                       <ListItemIcon>
                         <Person fontSize="small" />
                       </ListItemIcon>
                       Accountoverzicht
-                    </MenuItem>
-                  </Link>
-                  <Link to="/">
-                    <MenuItem>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/">
                       <ListItemIcon>
                         <WarehouseIcon fontSize="small" />
                       </ListItemIcon>
                       Producten
-                    </MenuItem>
-                  </Link>
+                    </Link>
+                  </MenuItem>
                   <Divider />
-                  <Link to="/logout?manueel=true">
-                    <MenuItem>
+                  <MenuItem>
+                    <Link to="/logout?manueel=true">
                       <ListItemIcon>
                         <Logout fontSize="small" />
                       </ListItemIcon>
                       Uitloggen
-                    </MenuItem>
-                  </Link>
+                    </Link>
+                  </MenuItem>
                 </div>
               ) : (
-                <Link to="/login">
-                  <MenuItem>
+                <MenuItem>
+                  <Link to="/login">
                     <ListItemIcon>
                       <Login fontSize="small" />
                     </ListItemIcon>
                     Inloggen
-                  </MenuItem>
-                </Link>
+                  </Link>
+                </MenuItem>
               )}
             </Menu>
           </li>
         </ul>
       </ul>
-    </nav>
+    </nav >
   );
 };
 
