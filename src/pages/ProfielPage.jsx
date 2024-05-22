@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useMemo } from "react";
 import useSWR from "swr";
-import { styled, Box } from "@mui/system";
-import { Badge as BaseBadge, badgeClasses } from "@mui/base/Badge";
-import {
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-} from "@mui/material";
-import PersonIcon from '@mui/icons-material/Person';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import InventoryIcon from "@mui/icons-material/Inventory";
-import NoteIcon from "@mui/icons-material/Note";
-import { red } from "@mui/material/colors";
-import { Link, Outlet } from "react-router-dom";
+import { Box } from "@mui/system";
+import { Outlet } from "react-router-dom";
 import { getAll } from "../api";
+import SideMenu from "../components/SideMenu";
 
 const ProfielPage = () => {
   const imageURL = "/public/images/backgroundTitle.png";
-  const { data: notificaties = { items: [] }, error } = useSWR('notificaties', () => getAll('notificaties'));
-  const ongelezenNotificatiesCount = notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length;
+
+  const {
+    data: notificaties = { items: [] },
+    error,
+    isLoading,
+  } = useSWR('notificaties', () => getAll('notificaties'));
+
+  const ongelezenNotificatiesCount = useMemo(() => { 
+    if (isLoading) {
+      return 0;
+    }
+    
+    return notificaties.items.filter(n => n.NOTIFICATIESTATUS !== 'gelezen').length 
+  }, [notificaties]);
 
   return (
     <div className="w-full h-full">
@@ -34,7 +35,7 @@ const ProfielPage = () => {
           width: '100%',
         }} id="profiel-title"
       >
-          <h1 id="h1">Accountoverzicht</h1>
+        <h1 id="h1">Accountoverzicht</h1>
       </Box>
       <div className="px-4 flex flex-grow w-full h-full space-x-4" id="profiel-container">
         <div className="h-full w-fit mt-10 mr-10">
@@ -49,84 +50,3 @@ const ProfielPage = () => {
 };
 
 export default ProfielPage;
-
-const Badge = styled(BaseBadge)(
-  ({ theme }) => `
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-  font-variant: tabular-nums;
-  list-style: none;
-  font-family: 'IBM Plex Sans', sans-serif;
-  position: relative;
-  display: inline-block;
-  line-height: 1;
-
-  & .${badgeClasses.badge} {
-    z-index: auto;
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 20px;
-    white-space: nowrap;
-    text-align: center;
-    border-radius: 10px;
-    background: ${red[500]};
-    box-shadow: 0px 2px 24px ${
-      theme.palette.mode === "dark" ? red[900] : red[100]
-    };
-    transform: translate(50%, -50%);
-    transform-origin: 100% 0;
-  }
-  `
-);
-
-function SideMenu({ ongelezenNotificatiesCount }) {
-  return (
-    <Box className="w-56 max-w-full h-full overflow-auto rounded">
-      <MenuList>
-        <Link to="gebruikergegevens">
-          <MenuItem>
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Gegevens</ListItemText>
-          </MenuItem>
-        </Link>
-        <Link to="bedrijfsgegevens">
-          <MenuItem>
-            <ListItemIcon>
-              <ApartmentIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Bedrijfs gegevens</ListItemText>
-          </MenuItem>
-        </Link>
-        <Link to="bestellingen">
-          <MenuItem>
-            <ListItemIcon>
-              <InventoryIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Bestellingen</ListItemText>
-          </MenuItem>
-        </Link>
-        <Link to="notificaties">
-          <MenuItem>
-            <ListItemIcon>
-              <Badge badgeContent={ongelezenNotificatiesCount} showZero>
-                <NoteIcon fontSize="small" />
-              </Badge>
-            </ListItemIcon>
-            <ListItemText>Notificaties</ListItemText>
-          </MenuItem>
-        </Link>
-      </MenuList>
-    </Box>
-  );
-}
