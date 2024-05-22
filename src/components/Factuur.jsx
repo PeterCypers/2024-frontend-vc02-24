@@ -43,10 +43,10 @@ class Factuur extends React.Component {
       },
       sender: {
         company: bestelling.leverancier.LEVERANCIER_BEDRIJF_NAAM,
-        address: `${bestelling.leverancier.STRAATNR} ${bestelling.leverancier.STRAAT}`,
-        zip: bestelling.leverancier.POSTCODE,
-        city: bestelling.leverancier.STAD,
-        country: bestelling.leverancier.LAND,
+        address: `${bestelling.leverancier.LEVERANCIER_BEDRIJF_STRAATNR} ${bestelling.leverancier.LEVERANCIER_BEDRIJF_STRAAT}`,
+        zip: bestelling.leverancier.LEVERANCIER_BEDRIJF_POSTCODE,
+        city: bestelling.leverancier.LEVERANCIER_BEDRIJF_STAD,
+        country: bestelling.leverancier.LEVERANCIER_BEDRIJF_LAND,
       },
       client: {
         company: bestelling.klant.KLANT_BEDRIJF_NAAM,
